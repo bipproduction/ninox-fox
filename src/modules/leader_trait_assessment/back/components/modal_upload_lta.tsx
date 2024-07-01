@@ -26,7 +26,7 @@ export default function ModalUploadLta({ data, onSuccess }: { data: any, onSucce
         } else {
             await funUploadLta({ body: data })
             await funLogUser({ act: 'UPL', desc: `User mengupload data Penilaian Sifat Pemimpin`, idContent: '-', tbContent: 'lta' })
-            await funAddNotifications({ kategori: 'lta', provinsiId: prov?.id })
+            // await funAddNotifications({ kategori: 'lta', provinsiId: prov?.id })
             setLoading(false)
             toast('Success', { theme: 'dark' })
             setOpenModal(false)

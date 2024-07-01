@@ -27,7 +27,7 @@ export default function ModalCopyEmotion({ from, to, candidate, onSuccess }: { f
     setLoading(true)
     await funCopyEmotion({ dateFrom: from, dateTo: to, candidate: candidate })
     await funLogUser({ act: 'CPY', desc: `User mengcopy data sentimen (${candidate} - ${moment(from).format('DD/MM/YY')} to ${moment(to).format('DD/MM/YY')})`, idContent: '-', tbContent: 'emotion' })
-    await funAddNotifications({ kategori: 'emotion', candidateId: candidate })
+    // await funAddNotifications({ kategori: 'emotion', candidateId: candidate })
     setLoading(false)
     toast('Success', { theme: 'dark' })
     setOpenModal(false)
