@@ -61,6 +61,7 @@ export default async function funDownloadAudience({ find }: { find: any }) {
             select: {
                 id: true,
                 value: true,
+                valueFilteredMax: true,
                 AreaProvinsi: {
                     select: {
                         name: true,
@@ -88,12 +89,13 @@ export default async function funDownloadAudience({ find }: { find: any }) {
         })
 
         dataTable = dataTable.map((v: any) => ({
-            ..._.omit(v, ["value", "AreaProvinsi", "AreaKabkot", "AreaKecamatan", "AreaKelurahan"]),
+            ..._.omit(v, ["value", "valueFilteredMax", "AreaProvinsi", "AreaKabkot", "AreaKecamatan", "AreaKelurahan"]),
             Provinsi: v.AreaProvinsi.name,
             Kabkot: v.AreaKabkot.name,
             Kecamatan: v.AreaKecamatan.name,
-            Kelurahan: v.AreaKelurahan.name,
-            value: v.value
+            // Kelurahan: v.AreaKelurahan.name,
+            value: v.value,
+            valueFilteredMax: v.valueFilteredMax
         }))
 
     } else {

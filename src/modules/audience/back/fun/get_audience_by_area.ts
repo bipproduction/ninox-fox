@@ -23,6 +23,7 @@ export default async function funGetAudienceByArea({ find }: { find: any }) {
                 },
                 select: {
                     value: true,
+                    valueFilteredMax: true,
                     idKabkot: true,
                     AreaKabkot: {
                         select: {
@@ -42,6 +43,7 @@ export default async function funGetAudienceByArea({ find }: { find: any }) {
 
             dataTable = _.map(_.groupBy(dataTable, "idKabkot"), (v: any) => ({
                 value: _.sumBy(v, 'value'),
+                valueFilteredMax: _.sumBy(v, 'valueFilteredMax'),
                 name: v[0].name
             }))
 
@@ -60,6 +62,7 @@ export default async function funGetAudienceByArea({ find }: { find: any }) {
                 },
                 select: {
                     value: true,
+                    valueFilteredMax: true,
                     idKecamatan: true,
                     AreaKecamatan: {
                         select: {
@@ -79,6 +82,7 @@ export default async function funGetAudienceByArea({ find }: { find: any }) {
 
             dataTable = _.map(_.groupBy(dataTable, "idKecamatan"), (v: any) => ({
                 value: _.sumBy(v, 'value'),
+                valueFilteredMax: _.sumBy(v, 'valueFilteredMax'),
                 name: v[0].name
             }))
 
@@ -97,6 +101,7 @@ export default async function funGetAudienceByArea({ find }: { find: any }) {
                 },
                 select: {
                     value: true,
+                    valueFilteredMax: true,
                     AreaKelurahan: {
                         select: {
                             name: true,
@@ -127,6 +132,7 @@ export default async function funGetAudienceByArea({ find }: { find: any }) {
         dataTable = await prisma.audience.findMany({
             select: {
                 value: true,
+                valueFilteredMax: true,
                 idProvinsi: true,
                 AreaProvinsi: {
                     select: {
@@ -146,6 +152,7 @@ export default async function funGetAudienceByArea({ find }: { find: any }) {
 
         dataTable = _.map(_.groupBy(dataTable, "idProvinsi"), (v: any) => ({
             value: _.sumBy(v, 'value'),
+            valueFilteredMax: _.sumBy(v, 'valueFilteredMax'),
             name: v[0].name
         }))
 

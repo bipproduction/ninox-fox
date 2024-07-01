@@ -18,7 +18,8 @@ export default async function funUploadAudience({ body }: { body: any }) {
                 id: Number(i.id)
             },
             data: {
-                value: Number(i.value)
+                value: Number(i.value),
+                valueFilteredMax: Number(i.valueFilteredMax)
             }
         });
     }
