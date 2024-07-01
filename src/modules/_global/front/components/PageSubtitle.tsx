@@ -38,11 +38,16 @@ export const PageSubTitle = ({ text1, text2 }: { text1: string, text2: string })
       <Box>
         <Group justify='space-between'>
           <Group gap={15}>
-            <Title c={"white"} fw={'bold'} fz={32}>{text1}</Title>
-            <Text c={"white"} fz={32}>{text2}</Text>
+            <Title c={"white"} fw={'bold'} fz={{base: 23, sm: 23, lg: 25, xl: 32}}>{text1}</Title>
+            {/* <Text c={"white"} fz={32}>{text2}</Text> */}
+            <Text c={"white"} fz={{base: 23, sm: 23, lg: 25, xl: 32}}>{text2}</Text>
           </Group>
-          <Group pt={13}>
-            <Text fz={16} c={"white"}>
+          <Group pt={{base: 10, xl: 13, lg: 12, sm: 8}} pr={65}>
+          {/* <Group pt={13} pr={65}> */}
+            {/* <Text fz={16} c={"white"}>
+              {isDateFull}
+            </Text> */}
+            <Text fz={{base: 13, xl: 16, lg: 15, sm: 14}} c={"white"}>
               {isDateFull}
             </Text>
           </Group>

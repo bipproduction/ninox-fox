@@ -16,6 +16,10 @@ export const DataMenu = [
       "name": "ML-AI"
    },
    {
+      "kategori": "mlai-request",
+      "name": "Data Learner"
+   },
+   {
       "kategori": "pairing",
       "name": "Data Pasangan Regional"
    },

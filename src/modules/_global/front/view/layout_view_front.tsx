@@ -22,6 +22,10 @@ import mtqq_client from "../../util/mqtt_client"
 import { funGetUserByCookies } from '@/modules/auth';
 import classes from '..//components/hover.module.css'
 import { notifications } from '@mantine/notifications';
+import { DataMlAi } from '../components/data_ml_ai';
+import { DataSosialEkonomi } from '../components/data_sosial_ekonomi';
+import { isDetactionNavbar } from '@/modules/regional_insights';
+
 
 export default function LayoutViewFront({ notif, children }: { notif: number, children: React.ReactNode }) {
   const [valOpenModal, setOpenModal] = useAtom(isModalLayout)
@@ -35,6 +39,7 @@ export default function LayoutViewFront({ notif, children }: { notif: number, ch
   const pathname = usePathname();
   const [active, setActive] = useState("");
   const [user, setUser] = useState<any>("")
+  const [isDetection, setDetection] = useAtom(isDetactionNavbar)
 
   useShallowEffect(() => {
     setActive(pathname)
@@ -42,7 +47,7 @@ export default function LayoutViewFront({ notif, children }: { notif: number, ch
   });
 
   async function OpenModal() {
-    const loadNotif = await funGetAllNotifications()
+    const loadNotif = await funGetAllNotifications({ page: 1 })
     setListNotif(loadNotif)
     setOpenDrawer(true)
   }
@@ -52,7 +57,7 @@ export default function LayoutViewFront({ notif, children }: { notif: number, ch
   }
 
 
-  
+
   // eslint-disable-next-line react-hooks/exhaustive-deps
   function notificationData(title: any, message: any) {
     notifications.clean(),
@@ -82,7 +87,6 @@ export default function LayoutViewFront({ notif, children }: { notif: number, ch
 
   useEffect(() => {
     mtqq_client.on("connect", () => {
-      // console.log("connect")
       mtqq_client.subscribe("app_ninox_fox")
     })
 
@@ -103,6 +107,7 @@ export default function LayoutViewFront({ notif, children }: { notif: number, ch
 
   return (
     <>
+
       <AppShell
         navbar={isNavOpt}
       >
@@ -126,7 +131,7 @@ export default function LayoutViewFront({ notif, children }: { notif: number, ch
                 <Stack align="center" p={"xs"}>
                   {DataNavbarTutup.map((v, i) => (
                     <Box key={i}>
-                      <Tooltip label={_.upperCase((v.label))}>
+                      <Tooltip label={_.upperCase((v.label))} position="right" color={v.link === active ? "#CF080A" : ''}>
                         <ActionIcon
                           c={v.link === active ? "#CF0A0A" : "white"}
                           size={30}
@@ -140,26 +145,38 @@ export default function LayoutViewFront({ notif, children }: { notif: number, ch
                       </Tooltip>
                     </Box>
                   ))}
-                  {
-                    isNotif > 0 ? (
-                      <Indicator inline processing color="red" size={12} label={isNotif}>
-                        <ActionIcon variant="subtle" c={"white"} onClick={OpenModal}>
-                          <IoMdNotificationsOutline size={30} />
+                  {DataMlAi.map((v, i) => (
+                    <Box key={i}>
+                      <Tooltip label={_.upperCase((v.label))} position="right" color={v.link === active ? "#CF080A" : ''}>
+                        <ActionIcon
+                          c={v.link === active ? "#CF0A0A" : "white"}
+                          size={30}
+                          variant="subtle"
+                          onClick={() => {
+                            router.push(v.link);
+                          }}
+                        >
+                          <v.icon size={32} />
                         </ActionIcon>
-                      </Indicator>
-                    ) : (
-                      <ActionIcon variant="subtle" c={"white"} onClick={OpenModal}>
-                        <IoMdNotificationsOutline size={30} />
-                      </ActionIcon>
-                    )
-                  }
-
-                  {/* Notifikasi pembuka */}
-                  {/* <ActionIcon variant="subtle" c={"white"} onClick={() => notificationData()}>
-                    <IoMdNotificationsOutline size={30} />
-                  </ActionIcon> */}
-                  {/* Notifikasi penutup */}
-
+                      </Tooltip>
+                    </Box>
+                  ))}
+                  {DataSosialEkonomi.map((v, i) => (
+                    <Box key={i}>
+                      <Tooltip label={_.upperCase((v.label))} position="right" color={v.link === active ? "#CF080A" : ''}>
+                        <ActionIcon
+                          c={v.link === active ? "#CF0A0A" : "white"}
+                          size={30}
+                          variant="subtle"
+                          onClick={() => {
+                            router.push(v.link);
+                          }}
+                        >
+                          <v.icon size={32} />
+                        </ActionIcon>
+                      </Tooltip>
+                    </Box>
+                  ))}
                 </Stack>
               </Group>
               <Group
@@ -173,6 +190,7 @@ export default function LayoutViewFront({ notif, children }: { notif: number, ch
                   <ActionIcon onClick={() => {
                     setNavOpt({ width: 250, breakpoint: 'sm', collapsed: { mobile: isOpenNavbar } })
                     setOpenNavbar(false)
+                    setDetection(true)
                   }} variant='subtle' c={"white"}>
                     <MdArrowForwardIos size={30} />
                   </ActionIcon>
@@ -194,6 +212,7 @@ export default function LayoutViewFront({ notif, children }: { notif: number, ch
               <ActionIcon onClick={() => {
                 setNavOpt({ width: 100, breakpoint: 'sm', collapsed: { mobile: isOpenNavbar } })
                 setOpenNavbar(true)
+                setDetection(false)
               }} variant='subtle' c={"white"}>
                 <AiOutlineClose size={30} />
               </ActionIcon>
@@ -232,25 +251,85 @@ export default function LayoutViewFront({ notif, children }: { notif: number, ch
                 </Box>
               )
             })}
-            <Box m={5} mt={5} ml={18}>
-              <Box onClick={OpenModal} style={{ cursor: "pointer" }}>
-                {
-                  isNotif > 0 ? (
-                    <Indicator position="middle-end" offset={-20} inline processing color="red" size={12} label={isNotif}>
-                      <Text c={"white"} >
-                        NOTIFIKASI
-                      </Text>
-                    </Indicator>
-                  ) : (
-                    <Text c={"white"} >
-                      NOTIFIKASI
-                    </Text>
+            <Box m={5} mt={5}>
+              <NavLink
+                label="ML-AI"
+                childrenOffset={28}
+                c={'white'}
+                variant='subtle'
+                href="#required-for-focus"
+                active
+              >
+                {DataMlAi.map((item) => {
+                  return (
+                    <Box key={item.key} m={5} mt={5}>
+                      <NavLink
+                        active
+                        label={active === item.link ? (
+                          <Box>
+                            <Title order={5} onClick={() => router.push(item.link)}>
+                              {item.label}
+                            </Title>
+                            <Grid pt={5}>
+                              <Grid.Col span={3}>
+                                <Divider color={"#CF0A0A"} size="lg" />
+                              </Grid.Col>
+                            </Grid>
+                          </Box>
+                        ) : (
+                          <Box>
+                            <Text onClick={() => router.push(item.link)}>
+                              {item.label}
+                            </Text>
+
+                          </Box>
+                        )
+                        }
+                        onClick={() => {
+                          router.push(item.link);
+                        }}
+                        c={"white"}
+                        variant="subtle"
+                      />
+                    </Box>
                   )
-                }
-
-              </Box>
+                })}
+              </NavLink>
             </Box>
+            {DataSosialEkonomi.map((item) => {
+              return (
+                <Box key={item.key} m={5} mt={5}>
+                  <NavLink
+                    active
+                    label={active === item.link ? (
+                      <Box>
+                        <Title order={5} onClick={() => router.push(item.link)}>
+                          {item.label}
+                        </Title>
+                        <Grid pt={5}>
+                          <Grid.Col span={3}>
+                            <Divider color={"#CF0A0A"} size="lg" />
+                          </Grid.Col>
+                        </Grid>
+                      </Box>
+                    ) : (
+                      <Box>
+                        <Text onClick={() => router.push(item.link)}>
+                          {item.label}
+                        </Text>
 
+                      </Box>
+                    )
+                    }
+                    onClick={() => {
+                      router.push(item.link);
+                    }}
+                    c={"white"}
+                    variant="subtle"
+                  />
+                </Box>
+              )
+            })}
             <Group
               style={{
                 position: "absolute",
@@ -268,6 +347,22 @@ export default function LayoutViewFront({ notif, children }: { notif: number, ch
           </AppShellNavbar>
         }
         <AppShell.Main bg={WARNA.bgGradasi}>
+          <Box pr={10} pt={{ base: 23, xl: 32, lg: 26, sm: 23 }} style={{ zIndex: 400, position: "fixed", right: 20 }}>
+
+            {
+              isNotif > 0 ? (
+                <Indicator inline processing color="red" size={12} label={isNotif}>
+                  <ActionIcon variant="filled" color="#390B7D" p={5} size={35} radius="xl" onClick={OpenModal}>
+                    <IoMdNotificationsOutline size={30} />
+                  </ActionIcon>
+                </Indicator>
+              ) : (
+                <ActionIcon variant="filled" color="#0E0121" p={5} size={35} radius="xl" onClick={OpenModal}>
+                  <IoMdNotificationsOutline size={30} />
+                </ActionIcon>
+              )
+            }
+          </Box>
           <Box p={20}>
             {children}
           </Box>
@@ -297,7 +392,7 @@ export default function LayoutViewFront({ notif, children }: { notif: number, ch
               top={0}
               right={0}
               h={'100%'}
-              w={'30%'}
+              w={{ base: '50%', xl: '30%', lg: '35%', md: '40%', sm: '50%' }}
               pos={'fixed'}
               style={{
                 ...style,

@@ -76,7 +76,7 @@ export default function ComponentTableRHI({ v, i }: { v: any; i: any }) {
                                 }}
                             >
                                 <Text c={"white"} fw={"bold"} fz={20} mb={10}>
-                                    Content
+                                    Konten
                                 </Text>
                                 <Box c={"white"} dangerouslySetInnerHTML={{ __html: v.description }} />
                             </Box>

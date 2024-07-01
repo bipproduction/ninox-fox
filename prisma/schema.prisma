@@ -78,6 +78,7 @@ model User {
   UserArea      UserArea[]
   Notification  Notifications[] @relation("UserToClient")
   Notification2 Notifications[] @relation("UserToAdmin")
+  MlAiRequest   MlAiRequest[]
 }
 
 model UserLog {
@@ -411,19 +412,36 @@ model Candidate {
   Candidate2Pairing CandidatePairing[] @relation("C2ToCandidate")
   UserArea          UserArea[]
   Notifications     Notifications[]
+  MlAiRequest       MlAiRequest[]
 }
 
 model MlAi {
-  id          Int       @id @default(autoincrement())
-  Candidate   Candidate @relation(fields: [idCandidate], references: [id])
-  idCandidate String
-  category    String?
-  content     String    @db.Text
-  dateContent DateTime? @db.Date
-  timeContent DateTime? @db.Time
-  isActive    Boolean   @default(true)
-  createdAt   DateTime  @default(now())
-  updatedAt   DateTime  @updatedAt
+  id            String          @id @default(cuid())
+  Candidate     Candidate    @relation(fields: [idCandidate], references: [id])
+  idCandidate   String
+  MlAiRequest   MlAiRequest? @relation(fields: [idRequestMlAi], references: [id])
+  idRequestMlAi String?
+  category      String?
+  content       String       @db.Text
+  dateContent   DateTime?    @db.Date
+  timeContent   DateTime?    @db.Time
+  isActive      Boolean      @default(true)
+  createdAt     DateTime     @default(now())
+  updatedAt     DateTime     @updatedAt
+}
+
+model MlAiRequest {
+  id          String     @id @default(cuid())
+  User        User       @relation(fields: [idUser], references: [id])
+  idUser      String
+  Candidate   Candidate? @relation(fields: [idCandidate], references: [id])
+  idCandidate String?
+  request     String     @db.Text
+  status      Int        @default(0) // 0 == belum terjawab, 1 == sudah terjawab
+  isActive    Boolean    @default(true)
+  createdAt   DateTime   @default(now())
+  updatedAt   DateTime   @updatedAt
+  MlAi        MlAi[]
 }
 
 model Swot {

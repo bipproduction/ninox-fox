@@ -8,6 +8,9 @@
     "start": "next start",
     "lint": "next lint"
   },
+  "prisma": {
+    "seed": "ts-node --compiler-options {\"module\":\"CommonJS\"} prisma/seed.ts"
+  },
   "dependencies": {
     "@mantine/colors-generator": "^7.7.0",
     "@mantine/core": "^7.1.2",
@@ -31,16 +34,19 @@
     "@tiptap/starter-kit": "^2.1.13",
     "@types/papaparse": "^5.3.9",
     "chroma-js": "^2.4.2",
+    "colors": "^1.4.0",
     "dangerously-set-html-content": "^1.1.0",
     "dayjs": "^1.11.10",
     "echarts": "^5.4.3",
     "echarts-for-react": "^3.0.2",
+    "framer-motion": "^11.2.6",
     "iron-session": "^8.0.1",
     "jotai": "^2.4.3",
     "lodash": "^4.17.21",
     "moment": "^2.29.4",
     "mqtt": "^5.5.0",
     "next": "13.5.4",
+    "next-scroll-loader": "^1.0.5",
     "papaparse": "^5.4.1",
     "react": "^18",
     "react-dom": "^18",

@@ -46,7 +46,7 @@ export default function ModalUploadAudience({ data, onSuccess }: { data: any, on
             <Box>
                 <Alert color="gray" variant="outline">
                     <Text fw={700} ta={"center"} mb={20} mt={20}>
-                        ANDA YAKIN INGIN MENGUPDATE DATA AUDIENCE?
+                        ANDA YAKIN INGIN MENGUPDATE DATA SUARA TERKUNCI?
                     </Text>
                     <Group justify="space-between" pt={10}>
                         <Button
@@ -55,10 +55,10 @@ export default function ModalUploadAudience({ data, onSuccess }: { data: any, on
                             w={150}
                             onClick={() => setOpenModal(false)}
                         >
-                            NO
+                            TIDAK
                         </Button>
                         <Button loading={isLoading} radius={10} color="gray.7" w={150} onClick={() => onUpload()}>
-                            YES
+                            YA
                         </Button>
                     </Group>
                 </Alert>

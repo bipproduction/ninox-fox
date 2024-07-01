@@ -33,14 +33,14 @@ export default function ViewUploadPairing() {
                 ('kecamatan' in data[0]) &&
                 ('date' in data[0]) &&
                 ('rate' in data[0]) &&
-                ('confidence' in data[0]) &&
-                ('supportive' in data[0]) &&
-                ('positive' in data[0]) &&
-                ('undecided' in data[0]) &&
-                ('unsupportive' in data[0]) &&
-                ('uncomfortable' in data[0]) &&
-                ('negative' in data[0]) &&
-                ('dissapproval' in data[0])
+                ('PotensiMendukungFix' in data[0]) &&
+                ('PotensiMendukungBerubah' in data[0]) &&
+                ('MempertimbangkanFix' in data[0]) &&
+                ('MempertimbangkanBerubah' in data[0]) &&
+                ('TidakTahuFix' in data[0]) &&
+                ('TidakTahuBerubah' in data[0]) &&
+                ('PotensiTidakMendukungFix' in data[0]) &&
+                ('PotensiTidakMendukungBerubah' in data[0])
             ) {
                 setJson(data as any)
             } else {
@@ -67,7 +67,7 @@ export default function ViewUploadPairing() {
                         borderRadius: 10
                     }}
                 >
-                    <Text fw={"bold"} c={"white"} mb={20}>UPLOAD REGIONAL DATA PAIRING</Text>
+                    <Text fw={"bold"} c={"white"} mb={20}>UPLOAD DATA PENILAIAN SENTIMEN PEMILIH DAN DATA PASANGAN REGIONAL</Text>
                     <Dropzone
                         style={{
                             border: "1px dashed",
@@ -109,10 +109,10 @@ export default function ViewUploadPairing() {
 
                             <div>
                                 <Text size="xl" inline>
-                                    Drag files here or click to select files
+                                    Seret file ke sini atau klik untuk memilih file
                                 </Text>
                                 <Text size="sm" inline mt={7} >
-                                    Attach one file, the file must not exceed 5MB
+                                    Lampirkan satu file, file tidak boleh melebihi 5MB
                                 </Text>
                             </div>
                         </Group>
@@ -136,8 +136,9 @@ export default function ViewUploadPairing() {
                                         <ScrollArea>
                                             <Table
                                                 withTableBorder
-                                                withRowBorders={false}
-                                                horizontalSpacing="xl"
+                                                withRowBorders={true}
+                                                withColumnBorders={true}
+                                                horizontalSpacing="xs"
                                             >
                                                 <Table.Thead>
                                                     <Table.Tr
@@ -145,22 +146,32 @@ export default function ViewUploadPairing() {
                                                             borderBottom: "1px solid #CED4D9",
                                                         }}
                                                     >
-                                                        <Table.Th>ID</Table.Th>
-                                                        <Table.Th>Candidate 1</Table.Th>
-                                                        <Table.Th>Candidate 2</Table.Th>
-                                                        <Table.Th>Provinsi</Table.Th>
-                                                        <Table.Th>Kabupaten/Kota</Table.Th>
-                                                        <Table.Th>Kecamatan</Table.Th>
-                                                        <Table.Th>Tanggal</Table.Th>
-                                                        <Table.Th>Rate</Table.Th>
-                                                        <Table.Th>Confidence</Table.Th>
-                                                        <Table.Th>Supportive</Table.Th>
-                                                        <Table.Th>Positive</Table.Th>
-                                                        <Table.Th>Undecided</Table.Th>
-                                                        <Table.Th>Unsupportive</Table.Th>
-                                                        <Table.Th>Uncomfortable</Table.Th>
-                                                        <Table.Th>Negative</Table.Th>
-                                                        <Table.Th>Dissapproval</Table.Th>
+                                                        <Table.Th rowSpan={2} ta={"center"}>ID</Table.Th>
+                                                        <Table.Th rowSpan={2} ta={"center"}>Kandidat 1</Table.Th>
+                                                        <Table.Th rowSpan={2} ta={"center"}>Kandidat 2</Table.Th>
+                                                        <Table.Th rowSpan={2} ta={"center"}>Provinsi</Table.Th>
+                                                        <Table.Th rowSpan={2} ta={"center"}>Kabupaten/Kota</Table.Th>
+                                                        <Table.Th rowSpan={2} ta={"center"}>Kecamatan</Table.Th>
+                                                        <Table.Th rowSpan={2} ta={"center"}>Tanggal</Table.Th>
+                                                        <Table.Th rowSpan={2} ta={"center"}>Rate</Table.Th>
+                                                        <Table.Th colSpan={2} ta={"center"}>Potensi Mendukung</Table.Th>
+                                                        <Table.Th colSpan={2} ta={"center"}>Mempertimbangkan</Table.Th>
+                                                        <Table.Th colSpan={2} ta={"center"}>Tidak Tahu</Table.Th>
+                                                        <Table.Th colSpan={2} ta={"center"}>Potensi Tidak Mendukung</Table.Th>
+                                                    </Table.Tr>
+                                                    <Table.Tr
+                                                        style={{
+                                                            borderBottom: "1px solid #CED4D9",
+                                                        }}
+                                                    >
+                                                        <Table.Th>fix</Table.Th>
+                                                        <Table.Th>berubah</Table.Th>
+                                                        <Table.Th>fix</Table.Th>
+                                                        <Table.Th>berubah</Table.Th>
+                                                        <Table.Th>fix</Table.Th>
+                                                        <Table.Th>berubah</Table.Th>
+                                                        <Table.Th>fix</Table.Th>
+                                                        <Table.Th>berubah</Table.Th>
                                                     </Table.Tr>
                                                 </Table.Thead>
                                                 <Table.Tbody>
@@ -174,14 +185,14 @@ export default function ViewUploadPairing() {
                                                             <Table.Td>{home.kecamatan}</Table.Td>
                                                             <Table.Td>{home.date}</Table.Td>
                                                             <Table.Td>{home.rate}</Table.Td>
-                                                            <Table.Td>{home.confidence}</Table.Td>
-                                                            <Table.Td>{home.supportive}</Table.Td>
-                                                            <Table.Td>{home.positive}</Table.Td>
-                                                            <Table.Td>{home.undecided}</Table.Td>
-                                                            <Table.Td>{home.unsupportive}</Table.Td>
-                                                            <Table.Td>{home.uncomfortable}</Table.Td>
-                                                            <Table.Td>{home.negative}</Table.Td>
-                                                            <Table.Td>{home.dissapproval}</Table.Td>
+                                                            <Table.Td>{home.PotensiMendukungFix}</Table.Td>
+                                                            <Table.Td>{home.PotensiMendukungBerubah}</Table.Td>
+                                                            <Table.Td>{home.MempertimbangkanFix}</Table.Td>
+                                                            <Table.Td>{home.MempertimbangkanBerubah}</Table.Td>
+                                                            <Table.Td>{home.TidakTahuFix}</Table.Td>
+                                                            <Table.Td>{home.TidakTahuBerubah}</Table.Td>
+                                                            <Table.Td>{home.PotensiTidakMendukungFix}</Table.Td>
+                                                            <Table.Td>{home.PotensiTidakMendukungBerubah}</Table.Td>
                                                         </Table.Tr>
                                                     )}
                                                 </Table.Tbody>

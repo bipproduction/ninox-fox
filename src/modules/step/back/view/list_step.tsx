@@ -17,8 +17,8 @@ export default function ListStep({ params, provinsi, kabupaten, datatable }: { p
     const router = useRouter();
     const [dataProvinsi, setDataProvinsi] = useState(provinsi)
     const [dataKabupaten, setDataKabupaten] = useState<any>(kabupaten)
-    const [isProvinsi, setProvinsi] = useState<any>(params.idProvinsi || null)
-    const [isKabupaten, setKabupaten] = useState<any>(params.idKabkot || null)
+    const [isProvinsi, setProvinsi] = useState<any>(String(params.idProvinsi) || null)
+    const [isKabupaten, setKabupaten] = useState<any>(String(params.idKabkot) || null)
 
     async function onKabupaten({ idProv }: { idProv: any }) {
         setProvinsi(idProv)
@@ -35,12 +35,13 @@ export default function ListStep({ params, provinsi, kabupaten, datatable }: { p
     useEffect(() => {
         setProvinsi(params.idProvinsi == 0 ? null : params.idProvinsi)
         setKabupaten(params.idKabkot == 0 ? null : params.idKabkot)
-    }, [params])
+        setDataKabupaten(kabupaten)
+    }, [params, kabupaten])
 
     return (
         <>
             <Stack>
-                <Text fw={"bold"}>STEP</Text>
+                <Text fw={"bold"}>ANALISA STEP</Text>
             </Stack>
             <Group grow mt={30}>
                 <Select
@@ -72,6 +73,10 @@ export default function ListStep({ params, provinsi, kabupaten, datatable }: { p
                 />
                 <Button mt={25} bg={"gray"} onClick={() => onProsses()}>
                     PROSES
+                </Button>
+
+                <Button mt={25} bg={"gray"} onClick={() => router.push("step/add")}>
+                    TAMBAH STEP
                 </Button>
             </Group>
             {!_.isNull(datatable.title) &&

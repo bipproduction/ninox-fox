@@ -15,9 +15,11 @@ export default function ViewLogin() {
   const [isValPhone, setValPhone] = useState<any>(null)
   const [isUser, setUser] = useState<any>(null)
   const [isVerif, setVerif] = useState(false)
+  const [isLoading, setLoading] = useState(false)
 
 
   async function onLogin() {
+    
     if (isEmail == "" || isPassword == "")
       return toast('Please fill in completely', { theme: 'dark' })
 
@@ -29,6 +31,7 @@ export default function ViewLogin() {
     const code = Math.floor(Math.random() * 1000) + 1000
 
     // proses pengiriman code verification melalui wa
+    setLoading(true)
     const res = await fetch(`https://wa.wibudev.com/code?nom=${cek.phone}&text=${code}`)
       .then(
         async (res) => {
@@ -38,11 +41,14 @@ export default function ViewLogin() {
             setOTP(code)
             setUser(cek.id)
             setVerif(true)
+            setLoading(false)
           } else {
             toast('Error', { theme: 'dark' })
+            setLoading(false)
           }
         }
       );
+      
   }
 
   if (isVerif) return <ViewVerification otp={isOTP} phone={isValPhone} user={isUser} />
@@ -86,8 +92,8 @@ export default function ViewLogin() {
                 mt={10}
                 mb={10}
                 fullWidth
-                bg={"white"}
-                c={"#005B41"}
+                loading={isLoading}
+                variant="filled" color="#280B4F"
                 onClick={() => {
                   onLogin()
                 }}

@@ -35,7 +35,8 @@ export default function ListMlAi({ params, provinsi, kabupaten, datatable }: { p
     useEffect(() => {
         setProvinsi(params.idProvinsi == 0 ? null : params.idProvinsi)
         setKabupaten(params.idKabkot == 0 ? null : params.idKabkot)
-    }, [params])
+        setDatakabupaten(kabupaten)
+    }, [params, kabupaten])
 
     return (
         <>
@@ -63,6 +64,7 @@ export default function ListMlAi({ params, provinsi, kabupaten, datatable }: { p
                         value: String(kab.id),
                         label: kab.name
                     }))}
+                    searchable
                     label={"Kabupaten"}
                     value={(_.isNull(isKabupaten)) ? null : String(isKabupaten)}
                     onChange={(val) => (
@@ -72,9 +74,12 @@ export default function ListMlAi({ params, provinsi, kabupaten, datatable }: { p
                 <Button mt={25} bg={"gray"} onClick={() => onProsses()}>
                     PROSES
                 </Button>
+                <Button mt={25} bg={"gray"} onClick={() => router.push("ml-ai/add")}>
+                    TAMBAH ML-AI
+                </Button>
             </Group>
             {!_.isNull(datatable.title) &&
-                <TableMlAi title={datatable.title} data={datatable.data} searchParam={params} />
+                <TableMlAi title={datatable.title} data={datatable.data} searchParam={params} nPage={datatable.nPage} />
             }
         </>
     )

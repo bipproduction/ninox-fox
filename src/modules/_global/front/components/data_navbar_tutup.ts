@@ -11,7 +11,7 @@ export const DataNavbarTutup = [
     key: "2",
     link: "/popularity",
     icon: MdOutlineStarBorderPurple500,
-    label: "Metrik Popularitas"
+    label: "PENILAIAN SENTIMEN PEMILIH"
   },
   {
     key: "3",
@@ -29,25 +29,25 @@ export const DataNavbarTutup = [
     key: "5",
     link: "/step",
     icon: MdFreeCancellation,
-    label: "Penilaian STEP"
+    label: "ANALISA STEP"
   },
   {
     key: "6",
     link: "/swot",
     icon: MdGrading,
-    label: "Evaluasi SWOT"
+    label: "ANALISA SWOT"
   },
-  {
-    key: "7",
-    link: "/ml-ai",
-    icon: MdHub,
-    label: "ML-AI"
-  },
-  {
-      key: "8",
-      link: "/data-sosial-ekonomi/ketenagakerjaan",
-      icon: MdOutlineSocialDistance,
-      label: "Data Ekonomi Sosial"
-    },
+  // {
+  //   key: "7",
+  //   link: "/ml-ai",
+  //   icon: MdHub,
+  //   label: "ML-AI"
+  // },
+  // {
+  //     key: "8",
+  //     link: "/data-sosial-ekonomi/ketenagakerjaan",
+  //     icon: MdOutlineSocialDistance,
+  //     label: "Data Ekonomi Sosial"
+  //   },
 
 ]

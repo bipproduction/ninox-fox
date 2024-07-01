@@ -25,7 +25,7 @@ export default async function funDownloadLTA({ find }: { find: any }) {
                     id: find.idProvinsi
                 }
             })
-            titleTrue = "LEADER TRAIT ASSESSMENT - PROVINSI " + area?.name
+            titleTrue = "PENILAIAN SIFAT PEMIMPIN - PROVINSI " + area?.name
 
         } else if (find.idKec == 0 && find.idKabkot > 0) {
             kondisi = {
@@ -38,7 +38,7 @@ export default async function funDownloadLTA({ find }: { find: any }) {
                     id: find.idKabkot
                 }
             })
-            titleTrue = "LEADER TRAIT ASSESSMENT - " + area?.name
+            titleTrue = "PENILAIAN SIFAT PEMIMPIN - " + area?.name
 
         } else {
             kondisi = {
@@ -51,7 +51,7 @@ export default async function funDownloadLTA({ find }: { find: any }) {
                     id: find.idKec
                 }
             })
-            titleTrue = "LEADER TRAIT ASSESSMENT - KECAMATAN " + area?.name.toUpperCase()
+            titleTrue = "PENILAIAN SIFAT PEMIMPIN - KECAMATAN " + area?.name.toUpperCase()
 
         }
 

@@ -39,7 +39,9 @@ export default function ViewListRegion({ param, provinsi, kabupaten, kecamatan, 
     setProvinsi((param.idProvinsi == 0) ? null : param.idProvinsi)
     setKabupaten((param.idKabkot == 0) ? null : param.idKabkot)
     setKecamatan((param.idKec == 0) ? null : param.idKec)
-  }, [param])
+    setDataKabupaten(kabupaten)
+    setDataKecamatan(kecamatan)
+  }, [param, kabupaten, kecamatan])
 
 
   async function onProvinsi({ idProv }: { idProv: any }) {
@@ -67,7 +69,7 @@ export default function ViewListRegion({ param, provinsi, kabupaten, kecamatan, 
   return (
     <>
       <Stack>
-        <Text fw={"bold"}>REGION HOT ISSUE</Text>
+        <Text fw={"bold"}>ISU WILAYAH</Text>
       </Stack>
       <Box pt={30}>
         <SimpleGrid

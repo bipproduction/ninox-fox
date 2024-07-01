@@ -1,15 +1,17 @@
 "use client"
-import { ActionIcon, Anchor, Box, Breadcrumbs, Button, Grid, Group, Select, Stack, Text, TextInput } from '@mantine/core';
+import { ActionIcon, Anchor, Box, Breadcrumbs, Button, Grid, Group, rem, Select, Stack, Text, TextInput } from '@mantine/core';
 import { useRouter } from 'next/navigation';
 import React, { useState } from 'react';
 import { IoCloseSharp } from "react-icons/io5"
 import DetailEchartSentimentAnalysis from '../components/detail_insights/detail_echart_sentiment_analysis';
 import DetailEchartPublicConcerns from '../components/detail_insights/detail_echart_public_concerns';
 import DetailEchartLeader from '../components/detail_insights/detail_echart_leader';
-// import DetailRegionHotIssue from '../components/detail_insights/detail_region_hot_issue';
 import { PageSubTitle, WARNA } from '@/modules/_global';
 import { DetailRegionHotIssue } from '..';
 import _ from 'lodash';
+import { useAtom } from 'jotai';
+import { isDetactionNavbar } from '../val/isDetectionNavbar';
+import { useHeadroom } from '@mantine/hooks';
 
 const dataDenpasar = [
   {
@@ -36,6 +38,9 @@ export default function ViewDetailRegionalInsights({ emotion, area, audience, pc
   const [isWilayah, setWilayah] = useState<any>(null)
   const [emotionTampil, setEmotionTampil] = useState(emotion)
 
+  const [isDetection, setDetection] = useAtom(isDetactionNavbar)
+  const pinned = useHeadroom({ fixedAt: 120 });
+
   function setFilter(val: any) {
     setWilayah(val)
     if (val == null) {
@@ -48,19 +53,25 @@ export default function ViewDetailRegionalInsights({ emotion, area, audience, pc
 
   return (
     <>
-      <PageSubTitle text1='DETAIL WAWASAN' text2='REGIONAL' />
-      <Box pt={20} style={{
-        backgroundColor: WARNA.ungu,
-        position: "sticky",
-        top: 0,
-        zIndex: 99,
-        paddingTop: 10,
-        paddingBottom: 10
-      }}>
+      <Box
+        style={{
+          position: 'fixed',
+          top: 0,
+          right: 0,
+          padding: 20,
+          paddingBottom: 40,
+          height: isDetection ? rem(175) : rem(145),
+          zIndex: 20,
+          transform: `translate3d(0, ${pinned ? 0 : isDetection ? rem(-165) : rem(-145)}, 0)`,
+          transition: 'transform 400ms ease',
+          backgroundColor: WARNA.ungu,
+        }}
+        left={isDetection ? 250 : 100}
+      >
+        <PageSubTitle text1='DETAIL WAWASAN' text2='REGIONAL' />
         <Group justify='space-between'>
           <Text fz={26} fw={"bold"} c={"white"}>{_.upperCase(area)}</Text>
           <Group>
-            {/* <TextInput placeholder='CARI' mr={30} /> */}
             <Select
               placeholder="Pilih Wilayah"
               data={wilayah.map((wil: any) => ({
@@ -76,7 +87,7 @@ export default function ViewDetailRegionalInsights({ emotion, area, audience, pc
           </Group>
         </Group>
       </Box>
-      <Stack pt={20}>
+      <Stack pt={`calc(${isDetection ? rem(120) : rem(100)} + var(--mantine-spacing-md))`}>
         {emotionTampil && emotionTampil.map((item: any, i: any) => {
           return (
             <Box key={item.id} pb={30}>

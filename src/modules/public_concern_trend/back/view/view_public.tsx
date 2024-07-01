@@ -38,7 +38,9 @@ function ViewPublic({ param, provinsi, kabupaten, kecamatan, datatable, datadown
     setProvinsi((param.idProvinsi == 0) ? null : param.idProvinsi)
     setKabupaten((param.idKabkot == 0) ? null : param.idKabkot)
     setKecamatan((param.idKec == 0) ? null : param.idKec)
-  }, [param])
+    setDataKabupaten(kabupaten)
+    setDataKecamatan(kecamatan)
+  }, [param, kabupaten, kecamatan])
 
 
   async function onProvinsi({ idProv }: { idProv: any }) {
@@ -67,7 +69,7 @@ function ViewPublic({ param, provinsi, kabupaten, kecamatan, datatable, datadown
   return (
     <>
       <Stack>
-        <Text fw={"bold"}>PUBLIC CONCERNS TRENDS</Text>
+        <Text fw={"bold"}>TREN PERHATIAN PUBLIK</Text>
       </Stack>
       <Box pt={30}>
         <SimpleGrid

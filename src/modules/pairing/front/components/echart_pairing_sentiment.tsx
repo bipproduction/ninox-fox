@@ -5,7 +5,7 @@ import EChartsReact from "echarts-for-react";
 import { useShallowEffect } from '@mantine/hooks';
 import { Box, Group, Text } from '@mantine/core';
 import _ from 'lodash';
-import { COLOR_EMOTION } from '@/modules/_global';
+import { COLOR_EMOTION, COLOR_EMOTION_NEW } from '@/modules/_global';
 
 const dataKabupaten = [
   {
@@ -52,14 +52,10 @@ export default function EchartPairingSentiment({ data }: { data: any }) {
 
   useShallowEffect(() => {
     setDataChart({
-      confidence: data.confidence,
-      supportive: data.supportive,
-      positive: data.positive,
-      undecided: data.undecided,
-      unsupportive: data.unsupportive,
-      uncomfortable: data.uncomfortable,
-      negative: data.negative,
-      dissapproval: data.dissapproval,
+      mendukung: data.mendukung,
+      mempertimbangkan: data.mempertimbangkan,
+      tidaktahu: data.tidaktahu,
+      tidakmendukung: data.tidakmendukung,
     })
 
     loadData(dataChart)
@@ -83,9 +79,9 @@ export default function EchartPairingSentiment({ data }: { data: any }) {
       xAxis: [
         {
           type: 'category',
-          data: ['Percaya Diri', 'Mendukung', 'Positif', 'Tidak Memilih', 'Tidak Mendukung', 'Tidak Nyaman', 'Negatif', 'Tidak Setuju'],
+          data: ['Potensi Mendukung', 'Mempertimbangkan', 'Tidak Tahu', 'Potensi Tidak Mendukung'],
           axisLabel: {
-            rotate: 45,
+            // rotate: 45,
             color: "white",
             fontSize: 10
           },
@@ -128,7 +124,7 @@ export default function EchartPairingSentiment({ data }: { data: any }) {
               value: dataChart[v],
               itemStyle: {
                 color:
-                  COLOR_EMOTION.find((v2) => _.lowerCase(v2.name) == v)
+                  COLOR_EMOTION_NEW.find((v2) => _.lowerCase(v2.name) == v)
                     ?.color ?? "gray",
               },
             })

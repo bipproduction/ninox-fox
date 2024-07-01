@@ -64,7 +64,7 @@ export function ViewUploadLeader() {
             borderRadius: 10
           }}
         >
-          <Text fw={"bold"} c={"white"} mb={20}>UPLOAD DATA LEADER TRAIT ASSESSMENT</Text>
+          <Text fw={"bold"} c={"white"} mb={20}>UPLOAD DATA PENILAIAN SIFAT PEMIMPIN</Text>
           <Dropzone
             loading={isLoading}
             style={{
@@ -109,10 +109,10 @@ export function ViewUploadLeader() {
 
               <div>
                 <Text size="xl" inline>
-                  Drag files here or click to select files
+                  Seret file ke sini atau klik untuk memilih file
                 </Text>
                 <Text size="sm" inline mt={7} >
-                  Attach one file, the file must not exceed 5MB
+                  Lampirkan satu file, file tidak boleh melebihi 5MB
                 </Text>
               </div>
             </Group>

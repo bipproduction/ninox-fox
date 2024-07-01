@@ -58,7 +58,7 @@ export default function ViewUploadPct() {
                         borderRadius: 10
                     }}
                 >
-                    <Text fw={"bold"} c={"white"} mb={20}>UPLOAD DATA PUBLIC CONCERN TRENDS</Text>
+                    <Text fw={"bold"} c={"white"} mb={20}>UPLOAD DATA TREN PERHATIAN PUBLIK</Text>
                     <Dropzone
                         loading={isLoading}
                         style={{
@@ -103,10 +103,10 @@ export default function ViewUploadPct() {
 
                             <div>
                                 <Text size="xl" inline>
-                                    Drag files here or click to select files
+                                    Seret file ke sini atau klik untuk memilih file
                                 </Text>
                                 <Text size="sm" inline mt={7} >
-                                    Attach one file, the file must not exceed 5MB
+                                    Lampirkan satu file, file tidak boleh melebihi 5MB
                                 </Text>
                             </div>
                         </Group>

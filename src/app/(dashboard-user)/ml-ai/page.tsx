@@ -13,5 +13,5 @@ export default async function Page() {
   return (
     <ViewMlAi dataV2={dataV2} dataTanggal={tanggal} candidate={can} oneCandidate={oneCandidate} />
   );
-}
+} 
 

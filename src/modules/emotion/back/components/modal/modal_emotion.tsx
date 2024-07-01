@@ -26,7 +26,7 @@ export default function ModalCopyEmotion({ from, to, candidate, onSuccess }: { f
     }
     setLoading(true)
     await funCopyEmotion({ dateFrom: from, dateTo: to, candidate: candidate })
-    await funLogUser({ act: 'CPY', desc: `User mengcopy data Emotion (${candidate} - ${moment(from).format('DD/MM/YY')} to ${moment(to).format('DD/MM/YY')})`, idContent: '-', tbContent: 'emotion' })
+    await funLogUser({ act: 'CPY', desc: `User mengcopy data sentimen (${candidate} - ${moment(from).format('DD/MM/YY')} to ${moment(to).format('DD/MM/YY')})`, idContent: '-', tbContent: 'emotion' })
     await funAddNotifications({ kategori: 'emotion', candidateId: candidate })
     setLoading(false)
     toast('Success', { theme: 'dark' })
@@ -39,7 +39,7 @@ export default function ModalCopyEmotion({ from, to, candidate, onSuccess }: { f
       <Box>
         <Alert color="gray" variant="outline">
           <Text fw={700} ta={"center"} mb={20} mt={20}>
-            ANDA YAKIN INGIN MENGCOPY DATA EMOTION CANDIDATE?
+            ANDA YAKIN INGIN MENGCOPY DATA SENTIMEN KANDIDAT?
           </Text>
           <Group justify="space-between" pt={10}>
             <Button
@@ -48,10 +48,10 @@ export default function ModalCopyEmotion({ from, to, candidate, onSuccess }: { f
               w={150}
               onClick={() => setOpenModal(false)}
             >
-              NO
+              TIDAK
             </Button>
             <Button loading={isLoading} radius={10} color="gray.7" w={150} onClick={() => onUpload()}>
-              YES
+              YA
             </Button>
           </Group>
         </Alert>

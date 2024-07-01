@@ -15,6 +15,11 @@ export default async function funGetEmotionByCandidateAreaDate({ find }: { find:
     const nProv = await provinsiCount();
 
     if (find.idProvinsi > 0 && find.idProvinsi <= nProv) {
+        const dataCandidate = await prisma.candidate.findUnique({
+            where: {
+                id: find.idCandidate
+            }
+        })
         if (find.tingkat == 1) {
             dataTable = await prisma.candidateEmotion.findMany({
                 where: {
@@ -64,7 +69,7 @@ export default async function funGetEmotionByCandidateAreaDate({ find }: { find:
                     id: find.idProvinsi
                 }
             })
-            titleTrue = "PROVINSI " + area?.name
+            titleTrue = dataCandidate?.name + " (" + find.date + ")"
             th = "KABKOT"
 
         } else if (find.tingkat == 2) {
@@ -117,7 +122,7 @@ export default async function funGetEmotionByCandidateAreaDate({ find }: { find:
                 }
             })
 
-            titleTrue = "" + area?.name
+            titleTrue = dataCandidate?.name + " (" + find.date + ")"
             th = "KECAMATAN"
         }
     } else {

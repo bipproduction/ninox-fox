@@ -1,5 +1,6 @@
 import { LayoutView, funGetAccessAdmin } from "@/modules/_global";
 import { funGetUserByCookies, pwd_key_config } from "@/modules/auth";
+import { funGetCountPendingRequest } from "@/modules/mlai";
 import { unsealData } from "iron-session";
 import _ from "lodash";
 import { cookies } from "next/headers";
@@ -14,10 +15,11 @@ export default async function Layout({ children }: { children: React.ReactNode }
 
     const menu = await funGetAccessAdmin()
     const user = await funGetUserByCookies()
+    const request = await funGetCountPendingRequest()
 
     return (
         <>
-            <LayoutView dataMenu={menu} dataUser={user}>
+            <LayoutView dataMenu={menu} dataUser={user} pending={request}>
                 {children}
             </LayoutView>
         </>

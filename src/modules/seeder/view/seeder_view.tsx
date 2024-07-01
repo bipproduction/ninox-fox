@@ -170,15 +170,15 @@ export default function SeederView() {
                         <Text fw={"bold"}>DATA LAINNYA</Text>
                         <Divider mt={10} mb={30} />
                         <Group justify="center" gap="md" grow my={15}>
-                            {/* <Button bg={"gray"} loading={loading} onClick={onLeader}>CATEGORY LEADER TRAIT ASSESSMENT</Button> */}
-                            {/* <Button bg={"gray"} loading={loading} onClick={onPublic}>CATEGORY PUBLIC CONCERN TREND</Button> */}
+                            {/* <Button bg={"gray"} loading={loading} onClick={onLeader}>CATEGORY PENILAIAN SIFAT PEMIMPIN</Button> */}
+                            {/* <Button bg={"gray"} loading={loading} onClick={onPublic}>CATEGORY TREN PERHATIAN PUBLIK</Button> */}
                             <Button bg={"gray"} loading={loading} onClick={onSeederUserArea}>USER AREA</Button>
-                            <Button bg={"gray"} loading={loading} onClick={onAudience}>VALUE AUDIENCE</Button>
-                            <Button bg={"gray"} loading={loading} onClick={onPCTFix}>VALUE PUBLIC CONCERN TREND</Button>
+                            <Button bg={"gray"} loading={loading} onClick={onAudience}>VALUE SUARA TERKUNCI</Button>
+                            <Button bg={"gray"} loading={loading} onClick={onPCTFix}>VALUE TREN PERHATIAN PUBLIK</Button>
                         </Group>
                         <Group justify="center" gap="md" grow my={15}>
-                            <Button bg={"gray"} loading={loading} onClick={onLTAFix}>VALUE LEADER TRAIT ASSESSMENT</Button>
-                            <Button bg={"gray"} loading={loading} onClick={onRHIFix}>VALUE REGION HOT ISSUES</Button>
+                            <Button bg={"gray"} loading={loading} onClick={onLTAFix}>VALUE PENILAIAN SIFAT PEMIMPIN</Button>
+                            <Button bg={"gray"} loading={loading} onClick={onRHIFix}>VALUE ISU WILAYAH</Button>
                             <Button bg={"gray"} loading={loading} onClick={onSosialEkonomi}>DATA SOSIAL EKONOMI</Button>
                         </Group>
                     </Paper>

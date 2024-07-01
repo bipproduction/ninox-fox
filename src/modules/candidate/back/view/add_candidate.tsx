@@ -39,12 +39,13 @@ export default function AddCandidate({ params, provinsi, kabupaten, }: { params:
         img: "",
         idProvinsi: isProvinsi,
         idKabkot: isKabupaten,
-        tingkat: (query.get('city') == "null" || query.get('city') == "" || _.isNull(query.get('city'))) ? 1 : 2
+        // tingkat: (query.get('city') == "null" || query.get('city') == "" || _.isNull(query.get('city'))) ? 1 : 2
+        tingkat: params.tingkat
     });
 
     function onConfirmation() {
-        if (body.name === "")
-            return toast("Nama tidak boleh kosong", { theme: "dark" });
+        if (body.name === "" || body.idProvinsi==null || body.idProvinsi==0)
+            return toast("Form cannot be empty", { theme: "dark" });
         setOpenModal(true)
     }
 
@@ -114,12 +115,12 @@ export default function AddCandidate({ params, provinsi, kabupaten, }: { params:
                                     }))}
                                     required
                                     label={"Provinsi"}
-                                    value={isProvinsi}
+                                    value={isProvinsi == null ? null : String(isProvinsi)}
                                     onChange={(val) => (
                                         onKabupaten({ idProv: val }),
                                         setBody({
                                             ...body,
-                                            idProvinsi: Number(val),
+                                            idProvinsi: (val == null) ? null : Number(val),
                                             idKabkot: null,
                                             tingkat: 1
                                         })
@@ -134,13 +135,13 @@ export default function AddCandidate({ params, provinsi, kabupaten, }: { params:
                                         label: kab.name
                                     }))}
                                     searchable
-                                    value={isKabupaten}
+                                    value={isKabupaten == null ? null : String(isKabupaten)}
                                     onChange={(val) => (
                                         setKabupaten(val),
                                         setBody({
                                             ...body,
-                                            idKabkot: Number(val),
-                                            tingkat: 2
+                                            idKabkot: (val == null) ? null : Number(val),
+                                            tingkat: (val == null) ? 1 : 2
                                         })
                                     )}
                                     label={"Kabupaten"}
@@ -159,7 +160,7 @@ export default function AddCandidate({ params, provinsi, kabupaten, }: { params:
                                 }}
                             />
                             <Group justify="flex-end">
-                                <Button bg={"gray"} w={150} mt={30} onClick={() => onConfirmation()}>SAVE</Button>
+                                <Button bg={"gray"} w={150} mt={30} onClick={() => onConfirmation()}>SIMPAN</Button>
                             </Group>
                         </Box>
                     </Stack>
@@ -174,8 +175,8 @@ export default function AddCandidate({ params, provinsi, kabupaten, }: { params:
             >
                 <ModalAddCandidate data={body} img={imgForm} onSuccess={() => {
                     setIMG(null)
-                    setKabupaten(null)
-                    setProvinsi(null)
+                    // setKabupaten(null)
+                    // setProvinsi(null)
                     setBody({
                         ...body,
                         name: "",

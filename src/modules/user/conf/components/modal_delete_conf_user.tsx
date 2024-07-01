@@ -29,7 +29,7 @@ export default function ModalDeleteConfUser({ id, onSuccess }: { id: any, onSucc
     <>
       <Box>
         <Alert color="gray" variant="outline">
-          <Text fw={700} ta={"center"} mb={20} mt={20}>ARE YOU SURE TO DELETE THIS USER?</Text>
+          <Text fw={700} ta={"center"} mb={20} mt={20}>APAKAH ANDA YAKIN MENGHAPUS USER INI?</Text>
           <Group justify="space-between" pt={10}>
             <Button
               radius={10}
@@ -37,7 +37,7 @@ export default function ModalDeleteConfUser({ id, onSuccess }: { id: any, onSucc
               w={150}
               onClick={() => setOpenModal(false)}
             >
-              NO
+              TIDAK
             </Button>
             <Button
               radius={10}
@@ -45,7 +45,7 @@ export default function ModalDeleteConfUser({ id, onSuccess }: { id: any, onSucc
               w={150}
               onClick={delRole}
             >
-              YES
+              YA
             </Button>
           </Group>
         </Alert>

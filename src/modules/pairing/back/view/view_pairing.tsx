@@ -40,6 +40,8 @@ export default function ViewPairing({ param, provinsi, kabupaten, candidate, dat
   const [isCandidate2, setCandidate2] = useState<any>(param.idCandidate2 || null)
   const [isDate, setDate] = useState<any>((_.isNull(param.date)) ? today : new Date(param.date))
 
+  console.log(datatable)
+
 
 
   useEffect(() => {
@@ -48,7 +50,9 @@ export default function ViewPairing({ param, provinsi, kabupaten, candidate, dat
     setCandidate1((param.idCandidate1 == 0) ? null : param.idCandidate1)
     setCandidate2((param.idCandidate2 == 0) ? null : param.idCandidate2)
     setDate((param.date == null) ? new Date() : new Date(param.date))
-  }, [param])
+    setDataKabupaten(kabupaten)
+    setDataCandidate(candidate)
+  }, [param, kabupaten, candidate])
 
 
 
@@ -67,7 +71,7 @@ export default function ViewPairing({ param, provinsi, kabupaten, candidate, dat
     setKabupaten(idKab)
     setCandidate1(null)
     setCandidate2(null)
-    const dataDbCan = await funGetCandidateActiveByArea({ find: { idProvinsi: Number(isProvinsi), idKabkot: Number(idKab), tingkat: 2 } })
+    const dataDbCan = await funGetCandidateActiveByArea({ find: { idProvinsi: Number(isProvinsi), idKabkot: Number(idKab), tingkat: (idKab == null) ? 1 : 2 } })
     setDataCandidate(dataDbCan)
   }
 
@@ -84,7 +88,7 @@ export default function ViewPairing({ param, provinsi, kabupaten, candidate, dat
   return (
     <>
       <Stack>
-        <Text fw={"bold"}>REGIONAL DATA PAIRING</Text>
+        <Text fw={"bold"}>PENILAIAN SENTIMEN PEMILIH DAN DATA PASANGAN REGIONAL</Text>
       </Stack>
       <Box pt={30}>
         <SimpleGrid
@@ -126,7 +130,7 @@ export default function ViewPairing({ param, provinsi, kabupaten, candidate, dat
                   }))}
                   required
                   value={isCandidate1}
-                  label={"Candidate 1"}
+                  label={"Kandidat 1"}
                   searchable
                   onChange={(val) => {
                     setCandidate2(null)
@@ -141,7 +145,7 @@ export default function ViewPairing({ param, provinsi, kabupaten, candidate, dat
                   }))}
                   required
                   value={isCandidate2}
-                  label={"Candidate 2"}
+                  label={"Kandidat 2"}
                   searchable
                   onChange={(val) => {
                     if (val == isCandidate1) {
@@ -200,7 +204,7 @@ export default function ViewPairing({ param, provinsi, kabupaten, candidate, dat
               </Box>
             </Group>
 
-            {(param.idProvinsi > 0) &&
+            {(param.idProvinsi > 0) && (!_.isEmpty(dataDownload.data)) &&
               <Box mt={30}>
                 <Box
                   style={{
@@ -241,7 +245,7 @@ export default function ViewPairing({ param, provinsi, kabupaten, candidate, dat
           </Box>
         </SimpleGrid>
       </Box>
-      {(param.idProvinsi > 0) &&
+      {(param.idProvinsi > 0) && (!_.isNull(datatable.th)) &&
         <Box pt={30}>
           <TableDataPairing data={datatable.data} th={datatable.th} />
         </Box>

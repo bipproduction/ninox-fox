@@ -12,7 +12,7 @@ export default async function funGetPairingByCanAndDate({ request }: { request: 
     }
 
 
-    if (request.idCandidate1 != 0 && request.idCandidate != 0) {
+    if (request.idCandidate1 != 0 && request.idCandidate2 != 0) {
         if (request.tingkat == 1) {
             data = await prisma.candidatePairing.findMany({
                 where: kondisi,

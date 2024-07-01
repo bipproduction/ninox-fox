@@ -26,7 +26,7 @@ import { funGetAllMlAi } from "../..";
  * @returns {component} table & pagination ml ai.
  */
 
-export default function TableMlAi({ title, data, searchParam }: { title: any, data: any, searchParam: any }) {
+export default function TableMlAi({ title, data, searchParam, nPage }: { title: any, data: any, searchParam: any, nPage: any }) {
   const [openModal, setOpenModal] = useAtom(isModalMlAi);
   const router = useRouter();
   const [dataDelete, setDataDelete] = useState(Number)
@@ -34,15 +34,19 @@ export default function TableMlAi({ title, data, searchParam }: { title: any, da
   const [isData, setData] = useState(data)
   const [isDataCandidate, setDataCandidate] = useState()
   const searchParams = useSearchParams()
+  const [isNPage, setNPage] = useState(nPage)
+  const [isChoosePage, setChoosePage] = useState(1)
 
-  async function onLoad() {
-    const dataDB = await funGetAllMlAi({ find: searchParam })
+  async function onLoad(val: any) {
+    setChoosePage(val)
+    const dataDB = await funGetAllMlAi({ find: searchParam, page: val })
     setData(dataDB.data)
   }
 
   useEffect(() => {
     setData(data)
-  }, [data])
+    setNPage(nPage)
+  }, [data, nPage])
 
 
   return (
@@ -59,9 +63,9 @@ export default function TableMlAi({ title, data, searchParam }: { title: any, da
             <Text fw={"bold"} c={"white"}>
               {title}
             </Text>
-            <Button bg={"gray"} onClick={() => router.push("ml-ai/add?prov=" + searchParams.get('prov') + '&city=' + searchParams.get('city'))}>
+            {/* <Button bg={"gray"} onClick={() => router.push("ml-ai/add?prov=" + searchParams.get('prov') + '&city=' + searchParams.get('city'))}>
               TAMBAH ML-AI
-            </Button>
+            </Button> */}
           </Group>
           <Box pt={20}>
             <Box
@@ -93,7 +97,7 @@ export default function TableMlAi({ title, data, searchParam }: { title: any, da
                     </Table.Tr>
                   </Table.Thead>
                   {isData.map((v: any, i: any) => (
-                    <ComponentTable v={v} i={i} key={i} onClick={(val) => {
+                    <ComponentTable v={v} i={i} key={i} page={isChoosePage} onClick={(val) => {
                       setDataDelete(val)
                       setDataCandidate(v.idCandidate)
                       setOpenModal(true)
@@ -101,6 +105,15 @@ export default function TableMlAi({ title, data, searchParam }: { title: any, da
                   ))}
                 </Table>
               </ScrollArea>
+              <Group justify="right" mt={20}>
+                <Pagination
+                  value={isChoosePage}
+                  onChange={(val) => {
+                    onLoad(val)
+                  }}
+                  total={isNPage}
+                />
+              </Group>
             </Box>
           </Box>
         </Box>
@@ -113,7 +126,7 @@ export default function TableMlAi({ title, data, searchParam }: { title: any, da
         withCloseButton={false}
         closeOnClickOutside={false}
       >
-        <ModalDelMlAi candidate={isDataCandidate} id={dataDelete} onSuccess={() => onLoad()} />
+        <ModalDelMlAi candidate={isDataCandidate} id={dataDelete} onSuccess={() => onLoad(isChoosePage)} />
       </Modal>
     </>
   );

@@ -2,11 +2,12 @@ import { funGetAudienceDetailFront } from '@/modules/audience'
 import { funGetLtaDetailFront } from '@/modules/leader_trait_assessment'
 import { funGetPctDetailFront } from '@/modules/public_concern_trend'
 import { funGetRhiFront } from '@/modules/region_hot_issue'
-import { ViewDetailRegionalInsights, funGetAreaDetailRegional, funGetEmotionDetailRegional } from '@/modules/regional_insights'
+import { ViewDetailRegionalInsights, funGetAreaDetailRegional, funGetEmotionDetailRegional, funGetEmotionDetailRegionalNew } from '@/modules/regional_insights'
 import React from 'react'
 
 export default async function Page({ params }: { params: { idCandidate: string, idArea: string } }) {
-  const dataDb = await funGetEmotionDetailRegional({ candidate: params.idCandidate, area: params.idArea })
+  // const dataDb = await funGetEmotionDetailRegional({ candidate: params.idCandidate, area: params.idArea })
+  const dataDb = await funGetEmotionDetailRegionalNew({ candidate: params.idCandidate, area: params.idArea })
   const dataAudience = await funGetAudienceDetailFront({ candidate: params.idCandidate, area: params.idArea })
   const dataPct = await funGetPctDetailFront({ candidate: params.idCandidate, area: params.idArea })
   const dataLta = await funGetLtaDetailFront({ candidate: params.idCandidate, area: params.idArea })

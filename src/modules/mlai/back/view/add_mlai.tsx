@@ -1,6 +1,6 @@
 'use client'
 import { ButtonBack, MasterKabGetByProvince } from "@/modules/_global"
-import { ActionIcon, Box, Button, Group, Modal, Radio, Select, Stack, Text, TextInput, Textarea } from "@mantine/core"
+import { ActionIcon, Box, Button, Group, Modal, Radio, Select, Spoiler, Stack, Text, TextInput, Textarea } from "@mantine/core"
 import ModalAddMlAi from "../component/modal_add_mlai"
 import { useAtom } from "jotai"
 import { isModalMlAi } from "../val/val_mlai"
@@ -22,22 +22,25 @@ import { funGetCandidateActiveByArea } from "@/modules/candidate"
 import { DateInput, TimeInput } from "@mantine/dates"
 import { AiOutlineClockCircle } from "react-icons/ai"
 import moment from "moment"
+import { useRouter } from "next/navigation"
 
 /**
  * Fungsi untuk menampilkan view form add mlai.
  * @returns {component} view form add mlai.
  */
 
-export default function AddMlAi({ params, candidate, provinsi, kabupaten }: { params: any, candidate: any, provinsi: any, kabupaten: any }) {
+export default function AddMlAi({ params, req, candidate, provinsi, kabupaten }: { params: any, req: any, candidate: any, provinsi: any, kabupaten: any }) {
+    const router = useRouter()
     const ref = useRef<HTMLInputElement>(null);
     const [openModal, setOpenModal] = useAtom(isModalMlAi)
     const [isDataCandidate, setDataCandidate] = useState(candidate)
     const [dataProvinsi, setDataProvinsi] = useState(provinsi)
     const [dataKabupaten, setDataKabupaten] = useState<any>(kabupaten)
-    const [isProvinsi, setProvinsi] = useState<any>(null)
-    const [isKabupaten, setKabupaten] = useState<any>(null)
+    const [isProvinsi, setProvinsi] = useState<any>(String(params.idProvinsi) || null)
+    const [isKabupaten, setKabupaten] = useState<any>(String(params.idKabkot) || null)
     const [isDataMlai, setDataMlai] = useState({
-        idCandidate: '',
+        idRequest: req.id,
+        idCandidate: req.idCandidate,
         dateContent: '',
         timeContent: ''
     })
@@ -67,7 +70,7 @@ export default function AddMlAi({ params, candidate, provinsi, kabupaten }: { pa
             ...isDataMlai,
             idCandidate: ''
         })
-        const dataDbCan = await funGetCandidateActiveByArea({ find: { idProvinsi: Number(isProvinsi), idKabkot: Number(idKab), tingkat: 2 } })
+        const dataDbCan = await funGetCandidateActiveByArea({ find: { idProvinsi: Number(isProvinsi), idKabkot: Number(idKab), tingkat: (idKab == null) ? 1 : 2 } })
         setDataCandidate(dataDbCan)
     }
 
@@ -87,7 +90,7 @@ export default function AddMlAi({ params, candidate, provinsi, kabupaten }: { pa
     });
 
     function onConfirmation() {
-        if (Object.values(isDataMlai).includes("") || editor?.getHTML() == '<p></p>')
+        if (isDataMlai.idCandidate == null || isDataMlai.idCandidate == '' || editor?.getHTML() == '<p></p>')
             return toast("Form cannot be empty", { theme: "dark" });
         setOpenModal(true)
     }
@@ -104,53 +107,80 @@ export default function AddMlAi({ params, candidate, provinsi, kabupaten }: { pa
                 <Text fw={"bold"}>TAMBAH ML-AI</Text>
             </Stack>
             <Box pt={30}>
+                {
+                    req.id != null
+                        ? (
+                            <>
+                                <Box p={20} mb={20} bg={'#CED4D9'} style={{ borderRadius: 10 }}>
+                                    <Text mb={10} fw={'bold'} fz={20}>
+                                        REQUEST
+                                    </Text>
+                                    <Spoiler maxHeight={50} showLabel={<Text c={'#787A7C'}>Show more</Text>} hideLabel={<Text c={'#787A7C'}>Hide</Text>}>
+                                        <Text>
+                                            {req.request}
+                                        </Text>
+                                    </Spoiler>
+                                </Box>
+                                <Group grow>
+                                    <TextInput label={"Provinsi"} value={req.areaProvinsi} disabled />
+                                    <TextInput label={"Kabupaten"} value={req.areaKabkot} disabled />
+                                </Group>
+                                <TextInput label={"Kandidat"} value={req.nameCandidate} disabled />
+                            </>
+                        )
+                        : (
+                            <>
+                                <Group grow>
+                                    <Select
+                                        placeholder="Pilih Provinsi"
+                                        data={dataProvinsi.map((pro: any) => ({
+                                            value: String(pro.id),
+                                            label: pro.name
+                                        }))}
+                                        required
+                                        label={"Provinsi"}
+                                        value={isProvinsi}
+                                        onChange={(val) => (
+                                            onProvinsi({ idProv: val })
+                                        )}
+                                        searchable
+                                    />
+                                    <Select
+                                        placeholder="Pilih Kabupaten/Kota"
+                                        data={dataKabupaten.map((kab: any) => ({
+                                            value: String(kab.id),
+                                            label: kab.name
+                                        }))}
+                                        label={"Kabupaten"}
+                                        value={isKabupaten}
+                                        onChange={(val) => (
+                                            onKabupaten({ idKab: val })
+                                        )}
+                                        searchable
+                                    />
+                                </Group>
+                                <Select
+                                    placeholder="Pilih Kandidat"
+                                    data={isDataCandidate.map((can: any) => ({
+                                        value: String(can.id),
+                                        label: can.name
+                                    }))}
+                                    required
+                                    value={isDataMlai.idCandidate == '' ? null : isDataMlai.idCandidate}
+                                    label={"Kandidat"}
+                                    searchable
+                                    onChange={(val: any) => {
+                                        setDataMlai({
+                                            ...isDataMlai,
+                                            idCandidate: val == null ? '' : val
+                                        })
+                                    }}
+                                />
+                            </>
+                        )
+                }
                 <Group grow>
-                    <Select
-                        placeholder="Pilih Provinsi"
-                        data={dataProvinsi.map((pro: any) => ({
-                            value: String(pro.id),
-                            label: pro.name
-                        }))}
-                        required
-                        label={"Provinsi"}
-                        value={isProvinsi}
-                        onChange={(val) => (
-                            onProvinsi({ idProv: val })
-                        )}
-                        searchable
-                    />
-                    <Select
-                        placeholder="Pilih Kabupaten/Kota"
-                        data={dataKabupaten.map((kab: any) => ({
-                            value: String(kab.id),
-                            label: kab.name
-                        }))}
-                        label={"Kabupaten"}
-                        value={isKabupaten}
-                        onChange={(val) => (
-                            onKabupaten({ idKab: val })
-                        )}
-                    />
-                </Group>
-                <Select
-                    placeholder="Pilih Kandidat"
-                    data={isDataCandidate.map((can: any) => ({
-                        value: String(can.id),
-                        label: can.name
-                    }))}
-                    required
-                    value={isDataMlai.idCandidate == '' ? null : isDataMlai.idCandidate}
-                    label={"Kandidat"}
-                    searchable
-                    onChange={(val: any) => {
-                        setDataMlai({
-                            ...isDataMlai,
-                            idCandidate: val == null ? '' : val
-                        })
-                    }}
-                />
-                <Group grow>
-                    <DateInput valueFormat="DD-MM-YYYY" required
+                    <DateInput valueFormat="DD-MM-YYYY"
                         label={"Tanggal"}
                         placeholder="Pilih Tanggal"
                         value={(isDataMlai.dateContent == '') ? null : new Date(isDataMlai.dateContent)}
@@ -163,7 +193,7 @@ export default function AddMlAi({ params, candidate, provinsi, kabupaten }: { pa
                     />
                     <TimeInput
                         label="Jam"
-                        required ref={ref}
+                        ref={ref}
                         rightSection={pickerControl}
                         value={isDataMlai.timeContent}
                         onChange={(val) =>
@@ -252,7 +282,7 @@ export default function AddMlAi({ params, candidate, provinsi, kabupaten }: { pa
                     </RichTextEditor>
                 </Box>
                 <Group justify="flex-end">
-                    <Button bg={"gray"} mt={30} size="md" onClick={onConfirmation}>SAVE</Button>
+                    <Button bg={"gray"} mt={30} size="md" onClick={onConfirmation}>SIMPAN</Button>
                 </Group>
             </Box>
             <Modal
@@ -264,11 +294,14 @@ export default function AddMlAi({ params, candidate, provinsi, kabupaten }: { pa
             >
                 <ModalAddMlAi text={editor?.getHTML()} data={isDataMlai}
                     onSuccess={() => {
+                        if (req.id != null)
+                            return router.push('/dashboard/ml-ai/request')
                         editor?.commands.setContent('<p></p>')
-                        setProvinsi(null)
-                        setKabupaten(null)
+                        // setProvinsi(null)
+                        // setKabupaten(null)
                         setDataMlai({
                             ...isDataMlai,
+                            idRequest: null,
                             idCandidate: '',
                             dateContent: '',
                             timeContent: '',

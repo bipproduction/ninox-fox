@@ -7,6 +7,7 @@ import { useRouter } from "next/navigation"
 import funDeleteMlAi from "../fun/fun_delete_mlai"
 import { funGetAccessArea } from "@/modules/_global"
 import { funLogUser } from "@/modules/user"
+import { useState } from "react"
 
 /**
  * Fungsi untuk menampilkan modal konfirmasi delete ml ai.
@@ -16,10 +17,13 @@ import { funLogUser } from "@/modules/user"
 export default function ModalDelMlAi({ id, candidate, onSuccess }: { id: any, candidate: any, onSuccess: (val: any) => void }) {
     const [openModal, setOpenModal] = useAtom(isModalMlAi)
     const router = useRouter()
+    const [isLoading, setLoading] = useState(false)
 
     async function onDelMlAi() {
+        setLoading(true)
         const cek = await funGetAccessArea({ candidate: candidate })
         if (!cek) {
+            setLoading(false)
             setOpenModal(false)
             return toast("Anda tidak mempunyai akses ke wilayah tersebut", { theme: "dark" })
         }
@@ -29,6 +33,7 @@ export default function ModalDelMlAi({ id, candidate, onSuccess }: { id: any, ca
         toast("Sukses", { theme: "dark" });
         setOpenModal(false);
         onSuccess(true)
+        setLoading(false)
     }
 
     return (
@@ -47,7 +52,7 @@ export default function ModalDelMlAi({ id, candidate, onSuccess }: { id: any, ca
                         >
                             TIDAK
                         </Button>
-                        <Button radius={10} color="gray.7" w={150} onClick={() => onDelMlAi()}>
+                        <Button loading={isLoading} radius={10} color="gray.7" w={150} onClick={() => onDelMlAi()}>
                             YA
                         </Button>
                     </Group>

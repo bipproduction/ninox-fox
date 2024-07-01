@@ -45,7 +45,7 @@ export default async function funGetAreaDefault() {
                 }
             })
             if (!_.isUndefined(data?.Candidate?.name)) {
-                hasil = data?.AreaProvinsi?.name + ' - ' + _.upperCase(data?.Candidate?.name)
+                hasil = data?.AreaProvinsi?.name + ' - ' + data?.Candidate?.name
             } else {
                 const kandidat = await prisma.candidate.findFirst({
                     where: {
@@ -59,7 +59,7 @@ export default async function funGetAreaDefault() {
                     }
                 })
 
-                hasil = data?.AreaProvinsi?.name + ' - ' + _.upperCase(kandidat?.name)
+                hasil = data?.AreaProvinsi?.name + ' - ' + kandidat?.name
             }
 
         } else {
@@ -83,7 +83,7 @@ export default async function funGetAreaDefault() {
             })
 
             if (!_.isUndefined(data?.Candidate?.name)) {
-                hasil = data?.AreaKabkot?.name + ' - ' + _.upperCase(data?.Candidate?.name)
+                hasil = data?.AreaKabkot?.name + ' - ' + data?.Candidate?.name
             } else {
                 const kandidat = await prisma.candidate.findFirst({
                     where: {
@@ -97,7 +97,7 @@ export default async function funGetAreaDefault() {
                     }
                 })
 
-                hasil = data?.AreaKabkot?.name + ' - ' + _.upperCase(kandidat?.name)
+                hasil = data?.AreaKabkot?.name + ' - ' + kandidat?.name
             }
         }
     }

@@ -18,7 +18,7 @@
     {
         "id": 3,
         "keyMenu": "md2",
-        "menu": "Emotion Editor",
+        "menu": "Sentimen Kandidat",
         "owner": "admin",
         "group": "dataSatu",
         "link": "/dashboard/emotion"
@@ -26,7 +26,7 @@
     {
         "id": 4,
         "keyMenu": "md3",
-        "menu": "Regional Data Pairing",
+        "menu": "Penilaian Sentimen Pemilih dan Data Pasangan Regional",
         "owner": "admin",
         "group": "dataSatu",
         "link": "/dashboard/pairing"
@@ -34,7 +34,7 @@
     {
         "id": 5,
         "keyMenu": "md4",
-        "menu": "Audience",
+        "menu": "Suara Terkunci",
         "owner": "admin",
         "group": "dataRegion",
         "link": "/dashboard/audience"
@@ -42,7 +42,7 @@
     {
         "id": 6,
         "keyMenu": "md5",
-        "menu": "Public Concern Trend",
+        "menu": "Tren Perhatian Publik",
         "owner": "admin",
         "group": "dataRegion",
         "link": "/dashboard/public-concern-trend"
@@ -50,7 +50,7 @@
     {
         "id": 7,
         "keyMenu": "md6",
-        "menu": "Leader Trait Assessment",
+        "menu": "Penilaian Sifat Pemimpin",
         "owner": "admin",
         "group": "dataRegion",
         "link": "/dashboard/leader-trait-assessment"
@@ -58,7 +58,7 @@
     {
         "id": 8,
         "keyMenu": "md7",
-        "menu": "Region Hot Issue",
+        "menu": "Isu Wilayah",
         "owner": "admin",
         "group": "dataRegion",
         "link": "/dashboard/region-hot-issue"
@@ -66,7 +66,7 @@
     {
         "id": 9,
         "keyMenu": "md8",
-        "menu": "STEP",
+        "menu": "Analisa STEP",
         "owner": "admin",
         "group": "dataDua",
         "link": "/dashboard/step"
@@ -74,7 +74,7 @@
     {
         "id": 10,
         "keyMenu": "md9",
-        "menu": "SWOT",
+        "menu": "Analisa SWOT",
         "owner": "admin",
         "group": "dataDua",
         "link": "/dashboard/swot"
@@ -82,9 +82,9 @@
     {
         "id": 11,
         "keyMenu": "md10",
-        "menu": "ML-AI",
+        "menu": "Data ML-AI",
         "owner": "admin",
-        "group": "dataDua",
+        "group": "dataMLAI",
         "link": "/dashboard/ml-ai"
     },
     {
@@ -92,7 +92,7 @@
         "keyMenu": "md11",
         "menu": "Kandidat",
         "owner": "admin",
-        "group": "dataDua",
+        "group": "dataTiga",
         "link": "/dashboard/candidate"
     },
     {
@@ -148,7 +148,15 @@
         "keyMenu": "md18",
         "menu": "Notifikasi",
         "owner": "admin",
-        "group": "dataDua",
+        "group": "dataTiga",
         "link": "/dashboard/notifikasi"
+    },
+    {
+        "id": 20,
+        "keyMenu": "md19",
+        "menu": "Data Learner",
+        "owner": "admin",
+        "group": "dataMLAI",
+        "link": "/dashboard/ml-ai/request"
     }
 ]

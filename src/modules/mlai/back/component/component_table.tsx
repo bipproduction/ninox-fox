@@ -15,9 +15,10 @@ import { CiRead, CiUnread } from "react-icons/ci";
 import { MdDelete, MdEditCalendar } from "react-icons/md";
 import InnerHTML from 'dangerously-set-html-content'
 
-export default function ComponentTable({ v, i, onClick }: { v: any; i: any, onClick: (val: any) => void }) {
+export default function ComponentTable({ v, i, onClick, page }: { v: any; i: any, onClick: (val: any) => void, page: any }) {
   const open = useState(false);
   const router = useRouter();
+  page = page * 25 - 24
 
   function callBackDelete({ idDel }: { idDel: any }) {
     onClick(idDel)
@@ -27,7 +28,7 @@ export default function ComponentTable({ v, i, onClick }: { v: any; i: any, onCl
     <>
       <Table.Tbody key={i}>
         <Table.Tr>
-          <Table.Td>{i + 1}</Table.Td>
+          <Table.Td>{page + i}</Table.Td>
           <Table.Td>{v.name}</Table.Td>
           <Table.Td>{v.dateContent}</Table.Td>
           <Table.Td>{v.timeContent}</Table.Td>

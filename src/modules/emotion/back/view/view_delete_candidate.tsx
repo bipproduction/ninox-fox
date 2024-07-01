@@ -56,7 +56,7 @@ export default function ViewDeleteCandidate({ param, provinsi, kabupaten, candid
   return (
     <>
       <Stack>
-        <Text fw={"bold"}>DELETE CANDIDATE</Text>
+        <Text fw={"bold"}>HAPUS KANDIDAT</Text>
       </Stack>
       <Box>
             <Paper shadow="xs" p="xl">

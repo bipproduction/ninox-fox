@@ -34,10 +34,10 @@ export default function ModalUpdateDefaultUser({ prov, kab, can, user }: { prov:
                             w={150}
                             onClick={() => setOpenModal(false)}
                         >
-                            NO
+                            TIDAK
                         </Button>
                         <Button loading={loadingData} radius={10} color="gray.7" w={150} onClick={onUser}>
-                            YES
+                            YA
                         </Button>
                     </Group>
                 </Alert>

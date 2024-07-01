@@ -8,7 +8,7 @@ import { Box, Button, Divider, Group, LoadingOverlay, Menu } from '@mantine/core
 import moment from 'moment';
 import { DatePicker } from '@mantine/dates';
 import toast from 'react-simple-toasts';
-import { funGetEmotionChart } from '../..';
+import { funGetEmotionChartNew } from '../..';
 
 export default function EchartCandidateSummary({ data, candidate }: { data: any, candidate: any }) {
     const [options, setOptions] = useState<EChartsOption>({})
@@ -45,7 +45,7 @@ export default function EchartCandidateSummary({ data, candidate }: { data: any,
 
         if (time == 'custom') setPopDate(false)
 
-        const loadChart = await funGetEmotionChart({ candidate: candidate.id, startDate: startDate, endDate: endDate })
+        const loadChart = await funGetEmotionChartNew({ candidate: candidate.id, startDate: startDate, endDate: endDate })
         setListData(loadChart)
         loadData(loadChart)
         setLoadingCustom(false)
@@ -141,7 +141,7 @@ export default function EchartCandidateSummary({ data, candidate }: { data: any,
                     data: !dataChart
                         ? []
                         : dataChart!.map((v: any) => v.neutral),
-                    color: "white",
+                    color: "#f5f5f5",
                     stack: 'x',
                     areaStyle: {
                         opacity: 1,
@@ -190,22 +190,16 @@ export default function EchartCandidateSummary({ data, candidate }: { data: any,
     }
     return (
         <>
-            <Box
-            // style={{
-            //     background: "rgba(0,0,0,0.3)",
-            //     padding: 10,
-            //     borderRadius: 10
-            // }}
-            >
+            <Box>
                 <Group justify='flex-end'>
                     <Group>
-                        <Button loading={isLoadingWeek} variant={(isButton == 'week') ? 'filled' : 'subtle'} c={"white"} onClick={() => onChooseTime('week')}>Minggu</Button>
+                        <Button size="xs" loading={isLoadingWeek} variant={(isButton == 'week') ? 'filled' : 'subtle'} c={"white"} onClick={() => onChooseTime('week')}>Minggu</Button>
                         <Divider orientation="vertical" />
-                        <Button loading={isLoadingMonth} variant={(isButton == 'month') ? 'filled' : 'subtle'} c={"white"} onClick={() => onChooseTime('month')}>Bulan</Button>
+                        <Button size="xs" loading={isLoadingMonth} variant={(isButton == 'month') ? 'filled' : 'subtle'} c={"white"} onClick={() => onChooseTime('month')}>Bulan</Button>
                         <Divider orientation="vertical" />
                         <Menu opened={showPopDate} position='bottom-end'>
                             <Menu.Target>
-                                <Button loading={isLoadingCustom} variant={(isButton == 'custom') ? 'filled' : 'subtle'} c={"white"} onClick={() => setPopDate(true)}>Kustom</Button>
+                                <Button size="xs" loading={isLoadingCustom} variant={(isButton == 'custom') ? 'filled' : 'subtle'} c={"white"} onClick={() => setPopDate(true)}>Kustom</Button>
                             </Menu.Target>
                             <Menu.Dropdown p={20}>
                                 <DatePicker

@@ -7,6 +7,7 @@ import toast from "react-simple-toasts";
 import funEditCandidate from "../fun/edit_candidate";
 import { funGetAccessArea } from "@/modules/_global";
 import { funLogUser } from "@/modules/user";
+import { useState } from "react";
 
 /**
  * Fungsi untuk menampilkan modal konfirmasi edit kandidat.
@@ -16,10 +17,13 @@ import { funLogUser } from "@/modules/user";
 export default function ModalEditCandidate({ data, provinsi, img }: { data: any, provinsi: any, img: any }) {
     const [openModal, setOpenModal] = useAtom(isModalCandidate)
     const router = useRouter()
+    const [isLoading, setLoading] = useState(false)
 
     async function onEditCandidate() {
+        setLoading(true)
         const cek = await funGetAccessArea({ provinsi: provinsi })
         if (!cek) {
+            setLoading(false)
             setOpenModal(false)
             return toast("Anda tidak mempunyai akses ke wilayah tersebut", { theme: "dark" })
         }
@@ -27,6 +31,7 @@ export default function ModalEditCandidate({ data, provinsi, img }: { data: any,
         await funLogUser({ act: 'UPD', desc: `User mengubah data kandidat`, idContent: data.id, tbContent: 'candidate' })
         toast("Sukses", { theme: "dark" });
         setOpenModal(false);
+        setLoading(false)
     }
 
     return (
@@ -52,6 +57,7 @@ export default function ModalEditCandidate({ data, provinsi, img }: { data: any,
                                 radius={10}
                                 color="gray.7"
                                 fullWidth
+                                loading={isLoading}
                                 onClick={() => onEditCandidate()}
                             >
                                 YA

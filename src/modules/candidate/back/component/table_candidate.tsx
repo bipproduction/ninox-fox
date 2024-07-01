@@ -53,7 +53,7 @@ export default function TableCandidate({ title, data, searchParam }: { title: st
         >
           <Group justify="space-between" gap="lg">
             <Text fw={"bold"} c={"white"}>{title}</Text>
-            <Button bg={"gray"} onClick={() => router.push('candidate/add?prov=' + searchParams.get('prov') + '&city=' + searchParams.get('city'))}>TAMBAH KANDIDAT</Button>
+            {/* <Button bg={"gray"} onClick={() => router.push('candidate/add?prov=' + searchParams.get('prov') + '&city=' + searchParams.get('city'))}>TAMBAH KANDIDAT</Button> */}
           </Group>
           <Box pt={20}>
             <Box style={{

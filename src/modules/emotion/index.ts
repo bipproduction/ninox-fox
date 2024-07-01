@@ -15,6 +15,9 @@ import funUploadEmotion from './back/fun/upload_emotion';
 import funGetEmotionTable from './front/fun/get_emotion_table';
 import funGetEmotionPersen from './front/fun/get_emotion_persen';
 import funGetEmotionChart from './front/fun/get_emotion_chart';
+import funGetEmotionTableNew from './front/fun/get_emotion_table_new';
+import funGetEmotionPersenNew from './front/fun/get_emotion_persen_new';
+import funGetEmotionChartNew from './front/fun/get_emotion_chart_new';
 
 
 export { ViewBackEmotion }
@@ -36,4 +39,6 @@ export { funUploadEmotion }
 export { funGetEmotionTable }
 export { funGetEmotionPersen }
 export { funGetEmotionChart }
-
+export { funGetEmotionTableNew }
+export { funGetEmotionPersenNew }
+export { funGetEmotionChartNew }

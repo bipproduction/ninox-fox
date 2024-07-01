@@ -32,6 +32,8 @@ export default function ComponentTable({ v, i, onClick }: { v: any; i: any, onCl
           <Table.Td>{i + 1}</Table.Td>
           <Table.Td>{v.name}</Table.Td>
           <Table.Td>{v.category}</Table.Td>
+          <Table.Td>{v.created}</Table.Td>
+          <Table.Td>{v.updated}</Table.Td>
           <Table.Td>
             <Center>
               <Stack>
@@ -71,7 +73,7 @@ export default function ComponentTable({ v, i, onClick }: { v: any; i: any, onCl
           </Table.Td>
         </Table.Tr>
         <Table.Tr>
-          <Table.Td colSpan={5}>
+          <Table.Td colSpan={6}>
             <Collapse
               in={open[0]}
               transitionDuration={500}
@@ -85,7 +87,7 @@ export default function ComponentTable({ v, i, onClick }: { v: any; i: any, onCl
                 }}
               >
                 <Text c={"white"} fw={"bold"} fz={20} mb={10}>
-                  Content
+                  Konten
                 </Text>
                 <Stack c={'white'}>
                   <Box dangerouslySetInnerHTML={{ __html: v.content }} />

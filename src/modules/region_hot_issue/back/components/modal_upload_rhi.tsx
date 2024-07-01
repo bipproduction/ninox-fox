@@ -26,7 +26,7 @@ export default function ModalUploadRhi({ data, onSuccess }: { data: any, onSucce
             return toast("Anda tidak mempunyai akses ke wilayah tersebut", { theme: "dark" })
         }
         await funUploadRhi({ body: data })
-        await funLogUser({ act: 'UPL', desc: `User mengupload data Region Hot Issue`, idContent: '-', tbContent: 'rhi' })
+        await funLogUser({ act: 'UPL', desc: `User mengupload data Isu Wilayah`, idContent: '-', tbContent: 'rhi' })
         await funAddNotifications({ kategori: 'rhi', provinsiId: prov?.id })
         setLoading(false)
         toast('Success', { theme: 'dark' })
@@ -39,7 +39,7 @@ export default function ModalUploadRhi({ data, onSuccess }: { data: any, onSucce
             <Box>
                 <Alert color="gray" variant="outline">
                     <Text fw={700} ta={"center"} mb={20} mt={20}>
-                        ANDA YAKIN INGIN MENGUPDATE DATA REGION HOT ISSUES?
+                        ANDA YAKIN INGIN MENGUPDATE DATA ISU WILAYAH?
                     </Text>
                     <Group justify="space-between" pt={10}>
                         <Button
@@ -48,10 +48,10 @@ export default function ModalUploadRhi({ data, onSuccess }: { data: any, onSucce
                             w={150}
                             onClick={() => setOpenModal(false)}
                         >
-                            NO
+                            TIDAK
                         </Button>
                         <Button loading={isLoading} radius={10} color="gray.7" w={150} onClick={() => onUpload()}>
-                            YES
+                            YA
                         </Button>
                     </Group>
                 </Alert>

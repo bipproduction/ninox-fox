@@ -68,7 +68,7 @@ export default function ViewListLeader({ datadownload, param, provinsi, kabupate
   return (
     <>
       <Stack>
-        <Text fw={"bold"}>LEADER TRAIT ASSESSMENT</Text>
+        <Text fw={"bold"}>PENILAIAN SIFAT PEMIMPIN</Text>
       </Stack>
       <Box pt={30}>
         <SimpleGrid
@@ -162,7 +162,7 @@ export default function ViewListLeader({ datadownload, param, provinsi, kabupate
 
                   const jsonDwnloadLink = document.createElement("a")
                   jsonDwnloadLink.href = jsonDataUrl
-                  jsonDwnloadLink.download = datadownload.title
+                  jsonDwnloadLink.download = datadownload.title + ".csv"
                   jsonDwnloadLink.click()
                 }}
               >
