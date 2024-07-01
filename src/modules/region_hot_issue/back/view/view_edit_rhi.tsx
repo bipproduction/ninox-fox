@@ -48,7 +48,7 @@ export default function ViewEditAdminMlai({ data }: { data: any }) {
         <>
             <ButtonBack />
             <Stack mt={30}>
-                <Text fw={"bold"}>EDIT REGION HOT ISSUE</Text>
+                <Text fw={"bold"}>EDIT ISU WILAYAH</Text>
             </Stack>
             <Box pt={30}>
                 <Stack>
@@ -152,7 +152,7 @@ export default function ViewEditAdminMlai({ data }: { data: any }) {
                     </RichTextEditor>
                 </Box>
                 <Group justify="flex-end">
-                    <Button bg={"gray"} mt={30} size="md" onClick={() => onConfirmation()}>SAVE</Button>
+                    <Button bg={"gray"} mt={30} size="md" onClick={() => onConfirmation()}>SIMPAN</Button>
                 </Group>
             </Box>
             <Modal

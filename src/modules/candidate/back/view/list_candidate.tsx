@@ -18,8 +18,8 @@ export default function ListCandidates({ param, provinsi, kabupaten, datatable }
     const router = useRouter()
     const [dataProvinsi, setDataProvinsi] = useState(provinsi)
     const [dataKab, setDataKab] = useState<any>(kabupaten)
-    const [isProvinsi, setProvinsi] = useState<any>(param.idProvinsi || null)
-    const [isKabupaten, setKabupaten] = useState<any>(param.idKabkot || null)
+    const [isProvinsi, setProvinsi] = useState<any>(String(param.idProvinsi) || null)
+    const [isKabupaten, setKabupaten] = useState<any>(String(param.idKabkot) || null)
 
     async function onKabupaten({ idProv }: { idProv: any }) {
         setProvinsi(idProv)
@@ -36,7 +36,8 @@ export default function ListCandidates({ param, provinsi, kabupaten, datatable }
     useEffect(() => {
         setProvinsi((param.idProvinsi == 0) ? null : param.idProvinsi)
         setKabupaten((param.idKabkot == 0) ? null : param.idKabkot)
-    }, [param])
+        setDataKab(kabupaten)
+    }, [param, kabupaten])
 
     return (
         <>
@@ -74,6 +75,7 @@ export default function ListCandidates({ param, provinsi, kabupaten, datatable }
                 <Button mt={25} bg={"gray"} onClick={() => onProccess()}>
                     PROSES
                 </Button>
+                <Button mt={25} bg={"gray"} onClick={() => router.push('candidate/add')}>TAMBAH KANDIDAT</Button>
             </Group>
             {!_.isNull(datatable.title) &&
                 <TableCandidate title={datatable.title} data={datatable.data} searchParam={param} />

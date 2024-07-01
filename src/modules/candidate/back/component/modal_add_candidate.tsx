@@ -7,6 +7,7 @@ import toast from "react-simple-toasts";
 import funAddCandidate from "../fun/add_candidate";
 import { funGetAccessArea } from "@/modules/_global";
 import { funLogUser } from "@/modules/user";
+import { useState } from "react";
 
 /**
  * Fungsi untuk menampilkan modal konfirmasi add kandidat.
@@ -16,10 +17,13 @@ import { funLogUser } from "@/modules/user";
 export default function ModalAddCandidate({ data, img, onSuccess }: { data: any, img: any, onSuccess: (val: any) => void }) {
     const [openModal, setOpenModal] = useAtom(isModalCandidate)
     const router = useRouter()
+    const [isLoading, setLoading] = useState(false)
 
     async function onCreateCandidate() {
+        setLoading(true)
         const cek = await funGetAccessArea({ provinsi: data.idProvinsi })
         if (!cek) {
+            setLoading(false)
             setOpenModal(false)
             return toast("Anda tidak mempunyai akses ke wilayah tersebut", { theme: "dark" })
         }
@@ -30,6 +34,7 @@ export default function ModalAddCandidate({ data, img, onSuccess }: { data: any,
         toast("Sukses", { theme: "dark" });
         setOpenModal(false);
         onSuccess(true)
+        setLoading(false)
     }
 
     return (
@@ -56,6 +61,7 @@ export default function ModalAddCandidate({ data, img, onSuccess }: { data: any,
                                 color="gray.7"
                                 fullWidth
                                 onClick={() => onCreateCandidate()}
+                                loading={isLoading}
                             >
                                 YA
                             </Button>

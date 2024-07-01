@@ -1,6 +1,6 @@
 'use client'
 import { useAtom } from 'jotai';
-import React from 'react';
+import React, { useState } from 'react';
 import { Alert, Box, Button, Group, Text } from '@mantine/core';
 import toast from 'react-simple-toasts';
 import { isModalRoleUser } from '../val/val_role_user';
@@ -15,21 +15,27 @@ import { funLogUser } from '../..';
  */
 export default function ModalDelRoleUser({ id, onSuccess }: { id: any, onSuccess: (val: any) => void }) {
   const [valOpenModal, setOpenModal] = useAtom(isModalRoleUser)
+  const [isLoading, setLoading] = useState(false)
 
   async function delRole() {
+    setLoading(true)
     const del = await funDelRoleUser({ id: id })
-    if (!del.success) return toast(del.message, { theme: "dark" })
+    if (!del.success) {
+      setLoading(false)
+      return toast(del.message, { theme: "dark" })
+    }
     toast("Success", { theme: "dark" });
     await funLogUser({ act: 'DEL', desc: `User menghapus data Role User`, idContent: id, tbContent: 'roleuser' })
     setOpenModal(false);
     onSuccess(del.delData)
+    setLoading(false)
   }
 
   return (
     <>
       <Box>
         <Alert color="gray" variant="outline">
-          <Text fw={700} ta={"center"} mb={20} mt={20}>ARE YOU SURE TO DELETE THIS ROLE USER?</Text>
+          <Text fw={700} ta={"center"} mb={20} mt={20}>APAKAH ANDA YAKIN MENGHAPUS ROLE USER INI?</Text>
           <Group justify="space-between" pt={10}>
             <Button
               radius={10}
@@ -37,15 +43,16 @@ export default function ModalDelRoleUser({ id, onSuccess }: { id: any, onSuccess
               w={150}
               onClick={() => setOpenModal(false)}
             >
-              NO
+              TIDAK
             </Button>
             <Button
               radius={10}
               color="gray.7"
               w={150}
               onClick={delRole}
+              loading={isLoading}
             >
-              YES
+              YA
             </Button>
           </Group>
         </Alert>

@@ -25,7 +25,7 @@ export default function ModalUploadPct({ data, onSuccess }: { data: any, onSucce
             return toast("Anda tidak mempunyai akses ke wilayah tersebut", { theme: "dark" })
         }
         await funUploadPct({ body: data })
-        await funLogUser({ act: 'UPL', desc: `User mengupload data Public Concern Trends`, idContent: '-', tbContent: 'pct' })
+        await funLogUser({ act: 'UPL', desc: `User mengupload data Tren Perhatian Publik`, idContent: '-', tbContent: 'pct' })
         await funAddNotifications({ kategori: 'pct', provinsiId: prov?.id })
         setLoading(false)
         toast('Success', { theme: 'dark' })
@@ -38,7 +38,7 @@ export default function ModalUploadPct({ data, onSuccess }: { data: any, onSucce
             <Box>
                 <Alert color="gray" variant="outline">
                     <Text fw={700} ta={"center"} mb={20} mt={20}>
-                        ANDA YAKIN INGIN MENGUPDATE DATA PUBLIC CONCERN TREND?
+                        ANDA YAKIN INGIN MENGUPDATE DATA TREN PERHATIAN PUBLIK?
                     </Text>
                     <Group justify="space-between" pt={10}>
                         <Button
@@ -47,10 +47,10 @@ export default function ModalUploadPct({ data, onSuccess }: { data: any, onSucce
                             w={150}
                             onClick={() => setOpenModal(false)}
                         >
-                            NO
+                            TIDAK
                         </Button>
                         <Button loading={isLoading} radius={10} color="gray.7" w={150} onClick={() => onUpload()}>
-                            YES
+                            YA
                         </Button>
                     </Group>
                 </Alert>

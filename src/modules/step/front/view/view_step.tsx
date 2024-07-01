@@ -11,7 +11,7 @@ export default function ViewStep({ data, candidate, oneCandidate }: { data: any,
   const [isData, setData] = useState(data)
   const [listCandidate, setListCandidate] = useState(candidate)
   const [isCandidate, setCandidate] = useState(oneCandidate?.id)
-  const [isNameCan, setNameCan] = useState(oneCandidate?.name.toUpperCase())
+  const [isNameCan, setNameCan] = useState(oneCandidate?.name)
   const [isImgCan, setImgCan] = useState(`/img/candidate/${oneCandidate?.img}`)
 
 
@@ -21,31 +21,29 @@ export default function ViewStep({ data, candidate, oneCandidate }: { data: any,
     const dataDB = await funGetStepFront({ candidate: value })
     const dataCan = await funGetOneCandidateFront({ candidate: value })
     setData(dataDB)
-    setNameCan((dataCan?.name.toUpperCase()))
+    setNameCan((dataCan?.name))
     setImgCan(`/img/candidate/${dataCan?.img}`)
   }
 
   return (
     <>
-      <PageSubTitle text1='PENILAIAN' text2='STEP' />
+      <PageSubTitle text1='ANALISA' text2='STEP' />
       <Grid gutter={30}>
         <Grid.Col span={{ md: 3, lg: 3 }}>
-          <Flex justify={"center"} align={"center"} style={{
-            height: "80vh"
-          }}>
+          <Flex justify={"center"} align={"center"} h={{base: '40vh', xl: '80vh', lg: '80vh', md: '80vh'}}>
             <Box
               w={{ base: 300, sm: 400 }}
             >
               <Box
                 style={{
-                  background: "rgba(0,0,0,0.3)",
+                 
                   padding: 10,
                   borderRadius: 10
                 }}
-
+                bg={{base: '', xl: 'rgba(0,0,0,0.3)', lg: 'rgba(0,0,0,0.3)', md: 'rgba(0,0,0,0.3)'}}
               >
                 <Image src={isImgCan} bg={"white"} style={{ border: "4px solid white" }} radius={"100%"} alt='kandidat' maw={200} mx="auto" />
-                <Text fw={"bold"} ta={"center"} c={"white"}>{isNameCan}</Text>
+                <Text fw={"bold"} ta={"center"} c={"white"} mt={10}>{isNameCan}</Text>
               </Box>
               <Select
                 mt={10}
@@ -69,7 +67,7 @@ export default function ViewStep({ data, candidate, oneCandidate }: { data: any,
                     <Box key={i} pb={20}>
                       <Text fw={"bold"} c={"white"} fz={25} >{_.upperCase(v)}</Text>
                       <SimpleGrid
-                        cols={{ base: 1, sm: 2, lg: 2 }}
+                        cols={{ base: 1, sm: 1, md: 2, lg: 2, xl: 2 }}
                         spacing={{ base: 10, sm: 'xl' }}
                         verticalSpacing={{ base: 'md', sm: 'xl' }}
                       >

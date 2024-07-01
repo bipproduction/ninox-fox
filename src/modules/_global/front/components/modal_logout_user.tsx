@@ -30,7 +30,7 @@ export default function ModalLogoutUser() {
       <Box>
         <Alert variant="filled" color={WARNA.ungu} >
           <Text fw={700} ta={"center"} mb={20} mt={20}>
-            ARE YOU SURE YOU WANT TO LOGOUT ???
+            APAKAH ANDA YAKIN INGIN LOGOUT?
           </Text>
           <Group justify="space-between" pt={10}>
             <Button
@@ -40,10 +40,10 @@ export default function ModalLogoutUser() {
               onClick={() => setOpenModal(false)}
               bg={WARNA.merah}
             >
-              NO
+              TIDAK
             </Button>
             <Button radius={10} color={"white"} bg={WARNA.hijau} w={150} onClick={() => logoutYes()}>
-              YES
+              YA
             </Button>
           </Group>
         </Alert>

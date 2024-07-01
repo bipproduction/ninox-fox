@@ -1,5 +1,5 @@
 import { isModalBeranda } from './val/isModalBeranda';
-import { COLOR_EMOTION, COLOR_PCT, COLOR_SOSIAL_EKONOMI } from './fun/COLOR_EMOTION';
+import { COLOR_EMOTION, COLOR_EMOTION_NEW, COLOR_PCT, COLOR_SOSIAL_EKONOMI } from './fun/COLOR_EMOTION';
 import { LayoutViewFront } from '@/modules/_global/front';
 import { LayoutView, ViewWilayah, funGetAccessAdmin } from "./back";
 import { ButtonBack } from "./back";
@@ -33,6 +33,7 @@ import funGetOneProvinsi from './fun/fun_get_one_provinsi';
 import funAddNotifications from './back/fun/add_notifications';
 import MqttLoad from './util/mqtt_load';
 import mtqq_client from "./util/mqtt_client"
+import Glitch from './front/components/glitch';
 
 
 export { provinsiCount }
@@ -73,3 +74,5 @@ export { funGetOneProvinsi }
 export { funAddNotifications }
 export { MqttLoad }
 export { mtqq_client }
+export { COLOR_EMOTION_NEW }
+export { Glitch }

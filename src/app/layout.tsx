@@ -4,6 +4,7 @@ import { MantineProvider, ColorSchemeScript } from '@mantine/core';
 import { theme } from '../../theme';
 import "@mantine/dates/styles.css";
 import 'react-simple-toasts/dist/theme/dark.css'
+import 'react-simple-toasts/dist/theme/light.css';
 import { Poppins } from "next/font/google"
 import '@mantine/tiptap/styles.css';
 import '@mantine/notifications/styles.css';

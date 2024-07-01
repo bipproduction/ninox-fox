@@ -7,6 +7,7 @@ import { funGetAccessArea } from "@/modules/_global";
 import { funLogUser } from "@/modules/user";
 import { isModalNotifikasiAlert } from "../val/isModalNotifikasiAlert";
 import funAddNotificationsBack from "../fun/fun_add_notifikasi_back";
+import { useState } from "react";
 
 /**
  * Fungsi untuk menampilkan modal konfirmasi add notifikasi.
@@ -16,11 +17,14 @@ import funAddNotificationsBack from "../fun/fun_add_notifikasi_back";
 export default function ModalAddNotifikasi({ data, onSuccess }: { data: any, onSuccess: (val: any) => void }) {
    const [openModal, setOpenModal] = useAtom(isModalNotifikasiAlert)
    const router = useRouter()
+   const [isLoading, setLoading] = useState(false)
 
    async function onCreateCandidate() {
+      setLoading(true)
       const cek = await funGetAccessArea({ provinsi: data.idProvinsi })
       if (!cek) {
          setOpenModal(false)
+         setLoading(false)
          return toast("Anda tidak mempunyai akses ke wilayah tersebut", { theme: "dark" })
       }
       const create = await funAddNotificationsBack({ body: data })
@@ -29,6 +33,7 @@ export default function ModalAddNotifikasi({ data, onSuccess }: { data: any, onS
       await funLogUser({ act: 'ADD', desc: `User menambah data notifikasi`, idContent: '', tbContent: 'notifikasi' })
       setOpenModal(false);
       onSuccess(true)
+      setLoading(false)
    }
 
    return (
@@ -54,6 +59,7 @@ export default function ModalAddNotifikasi({ data, onSuccess }: { data: any, onS
                         radius={10}
                         color="gray.7"
                         fullWidth
+                        loading={isLoading}
                         onClick={() => onCreateCandidate()}
                      >
                         YA

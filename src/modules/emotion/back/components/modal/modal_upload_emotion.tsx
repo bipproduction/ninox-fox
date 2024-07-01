@@ -21,7 +21,7 @@ export default function ModalUploadEmotion({ data, onSuccess }: { data: any, onS
             return toast("Anda tidak mempunyai akses ke wilayah tersebut", { theme: "dark" })
         }
         await funUploadEmotion({ body: data })
-        await funLogUser({ act: 'UPL', desc: `User mengupload data Emotion (${data[0].idCandidate} - ${moment(data[0].date).format('DD/MM/YYYY')})`, idContent: '-', tbContent: 'emotion' })
+        await funLogUser({ act: 'UPL', desc: `User mengupload data emotion (${data[0].idCandidate} - ${moment(data[0].date).format('DD/MM/YYYY')})`, idContent: '-', tbContent: 'emotion' })
         await funAddNotifications({ kategori: 'emotion', candidateId: data[0].idCandidate })
         setLoading(false)
         toast('Success', { theme: 'dark' })
@@ -34,7 +34,7 @@ export default function ModalUploadEmotion({ data, onSuccess }: { data: any, onS
             <Box>
                 <Alert color="gray" variant="outline">
                     <Text fw={700} ta={"center"} mb={20} mt={20}>
-                        ANDA YAKIN INGIN MENGUPLOAD DATA EMOTION?
+                        ANDA YAKIN INGIN MENGUPLOAD DATA SENTIMEN KANDIDAT?
                     </Text>
                     <Group justify="space-between" pt={10}>
                         <Button
@@ -43,10 +43,10 @@ export default function ModalUploadEmotion({ data, onSuccess }: { data: any, onS
                             w={150}
                             onClick={() => setOpenModal(false)}
                         >
-                            NO
+                            TIDAK
                         </Button>
                         <Button loading={isLoading} radius={10} color="gray.7" w={150} onClick={() => onUpload()}>
-                            YES
+                            YA
                         </Button>
                     </Group>
                 </Alert>

@@ -1,6 +1,6 @@
 'use client'
 import { ButtonBack } from "@/modules/_global"
-import { ActionIcon, Box, Button, Group, Modal, Select, Stack, Text, TextInput, Textarea } from "@mantine/core"
+import { ActionIcon, Box, Button, Group, Modal, Select, Spoiler, Stack, Text, TextInput, Textarea } from "@mantine/core"
 import { useAtom } from "jotai"
 import { isModalMlAi } from "../val/val_mlai"
 import ModalEditMlAi from "../component/modal_edit_mlai"
@@ -31,6 +31,7 @@ export default function EditMlAi({ data }: { data: any }) {
     const [openModal, setOpenModal] = useAtom(isModalMlAi)
     const [isBody, setBody] = useState({
         id: data.id,
+        idRequest: data.idRequestMlAi,
         idCandidate: data.idCandidate,
         content: data.content,
         dateContent: data.dateContent == null ? '' : data.dateContent,
@@ -60,7 +61,7 @@ export default function EditMlAi({ data }: { data: any }) {
 
     function onConfirmation() {
         if (Object.values(isBody).includes("") || editor?.getHTML() == '<p></p>')
-            return toast("Data cannot be empty", { theme: "dark" });
+            return toast("Form cannot be empty", { theme: "dark" });
         setOpenModal(true)
     }
 
@@ -70,7 +71,24 @@ export default function EditMlAi({ data }: { data: any }) {
             <Stack mt={30}>
                 <Text fw={"bold"}>EDIT ML-AI</Text>
             </Stack>
-            <Box pt={30}>
+            <Box pt={20}>
+                {
+                    data.idRequestMlAi != null && (
+                        <>
+                            <Box p={20} mb={20} bg={'#CED4D9'} style={{ borderRadius: 10 }}>
+                                <Text mb={10} fw={'bold'} fz={20}>
+                                    REQUEST
+                                </Text>
+                                <Spoiler maxHeight={50} showLabel={<Text c={'#787A7C'}>Show more</Text>} hideLabel={<Text c={'#787A7C'}>Hide</Text>}>
+                                    <Text>
+                                        {data.request}
+                                    </Text>
+                                </Spoiler>
+                            </Box>
+                        </>
+                    )
+                }
+
                 <Stack>
                     <Group grow>
                         <TextInput label={"Provinsi"} value={data.areaProvinsi} disabled />
@@ -194,7 +212,7 @@ export default function EditMlAi({ data }: { data: any }) {
                     </RichTextEditor>
                 </Box>
                 <Group justify="flex-end">
-                    <Button bg={"gray"} mt={30} size="md" onClick={() => onConfirmation()}>SAVE</Button>
+                    <Button bg={"gray"} mt={30} size="md" onClick={() => onConfirmation()}>SIMPAN</Button>
                 </Group>
             </Box>
             <Modal

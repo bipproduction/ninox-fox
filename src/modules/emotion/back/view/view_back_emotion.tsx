@@ -24,7 +24,7 @@ import papa from "papaparse"
 /**
  * Fungsi untuk menampilkan table list Emotion.
  * @param {string} title - Judul table.
- * @returns {component} Table list Emotion sesuai dengan parameter.
+ * @returns Table list Emotion sesuai dengan parameter.
  */
 
 export default function ViewBackEmotion({ param, provinsi, kabupaten, candidate, datatable, datadownload }: { param: any, provinsi: any, kabupaten: any, candidate: any, datatable: any, datadownload: any }) {
@@ -44,7 +44,9 @@ export default function ViewBackEmotion({ param, provinsi, kabupaten, candidate,
     setKabupaten((param.idKabkot == 0) ? null : param.idKabkot)
     setCandidate((param.idCandidate == 0) ? null : param.idCandidate)
     setDate((param.date == null) ? new Date() : new Date(param.date))
-  }, [param])
+    setDataCandidate(candidate)
+    setDataKabupaten(kabupaten)
+  }, [param, kabupaten, candidate])
 
   async function onProvinsi({ idProv }: { idProv: any }) {
     setProvinsi(idProv)
@@ -59,7 +61,7 @@ export default function ViewBackEmotion({ param, provinsi, kabupaten, candidate,
   async function onKabupaten({ idKab }: { idKab: any }) {
     setKabupaten(idKab)
     setCandidate(null)
-    const dataDbCan = await funGetCandidateActiveByArea({ find: { idProvinsi: Number(isProvinsi), idKabkot: Number(idKab), tingkat: 2 } })
+    const dataDbCan = await funGetCandidateActiveByArea({ find: { idProvinsi: Number(isProvinsi), idKabkot: Number(idKab), tingkat: (idKab == null) ? 1 : 2  } })
     setDataCandidate(dataDbCan)
   }
 
@@ -73,7 +75,7 @@ export default function ViewBackEmotion({ param, provinsi, kabupaten, candidate,
   return (
     <>
       <Stack>
-        <Text fw={"bold"}>EMOTION EDITOR</Text>
+        <Text fw={"bold"}>SENTIMEN KANDIDAT</Text>
       </Stack>
       <Box pt={30}>
         <SimpleGrid

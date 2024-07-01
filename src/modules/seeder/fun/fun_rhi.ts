@@ -117,6 +117,6 @@ export default async function funSeederRhi() {
 
     return {
         success: true,
-        message: "Seeder Value Region Hot Issues"
+        message: "Seeder Value Isu Wilayah"
     }
 }

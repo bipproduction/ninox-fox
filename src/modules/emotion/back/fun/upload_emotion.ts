@@ -33,14 +33,14 @@ export default async function funUploadEmotion({ body }: { body: any }) {
                         idKecamatan: Number(i.idKecamatan),
                         idKelurahan: Number(i.idKelurahan),
                         dateEmotion: new Date(i.date),
-                        confidence: Number(i.confidence),
-                        supportive: Number(i.supportive),
-                        positive: Number(i.positive),
-                        undecided: Number(i.undecided),
-                        unsupportive: Number(i.unsupportive),
-                        uncomfortable: Number(i.uncomfortable),
-                        negative: Number(i.negative),
-                        dissapproval: Number(i.dissapproval)
+                        confidence: Number(i.PotensiMendukungFix),
+                        supportive: Number(i.PotensiMendukungBerubah),
+                        positive: Number(i.MempertimbangkanFix),
+                        undecided: Number(i.MempertimbangkanBerubah),
+                        unsupportive: Number(i.TidakTahuFix),
+                        uncomfortable: Number(i.TidakTahuBerubah),
+                        negative: Number(i.PotensiTidakMendukungFix),
+                        dissapproval: Number(i.PotensiTidakMendukungBerubah)
                     }
                 });
             }
@@ -51,15 +51,14 @@ export default async function funUploadEmotion({ body }: { body: any }) {
                     id: i.id
                 },
                 data: {
-                    confidence: Number(i.confidence),
-                    supportive: Number(i.supportive),
-                    positive: Number(i.positive),
-                    undecided: Number(i.undecided),
-                    unsupportive: Number(i.unsupportive),
-                    uncomfortable: Number(i.uncomfortable),
-                    negative: Number(i.negative),
-                    dissapproval: Number(i.dissapproval)
-
+                    confidence: Number(i.PotensiMendukungFix),
+                    supportive: Number(i.PotensiMendukungBerubah),
+                    positive: Number(i.MempertimbangkanFix),
+                    undecided: Number(i.MempertimbangkanBerubah),
+                    unsupportive: Number(i.TidakTahuFix),
+                    uncomfortable: Number(i.TidakTahuBerubah),
+                    negative: Number(i.PotensiTidakMendukungFix),
+                    dissapproval: Number(i.PotensiTidakMendukungBerubah)
                 }
             });
         }

@@ -58,7 +58,7 @@ export default async function funDownloadRHI({ find }: { find: any }) {
                     id: find.idProvinsi
                 }
             })
-            titleTrue = "REGION HOT ISSUES - PROVINSI " + area?.name
+            titleTrue = "ISU WILAYAH - PROVINSI " + area?.name
 
         } else if (find.idKec == 0 && find.idKabkot > 0) {
             dataTable = await prisma.regionHotIssues.findMany({
@@ -108,7 +108,7 @@ export default async function funDownloadRHI({ find }: { find: any }) {
                     id: find.idKabkot
                 }
             })
-            titleTrue = "REGION HOT ISSUES - " + area?.name
+            titleTrue = "ISU WILAYAH - " + area?.name
 
         } else {
             dataTable = await prisma.regionHotIssues.findMany({
@@ -163,7 +163,7 @@ export default async function funDownloadRHI({ find }: { find: any }) {
                     id: find.idKec
                 }
             })
-            titleTrue = "REGION HOT ISSUES - KECAMATAN " + area?.name.toUpperCase()
+            titleTrue = "ISU WILAYAH - KECAMATAN " + area?.name.toUpperCase()
 
         }
 

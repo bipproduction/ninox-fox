@@ -171,7 +171,7 @@ export default function EditConfUser({ data, role, wilayah }: { data: any, role:
               onClick={validationData}
             >
               <Group>
-                <Text fw={"bold"} c={"white"}>SAVE</Text>
+                <Text fw={"bold"} c={"white"}>SIMPAN</Text>
               </Group>
             </Box>
           </Group>

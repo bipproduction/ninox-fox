@@ -94,13 +94,37 @@ export default async function funGetMlAiFrontV2({ candidate, date, time }: { can
             isActive: true,
             dateContent: date,
             timeContent: isoDateTime,
+         },
+         select: {
+            id: true,
+            idCandidate: true,
+            idRequestMlAi: true,
+            category: true,
+            content: true,
+            dateContent: true,
+            timeContent: true,
+            isActive: true,
+            createdAt: true,
+            updatedAt: true,
+            MlAiRequest: {
+               select: {
+                  request: true
+               }
+            }
          }
       })
+
+
+      const resultDataEffect = dataEffect.map((v: any) => ({
+         ..._.omit(v, ["MlAiRequest"]),
+         request: v.MlAiRequest?.request
+      }))
+
 
       const allData = {
          dataJam: formatJam,
          isJam: moment.utc(jamFix).format('HH:mm'),
-         data: dataEffect,
+         data: resultDataEffect,
       }
 
       return allData

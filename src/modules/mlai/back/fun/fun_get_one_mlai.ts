@@ -7,10 +7,11 @@ export default async function funGetOneMlAi({ id }: { id: any }) {
     const data = await prisma.mlAi.findUnique({
         where: {
             isActive: true,
-            id: Number(id)
+            id: id
         },
         select: {
             id: true,
+            idRequestMlAi: true,
             content: true,
             idCandidate: true,
             dateContent: true,
@@ -29,13 +30,19 @@ export default async function funGetOneMlAi({ id }: { id: any }) {
                         }
                     }
                 }
+            },
+            MlAiRequest: {
+                select: {
+                    request: true,
+                }
             }
         }
     })
 
-    // const result = _.omit(data, ["Candidate", "AreaKabkot", "AreaProvinsi"])
     const result = {
         id: data?.id,
+        idRequestMlAi: data?.idRequestMlAi,
+        request: data?.MlAiRequest?.request,
         content: data?.content,
         name: data?.Candidate.name,
         idCandidate: data?.idCandidate,

@@ -64,8 +64,6 @@ const data = [
  * @returns  Hasil menampilkan tabel beserta valuenya.
  */
 export default function TableData({ title, data, th }: { title: string, data: any, th: any }) {
-
-
   const [isData, setData] = useState(data)
 
   useEffect(() => {
@@ -95,34 +93,40 @@ export default function TableData({ title, data, th }: { title: string, data: an
               }}
             >
               <ScrollArea>
-                <Table withTableBorder horizontalSpacing="xl">
+                <Table withTableBorder horizontalSpacing="sm" verticalSpacing={'xs'} withColumnBorders>
                   <Table.Thead>
                     <Table.Tr>
-                      <Table.Th>NO</Table.Th>
-                      <Table.Th>{th}</Table.Th>
-                      <Table.Th>CONFIDENCE</Table.Th>
-                      <Table.Th>SUPPORTIVE</Table.Th>
-                      <Table.Th>POSITIVE</Table.Th>
-                      <Table.Th>UNDECIDED</Table.Th>
-                      <Table.Th>UNSUPPORTIVE</Table.Th>
-                      <Table.Th>UNCOMFORTABLE</Table.Th>
-                      <Table.Th>NEGATIVE</Table.Th>
-                      <Table.Th>DISSAPPROVAL</Table.Th>
+                      <Table.Th rowSpan={2} ta={"center"}>NO</Table.Th>
+                      <Table.Th w={250} rowSpan={2} ta={"center"}>{th}</Table.Th>
+                      <Table.Th colSpan={2} ta={"center"}>POTENSI MENDUKUNG</Table.Th>
+                      <Table.Th colSpan={2} ta={"center"}>MEMPERTIMBANGKAN</Table.Th>
+                      <Table.Th colSpan={2} ta={"center"}>TIDAK TAHU</Table.Th>
+                      <Table.Th colSpan={2} ta={"center"}>POTENSI TIDAK MENDUKUNG</Table.Th>
+                    </Table.Tr>
+                    <Table.Tr>
+                      <Table.Th ta={"center"}>fix</Table.Th>
+                      <Table.Th ta={"center"}>berubah</Table.Th>
+                      <Table.Th ta={"center"}>fix</Table.Th>
+                      <Table.Th ta={"center"}>berubah</Table.Th>
+                      <Table.Th ta={"center"}>fix</Table.Th>
+                      <Table.Th ta={"center"}>berubah</Table.Th>
+                      <Table.Th ta={"center"}>fix</Table.Th>
+                      <Table.Th ta={"center"}>berubah</Table.Th>
                     </Table.Tr>
                   </Table.Thead>
                   <Table.Tbody>
                     {isData.map((v: any, i: any) => (
                       <Table.Tr key={i}>
                         <Table.Td>{i + 1}</Table.Td>
-                        <Table.Td>{v.name}</Table.Td>
-                        <Table.Td>{v.confidence}</Table.Td>
-                        <Table.Td>{v.supportive}</Table.Td>
-                        <Table.Td>{v.positive}</Table.Td>
-                        <Table.Td>{v.undecided}</Table.Td>
-                        <Table.Td>{v.unsupportive}</Table.Td>
-                        <Table.Td>{v.uncomfortable}</Table.Td>
-                        <Table.Td>{v.negative}</Table.Td>
-                        <Table.Td>{v.dissapproval}</Table.Td>
+                        <Table.Td w={250}>{v.name}</Table.Td>
+                        <Table.Td ta={"right"}>{v.confidence}</Table.Td>
+                        <Table.Td ta={"right"}>{v.supportive}</Table.Td>
+                        <Table.Td ta={"right"}>{v.positive}</Table.Td>
+                        <Table.Td ta={"right"}>{v.undecided}</Table.Td>
+                        <Table.Td ta={"right"}>{v.unsupportive}</Table.Td>
+                        <Table.Td ta={"right"}>{v.uncomfortable}</Table.Td>
+                        <Table.Td ta={"right"}>{v.negative}</Table.Td>
+                        <Table.Td ta={"right"}>{v.dissapproval}</Table.Td>
                       </Table.Tr>
                     ))}
                   </Table.Tbody>

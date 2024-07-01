@@ -23,7 +23,7 @@ export default function ModalDeleteCandidate({ isCandidate, isDateCan, onSuccess
     }
 
     await funDelCandidate({ candidate: isCandidate, dateCan: isDateCan })
-    await funLogUser({ act: 'DEL', desc: `User mengupload data Emotion (${isCandidate} - ${moment(isDateCan).format('DD/MM/YYYY')})`, idContent: '-', tbContent: 'emotion' })
+    await funLogUser({ act: 'DEL', desc: `User menghapus data sentimen (${isCandidate} - ${moment(isDateCan).format('DD/MM/YYYY')})`, idContent: '-', tbContent: 'emotion' })
     setLoading(false)
     onSuccess(true)
     toast("Success", { theme: "dark" });
@@ -35,7 +35,7 @@ export default function ModalDeleteCandidate({ isCandidate, isDateCan, onSuccess
       <Box>
         <Alert color="gray" variant="outline">
           <Text fw={700} ta={"center"} mb={20} mt={20}>
-            ANDA YAKIN INGIN MENGHAPUS DATA CANDIDATE?
+            ANDA YAKIN INGIN MENGHAPUS DATA KANDIDAT?
           </Text>
           <Group justify="space-between" pt={10}>
             <Button
@@ -44,10 +44,10 @@ export default function ModalDeleteCandidate({ isCandidate, isDateCan, onSuccess
               w={150}
               onClick={() => setOpenModal(false)}
             >
-              NO
+              TIDAK
             </Button>
             <Button loading={isLoading} radius={10} color="gray.7" w={150} onClick={() => delDataCan()}>
-              YES
+              YA
             </Button>
           </Group>
         </Alert>

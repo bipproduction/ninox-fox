@@ -26,7 +26,7 @@ export default function ModalCopy({ from, to, candidate1, candidate2, onSuccess 
     }
     setLoading(true)
     await funCopyPairing({ dateFrom: from, dateTo: to, candidate1: candidate1, candidate2: candidate2 })
-    await funLogUser({ act: 'CPY', desc: `User mengcopy data Pairing (${candidate1} & ${candidate2} - ${moment(from).format('DD/MM/YY')} to ${moment(to).format('DD/MM/YY')})`, idContent: '-', tbContent: 'pairing' })
+    await funLogUser({ act: 'CPY', desc: `User mengcopy data Penilaian sentimen pemilih dan data Pasangan Regional (${candidate1} & ${candidate2} - ${moment(from).format('DD/MM/YY')} to ${moment(to).format('DD/MM/YY')})`, idContent: '-', tbContent: 'pairing' })
     setLoading(false)
     toast('Success', { theme: 'dark' })
     setOpenModal(false)
@@ -38,7 +38,7 @@ export default function ModalCopy({ from, to, candidate1, candidate2, onSuccess 
       <Box>
         <Alert color="gray" variant="outline">
           <Text fw={700} ta={"center"} mb={20} mt={20}>
-            ANDA YAKIN INGIN MENGCOPY DATA PAIRING?
+            ANDA YAKIN INGIN MENGCOPY DATA PENILAIAN SENTIMEN PEMILIH DAN DATA PASANGAN REGIONAL?
           </Text>
           <Group justify="space-between" pt={10}>
             <Button
@@ -47,10 +47,10 @@ export default function ModalCopy({ from, to, candidate1, candidate2, onSuccess 
               w={150}
               onClick={() => setOpenModal(false)}
             >
-              NO
+              TIDAK
             </Button>
             <Button loading={isLoading} radius={10} color="gray.7" w={150} onClick={() => onUpload()}>
-              YES
+              YA
             </Button>
           </Group>
         </Alert>

@@ -5,7 +5,7 @@ import EChartsReact from "echarts-for-react";
 import { useShallowEffect } from '@mantine/hooks';
 import { Box, Button, Center, Grid, Group, Text } from '@mantine/core';
 import { WARNA } from '@/modules/_global/fun/WARNA';
-import { COLOR_EMOTION } from '@/modules/_global';
+import { COLOR_EMOTION, COLOR_EMOTION_NEW } from '@/modules/_global';
 import _ from 'lodash';
 
 export default function DetailEchartSentimentAnalysis({ dataEmotion, dataLocked }: { dataEmotion: any, dataLocked: any }) {
@@ -19,14 +19,10 @@ export default function DetailEchartSentimentAnalysis({ dataEmotion, dataLocked 
   useShallowEffect(() => {
     setDataChart(
       {
-        confidence: Number(dataEmotion.confidence),
-        supportive: Number(dataEmotion.supportive),
-        positive: Number(dataEmotion.positive),
-        undecided: Number(dataEmotion.undecided),
-        unsupportive: Number(dataEmotion.unsupportive),
-        uncomfortable: Number(dataEmotion.uncomfortable),
-        negative: Number(dataEmotion.negative),
-        dissapproval: Number(dataEmotion.dissapproval),
+        mendukung: Number(dataEmotion.mendukung),
+        mempertimbangkan: Number(dataEmotion.mempertimbangkan),
+        tidaktahu: Number(dataEmotion.tidaktahu),
+        tidakmendukung: Number(dataEmotion.tidakmendukung),
       }
     )
 
@@ -45,8 +41,8 @@ export default function DetailEchartSentimentAnalysis({ dataEmotion, dataLocked 
       tooltip: {
         trigger: 'axis',
         axisPointer: {
-          type: 'shadow'
-        }
+          type: 'shadow',
+        },
       },
       grid: {
         left: '3%',
@@ -57,9 +53,9 @@ export default function DetailEchartSentimentAnalysis({ dataEmotion, dataLocked 
       xAxis: [
         {
           type: 'category',
-          data: ['Percaya Diri', 'Mendukung', 'Positif', 'Tidak Memilih', 'Tidak Mendukung', 'Tidak Nyaman', 'Negatif', 'Tidak Setuju'],
+          data: ['Potensi Mendukung', 'Mempertimbangkan', 'Tidak Tahu', 'Potensi \n Tidak Mendukung'],
           axisLabel: {
-            rotate: 45,
+            // rotate: 10,
             color: "white",
             fontSize: 10
           },
@@ -99,7 +95,7 @@ export default function DetailEchartSentimentAnalysis({ dataEmotion, dataLocked 
               value: dataLoad[v],
               itemStyle: {
                 color:
-                  COLOR_EMOTION.find((v2) => _.lowerCase(v2.name) == v)
+                  COLOR_EMOTION_NEW.find((v2) => _.lowerCase(v2.name) == v)
                     ?.color ?? "gray",
               },
             })

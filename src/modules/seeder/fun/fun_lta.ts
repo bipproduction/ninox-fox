@@ -66,6 +66,6 @@ export default async function funSeederLta() {
 
     return {
         success: true,
-        message: "Seeder Value Leader Trait Assessment"
+        message: "Seeder Value Penilaian Sifat Pemimpin"
     }
 }

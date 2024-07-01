@@ -64,10 +64,10 @@ export default function ModalUploadKetenagakerjaan({ kategori, data, onSuccess }
                             w={150}
                             onClick={() => setOpenModal(false)}
                         >
-                            NO
+                            TIDAK
                         </Button>
                         <Button loading={isLoading} radius={10} color="gray.7" w={150} onClick={() => onUpload()}>
-                            YES
+                            YA
                         </Button>
                     </Group>
                 </Alert>

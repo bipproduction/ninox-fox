@@ -51,7 +51,7 @@ export default function ViewUploadAudience() {
                         borderRadius: 10
                     }}
                 >
-                    <Text fw={"bold"} c={"white"} mb={20}>UPLOAD DATA AUDIENCE</Text>
+                    <Text fw={"bold"} c={"white"} mb={20}>UPLOAD DATA SUARA TERKUNCI</Text>
                     <Dropzone
                         loading={isLoading}
                         style={{
@@ -96,10 +96,10 @@ export default function ViewUploadAudience() {
 
                             <div>
                                 <Text size="xl" inline>
-                                    Drag files here or click to select files
+                                    Seret file ke sini atau klik untuk memilih file
                                 </Text>
                                 <Text size="sm" inline mt={7} >
-                                    Attach one file, the file must not exceed 5MB
+                                    Lampirkan satu file, file tidak boleh melebihi 5MB
                                 </Text>
                             </div>
                         </Group>

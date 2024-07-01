@@ -174,7 +174,7 @@ export default function ViewAddNotification({ provinsi, kabupaten }: { provinsi:
                   mt={30}
                   size="md"
                   onClick={onConfirmation}>
-                  SAVE
+                  SIMPAN
                </Button>
             </Group>
          </Box>

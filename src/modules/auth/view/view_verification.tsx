@@ -9,6 +9,7 @@ export default function ViewVerification({ phone, otp, user }: { phone: any, otp
   const router = useRouter()
   const [isOTP, setOTP] = useState(otp)
   const [inputOTP, setInputOTP] = useState<any>()
+  const [isLoading, setLoading] = useState(false)
 
   async function onResend() {
     // proses pengambilan nomer 4 digit random untuk code verfication
@@ -30,15 +31,18 @@ export default function ViewVerification({ phone, otp, user }: { phone: any, otp
 
   // fungsi untuk mengecek code verification yang telah diinputkan
   async function getVerification() {
+    setLoading(true)
     if (isOTP == inputOTP) {
       // jika kode benar
       const setC = await funSetCookies({ user: user })
       // await funLogUser({ act: 'LOGIN', desc: `User login` })
       router.push('/summary')
       toast("Verification code is correct", { theme: "dark" })
+      setLoading(false)
     } else {
       // jika salah
       toast("Incorrect verification code", { theme: "dark" })
+      setLoading(false)
     }
   }
 
@@ -72,8 +76,8 @@ export default function ViewVerification({ phone, otp, user }: { phone: any, otp
               <Button
                 mt={30}
                 fullWidth
-                bg={"white"}
-                c={"#005B41"}
+                variant="filled" color="#280B4F"
+                loading={isLoading}
                 onClick={() => { getVerification() }}
               >
                 Submit

@@ -31,10 +31,10 @@ export default function ModalConfUser({ data, dataArea, onSuccess }: { data: any
               w={150}
               onClick={() => setOpenModal(false)}
             >
-              NO
+              TIDAK
             </Button>
             <Button radius={10} color="gray.7" w={150} onClick={onUser}>
-              YES
+              YA
             </Button>
           </Group>
         </Alert>

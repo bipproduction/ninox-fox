@@ -1,7 +1,7 @@
 'use server'
 import { provinsiCount } from "@/modules/_global";
 import prisma from "@/modules/_global/bin/prisma"
-import _ from "lodash"
+import _, { ceil } from "lodash"
 import moment from 'moment';
 
 /**
@@ -9,15 +9,17 @@ import moment from 'moment';
  * @param {any} find - berisi tingkat kandidat, idprovinsi, dan idkabkot
  * @returns data 
  */
-export default async function funGetAllMlAi({ find }: { find: any }) {
-
-    let titleTrue, dataTable = <any>[], area
+export default async function funGetAllMlAi({ find, page }: { find: any, page: any }) {
+    const dataSkip = Number(page) * 25 - 25;
+    let titleTrue, dataTable = <any>[], area, dataCount = 0
 
     const nProv = await provinsiCount();
 
     if (find.idProvinsi > 0 && find.idProvinsi <= nProv) {
         if (find.tingkat == 1) {
             dataTable = await prisma.mlAi.findMany({
+                skip: dataSkip,
+                take: 25,
                 select: {
                     id: true,
                     content: true,
@@ -38,9 +40,25 @@ export default async function funGetAllMlAi({ find }: { find: any }) {
                         idProvinsi: find.idProvinsi
                     }
                 },
-                orderBy: {
-                    id: 'asc'
-                }
+                orderBy: [
+                    {
+                        dateContent: 'desc'
+                    },
+                    {
+                        timeContent: 'desc'
+                    }
+                ]
+            })
+
+            dataCount = await prisma.mlAi.count({
+                where: {
+                    isActive: true,
+                    Candidate: {
+                        isActive: true,
+                        tingkat: find.tingkat,
+                        idProvinsi: find.idProvinsi
+                    }
+                },
             })
 
             area = await prisma.areaProvinsi.findUnique({
@@ -52,6 +70,8 @@ export default async function funGetAllMlAi({ find }: { find: any }) {
 
         } else if (find.tingkat == 2) {
             dataTable = await prisma.mlAi.findMany({
+                skip: dataSkip,
+                take: 7,
                 select: {
                     id: true,
                     content: true,
@@ -73,9 +93,26 @@ export default async function funGetAllMlAi({ find }: { find: any }) {
                         idKabkot: find.idKabkot
                     }
                 },
-                orderBy: {
-                    id: 'asc'
-                }
+                orderBy: [
+                    {
+                        dateContent: 'desc'
+                    },
+                    {
+                        timeContent: 'desc'
+                    }
+                ]
+            })
+
+            dataCount = await prisma.mlAi.count({
+                where: {
+                    isActive: true,
+                    Candidate: {
+                        isActive: true,
+                        tingkat: find.tingkat,
+                        idProvinsi: find.idProvinsi,
+                        idKabkot: find.idKabkot
+                    }
+                },
             })
 
             area = await prisma.areaKabkot.findUnique({
@@ -102,7 +139,9 @@ export default async function funGetAllMlAi({ find }: { find: any }) {
 
     const allData = {
         title: titleTrue,
-        data: result
+        data: result,
+        nPage: ceil(dataCount / 25)
     }
+
     return allData
 }

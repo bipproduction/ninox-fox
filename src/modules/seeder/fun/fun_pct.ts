@@ -60,6 +60,6 @@ export default async function funSeederPct() {
     
     return {
         success: true,
-        message: "Seeder Public Concern Trend"
+        message: "Seeder Tren Perhatian Publik"
     }
 }

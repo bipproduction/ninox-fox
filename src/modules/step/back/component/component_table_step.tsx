@@ -13,6 +13,7 @@ import {
 } from "@mantine/core";
 import { CiRead, CiUnread } from "react-icons/ci";
 import { MdDelete, MdEditCalendar } from "react-icons/md";
+import moment from "moment";
 
 export default function ComponentTableStep({ v, i, onClick }: { v: any; i: any, onClick: (val: any) => void }) {
   const open = useState(false);
@@ -30,6 +31,8 @@ export default function ComponentTableStep({ v, i, onClick }: { v: any; i: any, 
           <Table.Td>{v.name}</Table.Td>
           <Table.Td>{v.category}</Table.Td>
           <Table.Td>{(v.sentiment == "1") ? "Positive" : "Negative"}</Table.Td>
+          <Table.Td>{v.created}</Table.Td>
+          <Table.Td>{v.updated}</Table.Td>
           <Table.Td>
             <Center>
               <Stack>
@@ -70,7 +73,7 @@ export default function ComponentTableStep({ v, i, onClick }: { v: any; i: any, 
           </Table.Td>
         </Table.Tr>
         <Table.Tr>
-          <Table.Td colSpan={5}>
+          <Table.Td colSpan={7}>
             <Collapse
               in={open[0]}
               transitionDuration={500}

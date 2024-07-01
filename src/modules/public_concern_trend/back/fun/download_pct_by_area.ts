@@ -25,7 +25,7 @@ export default async function funDownloadPCT({ find }: { find: any }) {
                     id: find.idProvinsi
                 }
             })
-            titleTrue = "PUBLIC CONCERN TREND - PROVINSI " + area?.name
+            titleTrue = "TREN PERHATIAN PUBLIK - PROVINSI " + area?.name
 
         } else if (find.idKec == 0 && find.idKabkot > 0) {
             kondisi = {
@@ -38,7 +38,7 @@ export default async function funDownloadPCT({ find }: { find: any }) {
                     id: find.idKabkot
                 }
             })
-            titleTrue = "PUBLIC CONCERN TREND - " + area?.name
+            titleTrue = "TREN PERHATIAN PUBLIK - " + area?.name
 
         } else {
             kondisi = {
@@ -51,7 +51,7 @@ export default async function funDownloadPCT({ find }: { find: any }) {
                     id: find.idKec
                 }
             })
-            titleTrue = "PUBLIC CONCERN TREND - KECAMATAN " + area?.name.toUpperCase()
+            titleTrue = "TREN PERHATIAN PUBLIK - KECAMATAN " + area?.name.toUpperCase()
 
         }
 

@@ -30,8 +30,8 @@ export default function AddStep({ params, candidate, provinsi, kabupaten }: { pa
     const [isDataCandidate, setDataCandidate] = useState(candidate)
     const [dataProvinsi, setDataProvinsi] = useState(provinsi)
     const [dataKabupaten, setDataKabupaten] = useState<any>(kabupaten)
-    const [isProvinsi, setProvinsi] = useState<any>(params.idProvinsi || null)
-    const [isKabupaten, setKabupaten] = useState<any>(params.idKabkot || null)
+    const [isProvinsi, setProvinsi] = useState<any>(String(params.idProvinsi) || null)
+    const [isKabupaten, setKabupaten] = useState<any>(String(params.idKabkot) || null)
     const [isCandidate, setCandidate] = useState<any>(null)
     const [isCategory, setCategory] = useState<any>(null)
 
@@ -69,10 +69,25 @@ export default function AddStep({ params, candidate, provinsi, kabupaten }: { pa
     const [isBody, setBody] = useState({
         idCandidate: "",
         category: "",
-        sentiment: "1"
+        // sentiment: "1"
     })
 
-    const editor = useEditor({
+    const editorPositive = useEditor({
+        extensions: [
+            StarterKit,
+            Underline,
+            Link,
+            Superscript,
+            SubScript,
+            Highlight,
+            TextStyle,
+            Color,
+            TextAlign.configure({ types: ['heading', 'paragraph'] }),
+        ],
+        content: "",
+    });
+
+    const editorNegative = useEditor({
         extensions: [
             StarterKit,
             Underline,
@@ -88,7 +103,7 @@ export default function AddStep({ params, candidate, provinsi, kabupaten }: { pa
     });
 
     function onConfirmation() {
-        if (Object.values(isBody).includes("") || editor?.getHTML() == '' || editor?.getHTML() == '<p></p>')
+        if (Object.values(isBody).includes("") || ((editorPositive?.getHTML() == '' || editorPositive?.getHTML() == '<p></p>') && (editorNegative?.getHTML() == '' || editorNegative?.getHTML() == '<p></p>')))
             return toast("Form cannot be empty", { theme: "dark" });
         setOpenModal(true)
     }
@@ -110,6 +125,7 @@ export default function AddStep({ params, candidate, provinsi, kabupaten }: { pa
                             required
                             label={"Provinsi"}
                             value={isProvinsi}
+                            searchable
                             onChange={(val) => onProvinsi({ idProv: val })}
                         // disabled
                         />
@@ -121,6 +137,7 @@ export default function AddStep({ params, candidate, provinsi, kabupaten }: { pa
                             }))}
                             label={"Kabupaten"}
                             value={isKabupaten}
+                            searchable
                             onChange={(val) => onKabupaten({ idKab: val })}
                         // disabled
                         />
@@ -158,7 +175,7 @@ export default function AddStep({ params, candidate, provinsi, kabupaten }: { pa
                         })
                     }}
                 />
-                <Radio.Group mt={20} label={"Sentiment"} required value={isBody.sentiment} onChange={(val) => {
+                {/* <Radio.Group mt={20} label={"Sentiment"} required value={isBody.sentiment} onChange={(val) => {
                     setBody({
                         ...isBody,
                         sentiment: val
@@ -168,7 +185,7 @@ export default function AddStep({ params, candidate, provinsi, kabupaten }: { pa
                         <Radio value="1" label="Positive" />
                         <Radio value="2" label="Negative" />
                     </Group>
-                </Radio.Group>
+                </Radio.Group> */}
                 {/* <Textarea
                     mt={20}
                     placeholder="Value Content"
@@ -182,7 +199,86 @@ export default function AddStep({ params, candidate, provinsi, kabupaten }: { pa
                     }}
                 /> */}
                 <Box pt={30}>
-                    <RichTextEditor editor={editor}>
+                    <Text>POSITIVE</Text>
+                    <RichTextEditor editor={editorPositive}>
+                        <RichTextEditor.Toolbar sticky stickyOffset={60}>
+                            <RichTextEditor.ControlsGroup>
+                                <RichTextEditor.Bold />
+                                <RichTextEditor.Italic />
+                                <RichTextEditor.Underline />
+                                <RichTextEditor.Strikethrough />
+                                <RichTextEditor.ClearFormatting />
+                                <RichTextEditor.Highlight />
+                                <RichTextEditor.Code />
+                            </RichTextEditor.ControlsGroup>
+
+                            <RichTextEditor.ControlsGroup>
+                                <RichTextEditor.H1 />
+                                <RichTextEditor.H2 />
+                                <RichTextEditor.H3 />
+                                <RichTextEditor.H4 />
+                            </RichTextEditor.ControlsGroup>
+
+                            <RichTextEditor.ControlsGroup>
+                                <RichTextEditor.Blockquote />
+                                <RichTextEditor.Hr />
+                                <RichTextEditor.BulletList />
+                                <RichTextEditor.OrderedList />
+                                <RichTextEditor.Subscript />
+                                <RichTextEditor.Superscript />
+                            </RichTextEditor.ControlsGroup>
+
+                            <RichTextEditor.ControlsGroup>
+                                <RichTextEditor.Link />
+                                <RichTextEditor.Unlink />
+                            </RichTextEditor.ControlsGroup>
+
+                            <RichTextEditor.ControlsGroup>
+                                <RichTextEditor.AlignLeft />
+                                <RichTextEditor.AlignCenter />
+                                <RichTextEditor.AlignJustify />
+                                <RichTextEditor.AlignRight />
+                            </RichTextEditor.ControlsGroup>
+
+                            <RichTextEditor.ColorPicker
+                                colors={[
+                                    '#25262b',
+                                    '#868e96',
+                                    '#fa5252',
+                                    '#e64980',
+                                    '#be4bdb',
+                                    '#7950f2',
+                                    '#4c6ef5',
+                                    '#228be6',
+                                    '#15aabf',
+                                    '#12b886',
+                                    '#40c057',
+                                    '#82c91e',
+                                    '#fab005',
+                                    '#fd7e14',
+                                ]}
+                            />
+
+                            <RichTextEditor.ControlsGroup>
+                                <RichTextEditor.Control interactive={false}>
+                                    <CiPickerEmpty size="1rem" stroke={"1.5"} />
+                                </RichTextEditor.Control>
+                                <RichTextEditor.Color color="#F03E3E" />
+                                <RichTextEditor.Color color="#7048E8" />
+                                <RichTextEditor.Color color="#1098AD" />
+                                <RichTextEditor.Color color="#37B24D" />
+                                <RichTextEditor.Color color="#F59F00" />
+                            </RichTextEditor.ControlsGroup>
+
+                            <RichTextEditor.UnsetColor />
+                        </RichTextEditor.Toolbar>
+
+                        <RichTextEditor.Content />
+                    </RichTextEditor>
+                </Box>
+                <Box pt={30}>
+                    <Text>NEGATIVE</Text>
+                    <RichTextEditor editor={editorNegative}>
                         <RichTextEditor.Toolbar sticky stickyOffset={60}>
                             <RichTextEditor.ControlsGroup>
                                 <RichTextEditor.Bold />
@@ -259,7 +355,7 @@ export default function AddStep({ params, candidate, provinsi, kabupaten }: { pa
                     </RichTextEditor>
                 </Box>
                 <Group justify="flex-end">
-                    <Button bg={"gray"} mt={30} size="md" onClick={onConfirmation}>SAVE</Button>
+                    <Button bg={"gray"} mt={30} size="md" onClick={onConfirmation}>SIMPAN</Button>
                 </Group>
             </Box>
             <Modal
@@ -269,17 +365,18 @@ export default function AddStep({ params, candidate, provinsi, kabupaten }: { pa
                 withCloseButton={false}
                 closeOnClickOutside={false}
             >
-                <ModalAddStep data={isBody} text={editor?.getHTML()} onSuccess={() => {
-                    editor?.commands.setContent('<p></p>')
+                <ModalAddStep data={isBody} textPositive={editorPositive?.getHTML()} textNegative={editorNegative?.getHTML()} onSuccess={() => {
+                    editorPositive?.commands.setContent('<p></p>')
+                    editorNegative?.commands.setContent('<p></p>')
                     setCategory(null)
-                    setProvinsi(null)
-                    setKabupaten(null)
-                    setCandidate(null)
+                    // setProvinsi(null)
+                    // setKabupaten(null)
+                    // setCandidate(null)
                     setBody({
                         ...isBody,
-                        idCandidate: '',
+                        // idCandidate: '',
                         category: '',
-                        sentiment: '1'
+                        // sentiment: '1'
                     })
                 }} />
             </Modal>

@@ -1,78 +1,62 @@
 "use client"
-import { Box, Button, Grid, Group, Image, Select, Stack, Text, TextInput } from '@mantine/core';
+import { Box, Button, Grid, Group, Image, rem, Select, Stack, Text, TextInput } from '@mantine/core';
 import React, { useState } from 'react';
 import EchartSentimentAnalysis from '../components/echart_sentiment_analysis';
 import EchartPublicConcerns from '../components/echart_public_concerns';
 import EchartLeader from '../components/echart_leader';
 import { useRouter } from 'next/navigation';
-import { PageSubTitle, WARNA } from '@/modules/_global';
-import { funGetEmotionRegionalInsight } from '..';
+import { Glitch, PageSubTitle, WARNA } from '@/modules/_global';
+import { funGetEmotionRegionalInsight, funGetEmotionRegionalInsightNew } from '..';
 import _ from 'lodash';
-
-const dataKabupaten = [
-  {
-    id: 1,
-    name: "DENPASAR"
-  },
-  {
-    id: 2,
-    name: "BADUNG"
-  },
-  {
-    id: 3,
-    name: "BULELENG"
-  },
-  {
-    id: 4,
-    name: "BANGLI"
-  },
-  {
-    id: 5,
-    name: "GIANYAR"
-  },
-  {
-    id: 6,
-    name: "JEMBRANA"
-  },
-  {
-    id: 7,
-    name: "KARANGASEM"
-  },
-  {
-    id: 8,
-    name: "KLUNGKUNG"
-  },
-  {
-    id: 9,
-    name: "TABANAN"
-  },
-]
+import { useHeadroom } from '@mantine/hooks';
+import { useAtom } from 'jotai';
+import { isDetactionNavbar } from '../val/isDetectionNavbar';
+import toast from 'react-simple-toasts';
 
 export default function ViewRegionalInsights({ oneCandidate, candidate, emotion, audience, pct, lta }: { oneCandidate: any, candidate: any, emotion: any, audience: any, pct: any, lta: any }) {
   const router = useRouter()
   const [listCandidate, setListCandidate] = useState(candidate)
   const [isCandidate, setCandidate] = useState(oneCandidate?.id == null ? candidate[0]?.id : oneCandidate.id)
   const [isData, setData] = useState(emotion)
+  const [isGlitch, setGlitch] = useState(false)
+
+  const [isDetection, setDetection] = useAtom(isDetactionNavbar)
+  const pinned = useHeadroom({ fixedAt: 120 });
 
   async function onGenerate() {
-    const dataLoad = await funGetEmotionRegionalInsight({ candidate: isCandidate })
+    if (isCandidate == null || isCandidate == undefined) {
+      setGlitch(true)
+      await new Promise((r) =>
+        setTimeout(r, 300)
+      )
+      setGlitch(false)
+      return toast("Silahkan pilih kandidat", { theme: "light", position: 'center', })
+    }
+    const dataLoad = await funGetEmotionRegionalInsightNew({ candidate: isCandidate })
     setData(dataLoad)
   }
 
+
   return (
     <>
-      <PageSubTitle text1='WAWASAN' text2='REGIONAL' />
-      <Stack pt={20}>
-        <Box
-          style={{
-            backgroundColor: WARNA.ungu,
-            position: "sticky",
-            top: 0,
-            zIndex: 99,
-            paddingTop: 10,
-            paddingBottom: 10
-          }}
-        >
+      {isGlitch && <Glitch/>}
+      <Box
+        style={{
+          position: 'fixed',
+          top: 0,
+          right: 0,
+          padding: 20,
+          paddingBottom: 40,
+          height: isDetection ? rem(175) : rem(145),
+          zIndex: 20,
+          transform: `translate3d(0, ${pinned ? 0 : isDetection ? rem(-165) : rem(-145)}, 0)`,
+          transition: 'transform 400ms ease',
+          backgroundColor: WARNA.ungu,
+        }}
+        left={isDetection ? 250 : 100}
+      >
+        <PageSubTitle text1='WAWASAN' text2='REGIONAL' />
+        <Box>
           <Group justify='flex-end'>
             <Select
               placeholder="Kandidat"
@@ -86,6 +70,8 @@ export default function ViewRegionalInsights({ oneCandidate, candidate, emotion,
             <Button c={"dark"} bg={"white"} onClick={onGenerate}>HASIL</Button>
           </Group>
         </Box>
+      </Box>
+      <Stack pt={`calc(${rem(120)} + var(--mantine-spacing-md))`}>
         {isData && isData.map((item: any, i: any) => {
           return (
             <Box key={item.id} pt={20}>

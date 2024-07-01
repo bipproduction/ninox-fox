@@ -1,0 +1,39 @@
+Progress Ninox-Fox
+- all :: pergantian beberapa kalimat atau kata 
+
+- summary :: gambar peta dunia (opacity)
+- summary :: chart ganti garis warna aja (pending)
+- summary - table :: menjadi 4 kategori (hasil merupakan penjumlahan dari 2 kolom == 8 kolom)
+- summary - persen & line chart 
+:: positif (hasil penjumlahan 4 kolom (kategori = potensi mendukung dan mempertimbangkan)), 
+   netral (hasil penjumlahan 2 kolom (kategori = tidak tahu)), 
+   negatif (hasil penjumlahan 2 kolom (kategori = potensi tidak mendukung))
+
+- penilaian sentiment pemilih & data pasangan regional :: label jabatan pada nama kandidat
+- penilaian sentimen pemilih :: pie chart menjadi bar chart (4 kategori)
+- wawasan regional :: chart sentiment analisis menjadi 4 kategori (sama kyk summary)
+
+- emotion editor - dashboard admin :: table list 
+- emotion editor - dashboard admin :: format download csv
+- emotion editor - dashboard admin :: format upload csv
+
+- data pasangan regional :: bar chart (4 kategori)
+- regional data pairing - dashboard admin :: table list 
+- regional data pairing - dashboard admin :: format download csv
+- regional data pairing - dashboard admin :: format upload csv
+
+- mlai :: tambahan menu "data learner"
+     - data learner 
+     (?) load bottom data saat klik send 
+- mlai :: dicantumkan request/pertanyaan dari user
+- mlai - dashboard admin :: memberi tanda pada menu mengenai jumlah data request yang blm terjawab 
+- tambah mlai - dashboard admin :: tidak required (klo kosong = waktu sekarang)
+
+- notifikasi di ganti menjadi icon lonceng, posisi di kanan atas (sticky)
+     (?) tabrakan dg beberapa fitur 
+- notifikasi yang telah dibaca menjadi redup
+     (?) bermasalah pada load bottom saat klik "tandai telah dibaca"
+
+----------
+- tampilan di ta sudah Responsive
+- Regional data pairing (Rate)
