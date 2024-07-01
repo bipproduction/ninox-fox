@@ -24,8 +24,4 @@ NextJS, Mantine, Prisma Postgres
 
 ![gambar](ninox.png)
 
-
-makuro_123
-makuro
-
-__ubah dikir v1.0.2__
+ini server build
