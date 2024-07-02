@@ -26,7 +26,7 @@ export default function ModalUploadPct({ data, onSuccess }: { data: any, onSucce
         }
         await funUploadPct({ body: data })
         await funLogUser({ act: 'UPL', desc: `User mengupload data Tren Perhatian Publik`, idContent: '-', tbContent: 'pct' })
-        await funAddNotifications({ kategori: 'pct', provinsiId: prov?.id })
+        // await funAddNotifications({ kategori: 'pct', provinsiId: prov?.id })
         setLoading(false)
         toast('Success', { theme: 'dark' })
         setOpenModal(false)

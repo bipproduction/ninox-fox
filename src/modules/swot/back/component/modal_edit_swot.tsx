@@ -27,7 +27,7 @@ export default function ModalEditSwot({ data, content }: { data: any, content: a
         }
         const edit = await funEditSwot({ body: data, text: content })
         await funLogUser({ act: 'UPD', desc: `User mengubah data SWOT`, idContent: data.id, tbContent: 'swot' })
-        await funAddNotifications({ kategori: 'swot', candidateId: data.idCandidate })
+        // await funAddNotifications({ kategori: 'swot', candidateId: data.idCandidate })
         toast("Sukses", { theme: "dark" });
         setOpenModal(false);
         setLoading(false)

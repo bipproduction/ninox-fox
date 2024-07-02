@@ -11,14 +11,22 @@ import papa from 'papaparse'
 import { useAtom } from "jotai"
 import { isModalEmotion } from "../val/val_emotion"
 import { ModalUploadEmotion } from "../.."
+import { funGetOneCandidate } from "@/modules/candidate"
+import _ from "lodash"
+import funPreviewUploadEmotion from "../fun/preview_upload_emotion"
 
 export default function ViewUploadEmotion() {
     const [json, setJson] = useState<any[]>([])
+    const [jsonPreview, setJsonPreview] = useState<any[]>([])
+    const [audience, setAudience] = useState<any[]>([])
+    const [lainnya, setLainnya] = useState<any>({})
     const [openModal, setOpenModal] = useAtom(isModalEmotion)
     const [isLoading, setLoading] = useState(false)
+    let enableToUpload = true
 
 
     async function onLoad(data: any) {
+        setLoading(true)
         if (data.length > 0) {
             if (
                 ('id' in data[0]) &&
@@ -42,15 +50,36 @@ export default function ViewUploadEmotion() {
                 ('PotensiTidakMendukungFix' in data[0]) &&
                 ('PotensiTidakMendukungBerubah' in data[0])
             ) {
-                setJson(data as any)
+                const candidate = await funGetOneCandidate({ id: data[0].idCandidate })
+                if (!_.isEmpty(candidate)) {
+                    setJson(data as any)
+                    const dataPreview = await funPreviewUploadEmotion({ csv: data, tingkat: candidate.tingkat, prov: candidate.idProvinsi, kab: candidate.idKabkot })
+                    setJsonPreview(dataPreview.data)
+                    setAudience(dataPreview.audience)
+                    setLainnya(dataPreview.lainnya)
+                } else {
+                    setJsonPreview([])
+                    setAudience([])
+                    setLainnya({})
+                    setJson([])
+                    toast('Kandidat tidak ditemukan', { theme: 'dark' })
+                }
             } else {
+                setJsonPreview([])
+                setAudience([])
+                setLainnya({})
                 setJson([])
                 toast('Format CSV salah', { theme: 'dark' })
             }
         } else {
+            setJsonPreview([])
+            setAudience([])
+            setLainnya({})
             setJson([])
             toast('Data Kosong', { theme: 'dark' })
         }
+
+        setLoading(false)
     }
 
 
@@ -135,7 +164,7 @@ export default function ViewUploadEmotion() {
                                         }}
                                     >
 
-
+                                        <Text fw={"bold"} ta={"center"}>{lainnya.candidate + ' (' + lainnya.date + ')'}</Text>
                                         <ScrollArea>
                                             <Table
                                                 withTableBorder
@@ -149,13 +178,16 @@ export default function ViewUploadEmotion() {
                                                             borderBottom: "1px solid #CED4D9",
                                                         }}
                                                     >
-                                                        <Table.Th rowSpan={2} ta={"center"}>ID</Table.Th>
+                                                        {/* <Table.Th rowSpan={2} ta={"center"}>ID</Table.Th>
                                                         <Table.Th rowSpan={2} ta={"center"}>Candidate</Table.Th>
                                                         <Table.Th rowSpan={2} ta={"center"}>Provinsi</Table.Th>
-                                                        <Table.Th rowSpan={2} ta={"center"}>Kabupaten/Kota</Table.Th>
-                                                        <Table.Th rowSpan={2} ta={"center"}>Kecamatan</Table.Th>
-                                                        <Table.Th rowSpan={2} ta={"center"}>Kelurahan</Table.Th>
-                                                        <Table.Th rowSpan={2} ta={"center"}>Tanggal</Table.Th>
+                                                        <Table.Th rowSpan={2} ta={"center"}>Kabupaten/Kota</Table.Th> */}
+                                                        <Table.Th rowSpan={2} ta={"center"}>{lainnya.th}</Table.Th>
+                                                        {/* <Table.Th rowSpan={2} ta={"center"}>Kelurahan</Table.Th> */}
+                                                        {/* <Table.Th rowSpan={2} ta={"center"}>Tanggal</Table.Th> */}
+                                                        <Table.Th rowSpan={2} ta={"center"}>Suara Terkunci</Table.Th>
+                                                        <Table.Th rowSpan={2} ta={"center"}>Maksimal Terfilter</Table.Th>
+                                                        <Table.Th rowSpan={2} ta={"center"}>Suara Terfilter</Table.Th>
                                                         <Table.Th colSpan={2} ta={"center"}>Potensi Mendukung</Table.Th>
                                                         <Table.Th colSpan={2} ta={"center"}>Mempertimbangkan</Table.Th>
                                                         <Table.Th colSpan={2} ta={"center"}>Tidak Tahu</Table.Th>
@@ -177,24 +209,39 @@ export default function ViewUploadEmotion() {
                                                     </Table.Tr>
                                                 </Table.Thead>
                                                 <Table.Tbody>
-                                                    {json.map((home: any, i: any) =>
-                                                        <Table.Tr key={i + 1}>
-                                                            <Table.Td>{home.id}</Table.Td>
+                                                    {jsonPreview.map((home: any, i: any) => {
+                                                        let warna = 'white'
+                                                        if (home.filtered > audience.filter((i: any) => i.idArea == home.idArea)[0]?.valueFilteredMax) {
+                                                            warna = 'red'
+                                                            if (enableToUpload == true)
+                                                                enableToUpload = false
+                                                        }
+
+                                                        return (
+                                                            <Table.Tr key={i + 1} bg={warna}>
+                                                                {/* <Table.Td>{home.id}</Table.Td>
                                                             <Table.Td>{home.candidate}</Table.Td>
-                                                            <Table.Td>{home.provinsi}</Table.Td>
-                                                            <Table.Td>{home.kabkot}</Table.Td>
-                                                            <Table.Td>{home.kecamatan}</Table.Td>
+                                                            <Table.Td>{home.provinsi}</Table.Td> */}
+                                                                <Table.Td>{home.name}</Table.Td>
+                                                                {/* <Table.Td>{home.kecamatan}</Table.Td>
                                                             <Table.Td>{home.kelurahan}</Table.Td>
-                                                            <Table.Td>{home.date}</Table.Td>
-                                                            <Table.Td>{home.PotensiMendukungFix}</Table.Td>
-                                                            <Table.Td>{home.PotensiMendukungBerubah}</Table.Td>
-                                                            <Table.Td>{home.MempertimbangkanFix}</Table.Td>
-                                                            <Table.Td>{home.MempertimbangkanBerubah}</Table.Td>
-                                                            <Table.Td>{home.TidakTahuFix}</Table.Td>
-                                                            <Table.Td>{home.TidakTahuBerubah}</Table.Td>
-                                                            <Table.Td>{home.PotensiTidakMendukungFix}</Table.Td>
-                                                            <Table.Td>{home.PotensiTidakMendukungBerubah}</Table.Td>
-                                                        </Table.Tr>
+                                                            <Table.Td>{home.date}</Table.Td> */}
+                                                                <Table.Td>{audience.filter((i: any) => i.idArea == home.idArea)[0]?.value}</Table.Td>
+                                                                <Table.Td>{audience.filter((i: any) => i.idArea == home.idArea)[0]?.valueFilteredMax}</Table.Td>
+                                                                <Table.Td>{home.filtered}</Table.Td>
+                                                                <Table.Td>{home.PotensiMendukungFix}</Table.Td>
+                                                                <Table.Td>{home.PotensiMendukungBerubah}</Table.Td>
+                                                                <Table.Td>{home.MempertimbangkanFix}</Table.Td>
+                                                                <Table.Td>{home.MempertimbangkanBerubah}</Table.Td>
+                                                                <Table.Td>{home.TidakTahuFix}</Table.Td>
+                                                                <Table.Td>{home.TidakTahuBerubah}</Table.Td>
+                                                                <Table.Td>{home.PotensiTidakMendukungFix}</Table.Td>
+                                                                <Table.Td>{home.PotensiTidakMendukungBerubah}</Table.Td>
+                                                            </Table.Tr>
+                                                        )
+
+                                                    }
+
                                                     )}
                                                 </Table.Tbody>
                                             </Table>
@@ -239,7 +286,7 @@ export default function ViewUploadEmotion() {
                 withCloseButton={false}
                 closeOnClickOutside={false}
             >
-                <ModalUploadEmotion data={json} onSuccess={(val) => {
+                <ModalUploadEmotion data={json} enable = {enableToUpload} onSuccess={(val) => {
                     setJson([])
                 }} />
             </Modal>

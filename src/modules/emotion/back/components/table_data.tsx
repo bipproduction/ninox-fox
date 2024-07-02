@@ -2,73 +2,18 @@
 import { Box, ScrollArea, Table, Text } from "@mantine/core";
 import React, { useEffect, useState } from "react";
 
-const data = [
-  {
-    id: 1,
-    kabupaten: "BADUNG",
-    Confidence: 232,
-    Supportive: 21,
-    Positive: 311,
-    Undecided: 32,
-    Unsupportive: 21,
-    Negative: 3232,
-    Disapproval: 211,
-  },
-  {
-    id: 2,
-    kabupaten: "DENPASAR",
-    Confidence: 232,
-    Supportive: 21,
-    Positive: 311,
-    Undecided: 32,
-    Unsupportive: 21,
-    Negative: 3232,
-    Disapproval: 211,
-  },
-  {
-    id: 3,
-    kabupaten: "BULELENG",
-    Confidence: 232,
-    Supportive: 21,
-    Positive: 311,
-    Undecided: 32,
-    Unsupportive: 21,
-    Negative: 3232,
-    Disapproval: 211,
-  },
-  {
-    id: 4,
-    kabupaten: "GIANYAR",
-    Confidence: 232,
-    Supportive: 21,
-    Positive: 311,
-    Undecided: 32,
-    Unsupportive: 21,
-    Negative: 3232,
-    Disapproval: 211,
-  },
-  {
-    id: 5,
-    kabupaten: "TABANAN",
-    Confidence: 232,
-    Supportive: 21,
-    Positive: 311,
-    Undecided: 32,
-    Unsupportive: 21,
-    Negative: 3232,
-    Disapproval: 211,
-  },
-];
 /**
  * Fungsi untuk mendapatkan nilai dari table.
  * @returns  Hasil menampilkan tabel beserta valuenya.
  */
-export default function TableData({ title, data, th }: { title: string, data: any, th: any }) {
+export default function TableData({ title, data, th, audience }: { title: string, data: any, th: any, audience: any }) {
   const [isData, setData] = useState(data)
+  const [isAudience, setAudience] = useState(audience)
 
   useEffect(() => {
     setData(data)
-  }, [data])
+    setAudience(audience)
+  }, [data, audience])
 
 
   return (
@@ -98,6 +43,9 @@ export default function TableData({ title, data, th }: { title: string, data: an
                     <Table.Tr>
                       <Table.Th rowSpan={2} ta={"center"}>NO</Table.Th>
                       <Table.Th w={250} rowSpan={2} ta={"center"}>{th}</Table.Th>
+                      {/* <Table.Th rowSpan={2} ta={"center"}>SUARA TERKUNCI</Table.Th>
+                      <Table.Th rowSpan={2} ta={"center"}>MAKSIMAL TERFILTER</Table.Th> */}
+                      <Table.Th rowSpan={2} ta={"center"}>SUARA TERFILTER</Table.Th>
                       <Table.Th colSpan={2} ta={"center"}>POTENSI MENDUKUNG</Table.Th>
                       <Table.Th colSpan={2} ta={"center"}>MEMPERTIMBANGKAN</Table.Th>
                       <Table.Th colSpan={2} ta={"center"}>TIDAK TAHU</Table.Th>
@@ -116,9 +64,15 @@ export default function TableData({ title, data, th }: { title: string, data: an
                   </Table.Thead>
                   <Table.Tbody>
                     {isData.map((v: any, i: any) => (
-                      <Table.Tr key={i}>
+                      <Table.Tr
+                        key={i}
+                        // bg={(v.filtered > isAudience.filter((i: any) => i.idArea === v.idArea)[0].valueFilteredMax) ? 'red' : 'white'}
+                      >
                         <Table.Td>{i + 1}</Table.Td>
                         <Table.Td w={250}>{v.name}</Table.Td>
+                        {/* <Table.Td ta={"right"}>{isAudience.filter((i: any) => i.idArea === v.idArea)[0].value}</Table.Td>
+                        <Table.Td ta={"right"}>{isAudience.filter((i: any) => i.idArea === v.idArea)[0].valueFilteredMax}</Table.Td> */}
+                        <Table.Td ta={"right"}>{v.filtered}</Table.Td>
                         <Table.Td ta={"right"}>{v.confidence}</Table.Td>
                         <Table.Td ta={"right"}>{v.supportive}</Table.Td>
                         <Table.Td ta={"right"}>{v.positive}</Table.Td>
