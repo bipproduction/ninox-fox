@@ -9,7 +9,7 @@ import { funAddNotifications, funGetAccessArea } from "@/modules/_global"
 import { funLogUser } from "@/modules/user"
 import moment from "moment"
 
-export default function ModalUploadEmotion({ data, onSuccess }: { data: any, onSuccess: (val: any) => void }) {
+export default function ModalUploadEmotion({ data, enable, onSuccess }: { data: any, enable: boolean, onSuccess: (val: any) => void }) {
     const [openModal, setOpenModal] = useAtom(isModalEmotion)
     const [isLoading, setLoading] = useState(false)
 
@@ -34,21 +34,40 @@ export default function ModalUploadEmotion({ data, onSuccess }: { data: any, onS
             <Box>
                 <Alert color="gray" variant="outline">
                     <Text fw={700} ta={"center"} mb={20} mt={20}>
-                        ANDA YAKIN INGIN MENGUPLOAD DATA SENTIMEN KANDIDAT?
+                        {
+                            (!enable) ? 'Anda tidak dapat mengupload data, karena suara terfilter melebihi maksimal suara terfilter' : 'ANDA YAKIN INGIN MENGUPLOAD DATA SENTIMEN KANDIDAT?'
+                        }
                     </Text>
-                    <Group justify="space-between" pt={10}>
-                        <Button
-                            radius={10}
-                            color="gray.7"
-                            w={150}
-                            onClick={() => setOpenModal(false)}
-                        >
-                            TIDAK
-                        </Button>
-                        <Button loading={isLoading} radius={10} color="gray.7" w={150} onClick={() => onUpload()}>
-                            YA
-                        </Button>
-                    </Group>
+
+                    {
+                        (!enable)
+                            ? (
+                                <>
+                                    <Button
+                                        fullWidth
+                                        radius={10}
+                                        color="gray.7"
+                                        onClick={() => setOpenModal(false)}
+                                    >
+                                        TUTUP
+                                    </Button>
+                                </>
+                            ) : (
+                                <Group justify="space-between" pt={10}>
+                                    <Button
+                                        radius={10}
+                                        color="gray.7"
+                                        w={150}
+                                        onClick={() => setOpenModal(false)}
+                                    >
+                                        TIDAK
+                                    </Button>
+                                    <Button loading={isLoading} radius={10} color="gray.7" w={150} onClick={() => onUpload()}>
+                                        YA
+                                    </Button>
+                                </Group>
+                            )
+                    }
                 </Alert>
             </Box>
         </>

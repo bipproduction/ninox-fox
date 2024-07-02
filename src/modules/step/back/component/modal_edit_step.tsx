@@ -27,7 +27,7 @@ export default function ModalEditStep({ data, content }: { data: any, content: a
         }
         const edit = await funEditStep({ body: data, text: content })
         await funLogUser({ act: 'UPD', desc: `User mengubah data STEP`, idContent: data.id, tbContent: 'step' })
-        await funAddNotifications({ kategori: 'step', candidateId: data.idCandidate })
+        // await funAddNotifications({ kategori: 'step', candidateId: data.idCandidate })
         toast("Sukses", { theme: "dark" });
         setOpenModal(false);
         setLoading(false)

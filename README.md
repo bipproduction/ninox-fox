@@ -5,6 +5,7 @@
 
 ### Features
 - coming soon ....
+- test
 
 
 ### Tech Stack
@@ -24,4 +25,7 @@ NextJS, Mantine, Prisma Postgres
 ![gambar](ninox.png)
 
 
-version: v1.0.0
+makuro_123
+makuro
+
+__ubah dikir v1.0.2__

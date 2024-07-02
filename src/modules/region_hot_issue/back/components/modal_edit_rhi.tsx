@@ -26,7 +26,7 @@ export default function ModalEditRhi({ dataId, provinsi, content }: { dataId: an
         const res = await funEditRhi({ id: dataId, text: content });
         if (!res.success) return toast("Failed! " + res.message, { theme: "dark" });
         await funLogUser({ act: 'UPD', desc: `User mengubah data Isu Wilayah`, idContent: dataId, tbContent: 'rhi' })
-        await funAddNotifications({ kategori: 'rhi', provinsiId: provinsi })
+        // await funAddNotifications({ kategori: 'rhi', provinsiId: provinsi })
         toast("Success", { theme: "dark" })
         setOpenModal(false)
         setLoading(false)

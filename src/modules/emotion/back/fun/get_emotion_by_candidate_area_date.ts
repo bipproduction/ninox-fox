@@ -10,7 +10,7 @@ import _ from "lodash";
  */
 
 export default async function funGetEmotionByCandidateAreaDate({ find }: { find: any }) {
-    let titleTrue, dataTable = <any>[], area, th, result = <any>[]
+    let titleTrue, dataTable = <any>[], area, th, result = <any>[], audience = <any>[]
 
     const nProv = await provinsiCount();
 
@@ -54,6 +54,7 @@ export default async function funGetEmotionByCandidateAreaDate({ find }: { find:
 
             result = _.map(_.groupBy(result, "idKabkot"), (v: any) => ({
                 name: _.toString(v[0].name),
+                idArea: v[0].idKabkot,
                 confidence: _.sumBy(v, 'confidence'),
                 dissapproval: _.sumBy(v, 'dissapproval'),
                 negative: _.sumBy(v, 'negative'),
@@ -62,7 +63,30 @@ export default async function funGetEmotionByCandidateAreaDate({ find }: { find:
                 uncomfortable: _.sumBy(v, 'uncomfortable'),
                 undecided: _.sumBy(v, 'undecided'),
                 unsupportive: _.sumBy(v, 'unsupportive'),
+                filtered: _.sum([
+                    _.sumBy(v, 'confidence'),
+                    _.sumBy(v, 'dissapproval'),
+                    _.sumBy(v, 'negative'),
+                    _.sumBy(v, 'positive'),
+                    _.sumBy(v, 'supportive'),
+                    _.sumBy(v, 'uncomfortable'),
+                    _.sumBy(v, 'undecided'),
+                    _.sumBy(v, 'unsupportive'),
+                ])
             }))
+
+            const dataAudience = await prisma.audience.findMany({
+                where: {
+                    idProvinsi: find.idProvinsi
+                }
+            })
+
+            audience = _.map(_.groupBy(dataAudience, "idKabkot"), (v: any) => ({
+                idArea: v[0].idKabkot,
+                value: _.sumBy(v, 'value'),
+                valueFilteredMax: _.sumBy(v, 'valueFilteredMax')
+            }))
+
 
             area = await prisma.areaProvinsi.findUnique({
                 where: {
@@ -106,6 +130,7 @@ export default async function funGetEmotionByCandidateAreaDate({ find }: { find:
 
             result = _.map(_.groupBy(result, "idKecamatan"), (v: any) => ({
                 name: _.toString(v[0].name),
+                idArea: v[0].idKecamatan,
                 confidence: _.sumBy(v, 'confidence'),
                 dissapproval: _.sumBy(v, 'dissapproval'),
                 negative: _.sumBy(v, 'negative'),
@@ -114,6 +139,28 @@ export default async function funGetEmotionByCandidateAreaDate({ find }: { find:
                 uncomfortable: _.sumBy(v, 'uncomfortable'),
                 undecided: _.sumBy(v, 'undecided'),
                 unsupportive: _.sumBy(v, 'unsupportive'),
+                filtered: _.sum([
+                    _.sumBy(v, 'confidence'),
+                    _.sumBy(v, 'dissapproval'),
+                    _.sumBy(v, 'negative'),
+                    _.sumBy(v, 'positive'),
+                    _.sumBy(v, 'supportive'),
+                    _.sumBy(v, 'uncomfortable'),
+                    _.sumBy(v, 'undecided'),
+                    _.sumBy(v, 'unsupportive'),
+                ])
+            }))
+
+            const dataAudience = await prisma.audience.findMany({
+                where: {
+                    idKabkot: find.idKabkot
+                }
+            })
+
+            audience = _.map(_.groupBy(dataAudience, "idKecamatan"), (v: any) => ({
+                idArea: v[0].idKecamatan,
+                value: _.sumBy(v, 'value'),
+                valueFilteredMax: _.sumBy(v, 'valueFilteredMax')
             }))
 
             area = await prisma.areaKabkot.findUnique({
@@ -134,7 +181,8 @@ export default async function funGetEmotionByCandidateAreaDate({ find }: { find:
     const allData = {
         title: titleTrue,
         data: result,
-        th: th
+        th: th,
+        audience: audience
     }
 
     return allData
