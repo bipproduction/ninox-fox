@@ -210,7 +210,7 @@ export default function ViewBackEmotion({ param, provinsi, kabupaten, candidate,
       </Box>
       {!_.isNull(datatable.title) && (
         <Box pt={20}>
-          <TableData title={datatable.title} data={datatable.data} th={datatable.th} />
+          <TableData title={datatable.title} data={datatable.data} th={datatable.th} audience={datatable.audience}/>
         </Box>
       )}
     </>
