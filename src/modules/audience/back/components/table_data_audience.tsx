@@ -42,15 +42,17 @@ export default function TableDataAudience({ title, data, th }: { title: string, 
                     <Table.Tr>
                       <Table.Th>NO</Table.Th>
                       <Table.Th>{th}</Table.Th>
-                      <Table.Th>VALUE</Table.Th>
+                      <Table.Th ta={"center"}>SUARA TERKUNCI</Table.Th>
+                      <Table.Th ta={"center"}>MAKSIMAL SUARA TERFILTER</Table.Th>
                     </Table.Tr>
                   </Table.Thead>
                   <Table.Tbody>
                     {isData.map((v: any, i: any) => (
                       <Table.Tr key={i}>
-                        <Table.Td>{i+1}</Table.Td>
+                        <Table.Td>{i + 1}</Table.Td>
                         <Table.Td>{v.name}</Table.Td>
-                        <Table.Td>{v.value}</Table.Td>
+                        <Table.Td ta={"center"}>{v.value}</Table.Td>
+                        <Table.Td ta={"center"}>{v.valueFilteredMax}</Table.Td>
                       </Table.Tr>
                     ))}
                   </Table.Tbody>

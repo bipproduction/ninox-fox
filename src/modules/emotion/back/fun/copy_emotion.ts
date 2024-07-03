@@ -1,6 +1,7 @@
 'use server'
 import prisma from "@/modules/_global/bin/prisma"
 import _ from "lodash"
+import { revalidatePath } from "next/cache";
 
 export default async function funCopyEmotion({ dateFrom, dateTo, candidate }: { dateFrom: any, dateTo: any, candidate: any }) {
     const data = await prisma.candidateEmotion.findMany({
@@ -47,6 +48,8 @@ export default async function funCopyEmotion({ dateFrom, dateTo, candidate }: { 
     const insert = await prisma.candidateEmotion.createMany({
         data: dataTrue
     })
+
+    revalidatePath(`dashboard/emotion`)
 
     return {
         success: true,

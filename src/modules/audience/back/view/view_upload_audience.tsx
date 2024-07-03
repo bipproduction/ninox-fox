@@ -22,7 +22,7 @@ export default function ViewUploadAudience() {
     async function onLoad(data: any) {
         if (data.length > 0) {
             // jika data yg diupload ada datanya (length>0)
-            if (('id' in data[0]) && ('Provinsi' in data[0]) && ('Kabkot' in data[0]) && ('Kecamatan' in data[0]) && ('Kelurahan' in data[0]) && ('value' in data[0])) {
+            if (('id' in data[0]) && ('Provinsi' in data[0]) && ('Kabkot' in data[0]) && ('Kecamatan' in data[0]) && ('value' in data[0]) && ('valueFilteredMax' in data[0])) {
                 // jika format csv benar, maka variable json di isi dengan data csv
                 setJson(data as any)
             } else {
@@ -136,8 +136,9 @@ export default function ViewUploadAudience() {
                                                         <Table.Th>Provinsi</Table.Th>
                                                         <Table.Th>Kabupaten/Kota</Table.Th>
                                                         <Table.Th>Kecamatan</Table.Th>
-                                                        <Table.Th>Kelurahan</Table.Th>
-                                                        <Table.Th>Value</Table.Th>
+                                                        {/* <Table.Th>Kelurahan</Table.Th> */}
+                                                        <Table.Th>Value Suara Terkunci</Table.Th>
+                                                        <Table.Th>Maksimal Value Suara Terfilter</Table.Th>
                                                     </Table.Tr>
                                                 </Table.Thead>
                                                 <Table.Tbody>
@@ -147,8 +148,9 @@ export default function ViewUploadAudience() {
                                                             <Table.Td>{home.Provinsi}</Table.Td>
                                                             <Table.Td>{home.Kabkot}</Table.Td>
                                                             <Table.Td>{home.Kecamatan}</Table.Td>
-                                                            <Table.Td>{home.Kelurahan}</Table.Td>
+                                                            {/* <Table.Td>{home.Kelurahan}</Table.Td> */}
                                                             <Table.Td>{home.value}</Table.Td>
+                                                            <Table.Td>{home.valueFilteredMax}</Table.Td>
                                                         </Table.Tr>
                                                     )}
                                                 </Table.Tbody>

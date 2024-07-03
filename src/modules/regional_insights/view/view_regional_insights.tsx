@@ -77,9 +77,9 @@ export default function ViewRegionalInsights({ oneCandidate, candidate, emotion,
             <Box key={item.id} pt={20}>
               <Group justify='space-between' pb={10}>
                 <Text fz={26} fw={"bold"} c={"white"}>{_.upperCase(item.name)}</Text>
-                <Box>
+                {/* <Box>
                   <Button w={130} c={"dark"} bg={"white"} onClick={() => router.push("/insights/" + isCandidate + "/" + item.id + "")}>DETAIL</Button>
-                </Box>
+                </Box> */}
               </Group>
               <EchartSentimentAnalysis dataEmotion={item} dataLocked={audience} />
               <Grid gutter={30} pt={20} pb={30}>

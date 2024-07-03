@@ -12,6 +12,7 @@ export default async function funGetOneCandidate({ id }: { id: any }) {
             idProvinsi: true,
             name: true,
             img: true,
+            tingkat: true,
             AreaProvinsi: {
                 select: {
                     name: true
@@ -32,7 +33,8 @@ export default async function funGetOneCandidate({ id }: { id: any }) {
         idProvinsi: data?.idProvinsi,
         AreaProvinsi: data?.AreaProvinsi?.name,
         AreaKabkot: data?.AreaKabkot?.name,
-        img: data?.img
+        img: data?.img,
+        tingkat : data?.tingkat
     }
     return allData
 }

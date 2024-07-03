@@ -34,7 +34,7 @@
     {
         "id": 5,
         "keyMenu": "md4",
-        "menu": "Suara Terkunci",
+        "menu": "Suara Terkunci dan Maksimal Suara Terfilter",
         "owner": "admin",
         "group": "dataRegion",
         "link": "/dashboard/audience"
