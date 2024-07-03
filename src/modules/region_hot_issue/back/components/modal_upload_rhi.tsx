@@ -27,7 +27,7 @@ export default function ModalUploadRhi({ data, onSuccess }: { data: any, onSucce
         }
         await funUploadRhi({ body: data })
         await funLogUser({ act: 'UPL', desc: `User mengupload data Isu Wilayah`, idContent: '-', tbContent: 'rhi' })
-        await funAddNotifications({ kategori: 'rhi', provinsiId: prov?.id })
+        // await funAddNotifications({ kategori: 'rhi', provinsiId: prov?.id })
         setLoading(false)
         toast('Success', { theme: 'dark' })
         setOpenModal(false)

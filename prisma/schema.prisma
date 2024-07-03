@@ -416,7 +416,7 @@ model Candidate {
 }
 
 model MlAi {
-  id            String          @id @default(cuid())
+  id            String       @id @default(cuid())
   Candidate     Candidate    @relation(fields: [idCandidate], references: [id])
   idCandidate   String
   MlAiRequest   MlAiRequest? @relation(fields: [idRequestMlAi], references: [id])
@@ -468,19 +468,20 @@ model Step {
 }
 
 model Audience {
-  id            Int            @id @default(autoincrement())
-  AreaProvinsi  AreaProvinsi?  @relation(fields: [idProvinsi], references: [id])
-  idProvinsi    Int?
-  AreaKabkot    AreaKabkot?    @relation(fields: [idKabkot], references: [id])
-  idKabkot      Int?
-  AreaKecamatan AreaKecamatan? @relation(fields: [idKecamatan], references: [id])
-  idKecamatan   Int?
-  AreaKelurahan AreaKelurahan? @relation(fields: [idKelurahan], references: [id])
-  idKelurahan   Int?
-  value         Int
-  isActive      Boolean        @default(true)
-  createdAt     DateTime       @default(now())
-  updatedAt     DateTime       @updatedAt
+  id               Int            @id @default(autoincrement())
+  AreaProvinsi     AreaProvinsi?  @relation(fields: [idProvinsi], references: [id])
+  idProvinsi       Int?
+  AreaKabkot       AreaKabkot?    @relation(fields: [idKabkot], references: [id])
+  idKabkot         Int?
+  AreaKecamatan    AreaKecamatan? @relation(fields: [idKecamatan], references: [id])
+  idKecamatan      Int?
+  AreaKelurahan    AreaKelurahan? @relation(fields: [idKelurahan], references: [id])
+  idKelurahan      Int?
+  value            Int            @default(0)
+  valueFilteredMax Int            @default(0)
+  isActive         Boolean        @default(true)
+  createdAt        DateTime       @default(now())
+  updatedAt        DateTime       @updatedAt
 }
 
 model CandidateEmotion {
