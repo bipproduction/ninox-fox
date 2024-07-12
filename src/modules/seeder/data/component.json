@@ -158,5 +158,13 @@
         "owner": "admin",
         "group": "dataMLAI",
         "link": "/dashboard/ml-ai/request"
+    },
+    {
+        "id": 21,
+        "keyMenu": "md20",
+        "menu": "Setting Data Emotion",
+        "owner": "developer",
+        "group": "dataDeveloper",
+        "link": "/dashboard/setting-data"
     }
 ]

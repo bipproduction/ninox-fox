@@ -51,60 +51,60 @@ export default function ViewDeleteCandidate({ param, provinsi, kabupaten, candid
     if (_.isNull(isProvinsi)) return toast("Silahkan pilih provinsi", { theme: "dark" })
     if (_.isNull(isCandidate)) return toast("Silahkan pilih kandidat", { theme: "dark" })
     setOpenModal(true)
-    
+
   }
   return (
     <>
       <Stack>
-        <Text fw={"bold"}>HAPUS KANDIDAT</Text>
+        <Text fw={"bold"}>HAPUS DATA EMOSI KANDIDAT</Text>
       </Stack>
       <Box>
-            <Paper shadow="xs" p="xl">
-              <Stack>
-                <Select
-                  placeholder="Pilih Provinsi"
-                  data={dataProvinsi.map((pro: any) => ({
-                    value: String(pro.id),
-                    label: pro.name
-                  }))}
-                  value={isProvinsi}
-                  required
-                  label={"Provinsi"}
-                  searchable
-                  onChange={(val) => onProvinsi({ idProv: val })}
-                />
-                <Select
-                  placeholder="Pilih Kabupaten/Kota"
-                  data={dataKabupaten.map((kab: any) => ({
-                    value: String(kab.id),
-                    label: kab.name
-                  }))}
-                  value={isKabupaten}
-                  label="Kabupaten/Kota"
-                  searchable
-                  onChange={(val) => onKabupaten({ idKab: val })}
-                />
-                <Select
-                  placeholder="Pilih Kandidat"
-                  data={dataCandidate.map((can: any) => ({
-                    value: String(can.id),
-                    label: can.name
-                  }))}
-                  required
-                  value={isCandidate}
-                  label={"Kandidat"}
-                  searchable
-                  onChange={(val) => { setCandidate(val)}}
-                />
-                <DateInput valueFormat="DD-MM-YYYY" required value={isDate}
-                  label={"Select Date"} placeholder="SELECT DATE" onChange={(val) => { setDate(val) }} />
-                <Button bg={"gray"} onClick={() => onProccess()}>
-                  PROSES
-                </Button>
-              </Stack>
-            </Paper>
-          </Box>
-          <Modal
+        <Paper shadow="xs" p="xl">
+          <Stack>
+            <Select
+              placeholder="Pilih Provinsi"
+              data={dataProvinsi.map((pro: any) => ({
+                value: String(pro.id),
+                label: pro.name
+              }))}
+              value={(!_.isNull(isProvinsi) ? String(isProvinsi) : null)}
+              required
+              label={"Provinsi"}
+              searchable
+              onChange={(val) => onProvinsi({ idProv: val })}
+            />
+            <Select
+              placeholder="Pilih Kabupaten/Kota"
+              data={dataKabupaten.map((kab: any) => ({
+                value: String(kab.id),
+                label: kab.name
+              }))}
+              value={(!_.isNull(isKabupaten) ? String(isKabupaten) : null)}
+              label="Kabupaten/Kota"
+              searchable
+              onChange={(val) => onKabupaten({ idKab: val })}
+            />
+            <Select
+              placeholder="Pilih Kandidat"
+              data={dataCandidate.map((can: any) => ({
+                value: String(can.id),
+                label: can.name
+              }))}
+              required
+              value={isCandidate}
+              label={"Kandidat"}
+              searchable
+              onChange={(val) => { setCandidate(val) }}
+            />
+            <DateInput valueFormat="DD-MM-YYYY" required value={isDate}
+              label={"Select Date"} placeholder="SELECT DATE" onChange={(val) => { setDate(val) }} />
+            <Button bg={"gray"} onClick={() => onProccess()}>
+              PROSES
+            </Button>
+          </Stack>
+        </Paper>
+      </Box>
+      <Modal
         size={"md"}
         opened={openModal}
         onClose={() => setOpenModal(false)}
@@ -112,8 +112,7 @@ export default function ViewDeleteCandidate({ param, provinsi, kabupaten, candid
         withCloseButton={false}
         closeOnClickOutside={false}
       >
-        <ModalDeleteCandidate isCandidate={isCandidate} isDateCan={isDate}  onSuccess={() => {
-          setCandidate(null)
+        <ModalDeleteCandidate isCandidate={isCandidate} isDateCan={isDate} onSuccess={() => {
           setDate(null)
         }} />
       </Modal>
