@@ -1,9 +1,38 @@
 import prisma from "@/modules/_global/bin/prisma"
 import _ from "lodash"
 
+export const dynamic = "force-dynamic"
 export async function GET() {
    const today = new Date()
    const yesterday = new Date(new Date().setDate(today.getDate() - 1))
+   const tlp = [628980185458, 6289697338821]
+
+   async function sendWA(kategori: string) {
+      let kalimat = ''
+
+      if (kategori == 'sukses') {
+         kalimat = '*NINOX* : copy data *sukses*'
+      } else if (kategori == 'already-exist') {
+         kalimat = '*NINOX* : copy data *gagal* karena data hari ini telah tersedia'
+      } else if (kategori == 'data-unavailable') {
+         kalimat = '*NINOX* : copy data *gagal* karena tidak ada data dihari sebelumnya'
+      }
+
+      for (let index = 0; index < tlp.length; index++) {
+         await fetch(`https://wa.wibudev.com/code?nom=${tlp[index]}&text=${kalimat}`, {
+            cache: "no-cache"
+         })
+         // .then(
+         //    async (res) => {
+         //       if (res.status == 200) {
+         // console.log('berhasil' + tlp[index])
+         //       } else {
+         // console.log('gagal' + tlp[index])
+         //       }
+         //    }
+         // )
+      }
+   }
 
    // data emosi kemarin
    const dataEmotionYesterday = await prisma.candidateEmotion.findMany({
@@ -76,13 +105,17 @@ export async function GET() {
             data: dataTrue
          })
 
+         sendWA('sukses')
          return Response.json({ success: true, message: 'Success' })
       } else {
+         sendWA('already-exist')
          return Response.json({ success: false, message: 'Data Already Exist' })
       }
 
    } else {
+      sendWA('data-unavailable')
       return Response.json({ success: false, message: 'Empty Data Yesterday' })
+
    }
 
 
