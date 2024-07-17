@@ -106,14 +106,18 @@ export async function GET() {
          })
 
          sendWA('sukses')
+         console.log(dataTrue)
+         console.log('sukses!!! dari tgl ' + yesterday + ' ke ' + today)
          return Response.json({ success: true, message: 'Success' })
       } else {
          sendWA('already-exist')
+         console.log('gagal!!! karena sudah ada data (dari tgl ' + yesterday + ' ke ' + today + ')')
          return Response.json({ success: false, message: 'Data Already Exist' })
       }
 
    } else {
       sendWA('data-unavailable')
+      console.log('gagal!!! karena data kemaren kosong (dari tgl ' + yesterday + ' ke ' + today + ')')
       return Response.json({ success: false, message: 'Empty Data Yesterday' })
 
    }

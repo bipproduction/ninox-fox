@@ -162,7 +162,7 @@
     {
         "id": 21,
         "keyMenu": "md20",
-        "menu": "Setting Data Emotion",
+        "menu": "Set Data Emotion",
         "owner": "developer",
         "group": "dataDeveloper",
         "link": "/dashboard/setting-data"
