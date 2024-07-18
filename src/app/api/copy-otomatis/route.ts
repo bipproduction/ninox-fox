@@ -1,10 +1,11 @@
 import prisma from "@/modules/_global/bin/prisma"
 import _ from "lodash"
+import moment from "moment"
 
 export const dynamic = "force-dynamic"
 export async function GET() {
-   const today = new Date()
-   const yesterday = new Date(new Date().setDate(today.getDate() - 1))
+   const today = moment().format('YYYY-MM-DD')
+   const yesterday = moment().subtract(1, 'days').format('YYYY-MM-DD')
    const tlp = [628980185458, 6289697338821]
 
    async function sendWA(kategori: string) {
@@ -37,7 +38,7 @@ export async function GET() {
    // data emosi kemarin
    const dataEmotionYesterday = await prisma.candidateEmotion.findMany({
       where: {
-         dateEmotion: yesterday
+         dateEmotion: new Date(yesterday)
       },
       select: {
          idCandidate: true,
@@ -69,7 +70,7 @@ export async function GET() {
       // data candidate yg ada emosinya hari ini
       const dataCandidateToday = await prisma.candidateEmotion.groupBy({
          where: {
-            dateEmotion: today
+            dateEmotion: new Date(today)
          },
          by: 'idCandidate'
       })
@@ -83,7 +84,7 @@ export async function GET() {
          // omit data sesuai dg struktur database
          const dataTrue = dataFilter.map((v: any) => ({
             ..._.omit(v, ["idCandidate", "idProvinsi", "idKabkot", "idKecamatan", "idKelurahan", "confidence", "supportive", "positive", "undecided", "unsupportive", "uncomfortable", "negative", "dissapproval"]),
-            dateEmotion: today,
+            dateEmotion: new Date(today),
             idCandidate: v.idCandidate,
             idProvinsi: v.idProvinsi,
             idKabkot: v.idKabkot,
@@ -107,17 +108,17 @@ export async function GET() {
 
          sendWA('sukses')
          console.log(dataTrue)
-         console.log('sukses!!! dari tgl ' + yesterday + ' ke ' + today)
+         console.log('sukses!!! dari tgl ' + yesterday + ' ke ' + today + '--' + new Date(today))
          return Response.json({ success: true, message: 'Success' })
       } else {
          sendWA('already-exist')
-         console.log('gagal!!! karena sudah ada data (dari tgl ' + yesterday + ' ke ' + today + ')')
+         console.log('gagal!!! karena sudah ada data (dari tgl ' + yesterday + ' ke ' + today + '--' + new Date(today) + ')')
          return Response.json({ success: false, message: 'Data Already Exist' })
       }
 
    } else {
       sendWA('data-unavailable')
-      console.log('gagal!!! karena data kemaren kosong (dari tgl ' + yesterday + ' ke ' + today + ')')
+      console.log('gagal!!! karena data kemaren kosong (dari tgl ' + yesterday + ' ke ' + today + '--' + new Date(today) + ')')
       return Response.json({ success: false, message: 'Empty Data Yesterday' })
 
    }
