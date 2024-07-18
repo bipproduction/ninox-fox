@@ -130,7 +130,7 @@
     {
         "id": 17,
         "keyMenu": "md16",
-        "menu": "Hapus Data",
+        "menu": "Hapus Data Emosi Kandidat",
         "owner": "developer",
         "group": "dataDeveloper",
         "link": "/dashboard/delete-data"
