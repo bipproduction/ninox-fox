@@ -43,7 +43,7 @@ export default function ModalBeranda({ areaPro, onSuccess }: { areaPro: any, onS
   async function onKabupaten({ idKab }: { idKab: any }) {
     setKabupaten(idKab)
     setCandidate(null)
-    const dataDbCan = await funGetCandidateActiveByArea({ find: { idProvinsi: Number(isProvinsi), idKabkot: Number(idKab), tingkat: 2 } })
+    const dataDbCan = await funGetCandidateActiveByArea({ find: { idProvinsi: Number(isProvinsi), idKabkot: Number(idKab), tingkat: (idKab == null) ? 1 : 2  } })
     setDataCandidate(dataDbCan)
   }
 
