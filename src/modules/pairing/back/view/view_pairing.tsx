@@ -40,8 +40,6 @@ export default function ViewPairing({ param, provinsi, kabupaten, candidate, dat
   const [isCandidate2, setCandidate2] = useState<any>(param.idCandidate2 || null)
   const [isDate, setDate] = useState<any>((_.isNull(param.date)) ? today : new Date(param.date))
 
-  console.log(datatable)
-
 
 
   useEffect(() => {
