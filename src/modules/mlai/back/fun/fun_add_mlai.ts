@@ -5,16 +5,18 @@ import { revalidatePath } from "next/cache";
 import mtqq_client from "../../../_global/util/mqtt_client"
 
 export default async function funAddMlAi({ body, content }: { body: any, content: any }) {
-  let dateInput, timeInput
+  let dateInput, timeInput, outputTime
   const now = new Date()
   if (body.dateContent == '' || body.timeContent == '') {
     dateInput = moment(now).format('YYYY-MM-DD')
     let y = new Date('1970-01-01 ' + moment(now).format('HH:mm'))
     timeInput = new Date(y.getTime() - (y.getTimezoneOffset() * 60000)).toISOString()
+    outputTime = moment(now).format('HH:mm')
   } else {
     dateInput = body.dateContent
     let y = new Date('1970-01-01 ' + body.timeContent)
     timeInput = new Date(y.getTime() - (y.getTimezoneOffset() * 60000)).toISOString()
+    outputTime = body.timeContent
   }
 
 
@@ -77,6 +79,7 @@ export default async function funAddMlAi({ body, content }: { body: any, content
   return {
     success: true,
     data: data.id,
+    time: dateInput + ' ' + outputTime,
     message: "Success"
   }
 }
