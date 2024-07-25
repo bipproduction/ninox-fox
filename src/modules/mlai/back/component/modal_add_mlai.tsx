@@ -29,12 +29,15 @@ export default function ModalAddMlAi({ data, text, onSuccess }: { data: any, tex
         }
         const addData = await funAddMlAi({ body: data, content: text })
         if (!addData.success) return toast(addData.message, { theme: "dark" })
+            
+        const timeNotif = addData.time
+
         if (data.idRequest == null) {
             await funLogUser({ act: 'ADD', desc: `User menambah data ML-AI`, idContent: addData.data, tbContent: 'mlai' })
-            await funAddNotifications({ kategori: 'mlai', candidateId: data.idCandidate })
+            await funAddNotifications({ kategori: 'mlai', candidateId: data.idCandidate, time: timeNotif })
         } else {
             await funLogUser({ act: 'ADD', desc: `User menjawab data Request ML-AI`, idContent: data.idRequest, tbContent: 'mlaiRequest' })
-            await funAddNotifications({ kategori: 'mlai-request', candidateId: data.idCandidate })
+            await funAddNotifications({ kategori: 'mlai-request', candidateId: data.idCandidate, time: timeNotif })
         }
 
         toast("Sukses", { theme: "dark" })
