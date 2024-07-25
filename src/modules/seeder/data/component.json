@@ -122,7 +122,7 @@
     {
         "id": 16,
         "keyMenu": "md15",
-        "menu": "Seeder",
+        "menu": "Seeder Data",
         "owner": "developer",
         "group": "dataDeveloper",
         "link": "/dashboard/seeder"
