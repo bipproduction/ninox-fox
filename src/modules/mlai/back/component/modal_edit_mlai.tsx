@@ -28,16 +28,19 @@ export default function ModalEditMlAi({ data, content }: { data: any, content: a
             return toast("Anda tidak mempunyai akses ke wilayah tersebut", { theme: "dark" })
         }
         const edit = await funEditMlAi({ body: data, text: content })
-        if (data.idRequest == null) {
-            await funLogUser({ act: 'UPD', desc: `User mengubah data ML-AI`, idContent: data.id, tbContent: 'mlai' })
-            // di-off-in karena masa iyaa waktu udh lewat ada notif
-            // await funAddNotifications({ kategori: 'mlai', candidateId: data.idCandidate })
-        } else {
-            await funLogUser({ act: 'UPD', desc: `User mengubah jawaban data Request ML-AI`, idContent: data.idRequest, tbContent: 'mlaiRequest' })
-            // di-off-in karena masa iyaa waktu udh lewat ada notif
-            // await funAddNotifications({ kategori: 'mlai-request', candidateId: data.idCandidate })
+        if (edit.success) {
+            if (data.idRequest == null) {
+                await funLogUser({ act: 'UPD', desc: `User mengubah data ML-AI`, idContent: data.id, tbContent: 'mlai' })
+                // di-off-in karena masa iyaa waktu udh lewat ada notif
+                // await funAddNotifications({ kategori: 'mlai', candidateId: data.idCandidate })
+            } else {
+                await funLogUser({ act: 'UPD', desc: `User mengubah jawaban data Request ML-AI`, idContent: data.idRequest, tbContent: 'mlaiRequest' })
+                // di-off-in karena masa iyaa waktu udh lewat ada notif
+                // await funAddNotifications({ kategori: 'mlai-request', candidateId: data.idCandidate })
+            }
         }
-        toast("Sukses", { theme: "dark" });
+
+        toast(edit.message, { theme: "dark" });
         setOpenModal(false);
         setLoading(false)
     }
