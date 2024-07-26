@@ -56,17 +56,21 @@ export default function ComponentTable({ v, i, onClick, page }: { v: any; i: any
               >
                 <MdEditCalendar size={20} />
               </ActionIcon>
-              <ActionIcon
-                variant="transparent"
-                color="rgba(209, 4, 4, 1)"
-                size="xl"
-                aria-label="Delete"
-                onClick={(val) => {
-                  callBackDelete({ idDel: v.id })
-                }}
-              >
-                <MdDelete size={20} />
-              </ActionIcon>
+              {
+                v.idRequestMlAi == null &&
+                <ActionIcon
+                  variant="transparent"
+                  color="rgba(209, 4, 4, 1)"
+                  size="xl"
+                  aria-label="Delete"
+                  onClick={(val) => {
+                    callBackDelete({ idDel: v.id })
+                  }}
+                >
+                  <MdDelete size={20} />
+                </ActionIcon>
+              }
+
             </Center>
           </Table.Td>
         </Table.Tr>

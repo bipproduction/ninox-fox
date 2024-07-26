@@ -22,6 +22,7 @@ export default async function funGetAllMlAi({ find, page }: { find: any, page: a
                 take: 25,
                 select: {
                     id: true,
+                    idRequestMlAi: true,
                     content: true,
                     timeContent: true,
                     dateContent: true,
@@ -74,6 +75,7 @@ export default async function funGetAllMlAi({ find, page }: { find: any, page: a
                 take: 7,
                 select: {
                     id: true,
+                    idRequestMlAi: true,
                     content: true,
                     timeContent: true,
                     dateContent: true,
