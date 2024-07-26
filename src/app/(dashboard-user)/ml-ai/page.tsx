@@ -8,8 +8,8 @@ export default async function Page({ searchParams }: { searchParams: { data: any
   // const data = await funGetMlAiFront({ candidate: canDef.idCandidate })
   const can = await funGetAllCandidateFront()
   const oneCandidate = await funGetOneCandidateFront({ candidate: canDef.idCandidate })
-  const dataV2 = await funGetMlAiFrontV2({ candidate: canDef.idCandidate, date: (req?.dateContent != null) ? new Date(req.dateContent) : new Date(), time: req?.timeContent })
-  const tanggal = await funGetDateMlAiFront({ candidate: canDef.idCandidate, date: (req?.dateContent != null) ? new Date(req.dateContent) : new Date() })
+  const dataV2 = await funGetMlAiFrontV2({ candidate: canDef.idCandidate, date: (req?.id != null && req.dateContent != undefined) ? new Date(req.dateContent) : new Date(), time: (req?.id != null && req.id != undefined) ? req?.timeContent : null })
+  const tanggal = await funGetDateMlAiFront({ candidate: canDef.idCandidate, date: (req?.dateContent != null && req.dateContent != undefined) ? new Date(req.dateContent) : new Date() })
 
 
   return (
