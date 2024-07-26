@@ -13,7 +13,7 @@ import {
    Text,
 } from "@mantine/core";
 import { CiRead, CiUnread } from "react-icons/ci";
-import { MdOutlineQuestionAnswer } from "react-icons/md";
+import { MdEditCalendar, MdOutlineQuestionAnswer } from "react-icons/md";
 
 export default function ComponentTableRequest({ v, i, page }: { v: any; i: any, page: any }) {
    const open = useState(false);
@@ -58,6 +58,16 @@ export default function ComponentTableRequest({ v, i, page }: { v: any; i: any, 
                         }}
                      >
                         <MdOutlineQuestionAnswer size={20} />
+                     </ActionIcon>
+
+                     <ActionIcon
+                        variant="transparent"
+                        color="yellow"
+                        size="xl"
+                        aria-label="Edit"
+                        onClick={() => router.push("request/edit/" + v.id)}
+                     >
+                        <MdEditCalendar size={20} />
                      </ActionIcon>
                   </Center>
                </Table.Td>

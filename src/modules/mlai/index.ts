@@ -13,9 +13,11 @@ import funGetOneMlAi from "./back/fun/fun_get_one_mlai";
 import funGetOneRequestAddMlAi from "./back/fun/fun_get_one_request_add_mlai";
 import AddMlAi from "./back/view/add_mlai";
 import EditMlAi from "./back/view/edit_mlai";
+import EditRequest from "./back/view/edit_request";
 import ListMlAi from "./back/view/list_mlai";
 import ListRequest from "./back/view/list_request";
 import funAddRequestMlAiFront from "./front/fun/add_request_mlai";
+import funGetOneMlAiByRequest from "./front/fun/fun_get_one_mlai_by_request";
 import funGetDateMlAiFront from "./front/fun/get_date_ml_ai_front";
 import funGetLogRequestMlaiFront from "./front/fun/get_log_request_mlai_front";
 import funGetMlAiFront from "./front/fun/get_ml_ai_front";
@@ -51,3 +53,5 @@ export { funAddRequestMlAiFront }
 export { funGetLogRequestMlaiFront }
 export { funGetCountPendingRequest }
 export { ViewDataLearner3 }
+export { EditRequest }
+export { funGetOneMlAiByRequest }

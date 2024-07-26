@@ -6,12 +6,13 @@ import { funGetOneProvinsi } from "../.."
 import _ from "lodash"
 import mtqq_client from "../../util/mqtt_client"
 
-export default async function funAddNotifications({ kategori, candidateId, candidateId2, provinsiId }: { kategori: any, candidateId?: any, candidateId2?: any, provinsiId?: any }) {
+export default async function funAddNotifications({ kategori, candidateId, candidateId2, provinsiId, time, idContent }: { kategori: any, candidateId?: any, candidateId2?: any, provinsiId?: any, time?: any, idContent?: any }) {
    const kandidat = await funGetOneCandidate({ id: candidateId })
    const admin = await funGetUserByCookies()
    let desc = ''
    let judul = ''
    let paramCan = true
+   let listUser = []
    let kondisi = {
       idCandidate: kandidat.id,
       isFront: true
@@ -102,16 +103,34 @@ export default async function funAddNotifications({ kategori, candidateId, candi
       }
    })
 
-   const listUser = userArea.map((v: any) => ({
-      ..._.omit(v, ["idUser"]),
-      idUserClient: v.idUser,
-      idUserAdmin: (admin) ? admin.id : '',
-      category: kategori,
-      description: desc,
-      title: judul,
-      idCandidate: (paramCan) ? kandidat.id : null,
-      idProvinsi: Number(provinsiId)
-   }));
+   if (time != "" && time != null && time != undefined) {
+      listUser = userArea.map((v: any) => ({
+         ..._.omit(v, ["idUser"]),
+         createdAt: new Date(time),
+         idUserClient: v.idUser,
+         idUserAdmin: (admin) ? admin.id : '',
+         category: kategori,
+         description: desc,
+         title: judul,
+         idCandidate: (paramCan) ? kandidat.id : null,
+         idProvinsi: Number(provinsiId),
+         idContent: (idContent != undefined && idContent != null) ? idContent : null
+      }));
+   } else {
+      listUser = userArea.map((v: any) => ({
+         ..._.omit(v, ["idUser"]),
+         idUserClient: v.idUser,
+         idUserAdmin: (admin) ? admin.id : '',
+         category: kategori,
+         description: desc,
+         title: judul,
+         idCandidate: (paramCan) ? kandidat.id : null,
+         idProvinsi: Number(provinsiId),
+         idContent: (idContent != undefined && idContent != null) ? idContent : null
+      }));
+   }
+
+
 
    await prisma.notifications.createMany({
       data: listUser
