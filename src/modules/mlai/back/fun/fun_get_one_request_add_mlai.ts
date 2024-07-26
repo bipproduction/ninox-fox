@@ -1,5 +1,6 @@
 'use server'
 import prisma from "@/modules/_global/bin/prisma"
+import moment from "moment"
 
 export default async function funGetOneRequestAddMlAi({ id }: { id: any }) {
    let hasil = <any>{
@@ -23,6 +24,7 @@ export default async function funGetOneRequestAddMlAi({ id }: { id: any }) {
             request: true,
             status: true,
             idCandidate: true,
+            createdAt: true,
             Candidate: {
                select: {
                   name: true,
@@ -47,6 +49,9 @@ export default async function funGetOneRequestAddMlAi({ id }: { id: any }) {
          id: data?.id,
          request: data?.request,
          status: data?.status,
+         createdAt: data?.createdAt,
+         date: moment(data?.createdAt).format('YYYY-MM-DD'),
+         time: moment(data?.createdAt).format('HH:mm'),
          idCandidate: data?.idCandidate,
          nameCandidate: data?.Candidate?.name,
          idProvinsi: data?.Candidate?.idProvinsi,
