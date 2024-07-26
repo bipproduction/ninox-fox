@@ -40,7 +40,8 @@ export default function DrawerNotifikasi({ data, onSuccess }: { data: any, onSuc
     } else if (kategori == 'mlai') {
       link = '/ml-ai?data=' + idContent
     } else if (kategori == 'mlai-request') {
-      link = '/data-learner'
+      link = '/ml-ai?data=' + idContent
+      // link = '/data-learner'
     } else if (kategori == 'pairing') {
       link = '/pairing'
     } else if (kategori == 'pct') {
