@@ -6,7 +6,7 @@ import { funGetOneProvinsi } from "../.."
 import _ from "lodash"
 import mtqq_client from "../../util/mqtt_client"
 
-export default async function funAddNotifications({ kategori, candidateId, candidateId2, provinsiId, time }: { kategori: any, candidateId?: any, candidateId2?: any, provinsiId?: any, time?: any }) {
+export default async function funAddNotifications({ kategori, candidateId, candidateId2, provinsiId, time, idContent }: { kategori: any, candidateId?: any, candidateId2?: any, provinsiId?: any, time?: any, idContent?: any }) {
    const kandidat = await funGetOneCandidate({ id: candidateId })
    const admin = await funGetUserByCookies()
    let desc = ''
@@ -113,7 +113,8 @@ export default async function funAddNotifications({ kategori, candidateId, candi
          description: desc,
          title: judul,
          idCandidate: (paramCan) ? kandidat.id : null,
-         idProvinsi: Number(provinsiId)
+         idProvinsi: Number(provinsiId),
+         idContent: (idContent != undefined && idContent != null) ? idContent : null
       }));
    } else {
       listUser = userArea.map((v: any) => ({
@@ -124,7 +125,8 @@ export default async function funAddNotifications({ kategori, candidateId, candi
          description: desc,
          title: judul,
          idCandidate: (paramCan) ? kandidat.id : null,
-         idProvinsi: Number(provinsiId)
+         idProvinsi: Number(provinsiId),
+         idContent: (idContent != undefined && idContent != null) ? idContent : null
       }));
    }
 

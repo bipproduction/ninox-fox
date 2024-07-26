@@ -78,7 +78,7 @@ export default async function funGetMlAiFrontV2({ candidate, date, time }: { can
       }))
 
       if (dataJamFix.length > 0) {
-         if (time != null) {
+         if (time != null && time != undefined && time != '') {
             jamFix = time
             jamFix = new Date('1970-01-01 ' + jamFix);
             isoDateTime = new Date(jamFix.getTime() - (jamFix.getTimezoneOffset() * 60000)).toISOString();

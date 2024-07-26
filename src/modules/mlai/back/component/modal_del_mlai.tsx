@@ -28,9 +28,11 @@ export default function ModalDelMlAi({ id, candidate, onSuccess }: { id: any, ca
             return toast("Anda tidak mempunyai akses ke wilayah tersebut", { theme: "dark" })
         }
         const delData = await funDeleteMlAi({ id: id })
-        if (!delData.success) return toast(delData.message, { theme: "dark" })
-        await funLogUser({ act: 'DEL', desc: `User menghapus data ML-AI`, idContent: id, tbContent: 'mlai' })
-        toast("Sukses", { theme: "dark" });
+        if (delData.success) {
+            await funLogUser({ act: 'DEL', desc: `User menghapus data ML-AI`, idContent: id, tbContent: 'mlai' })
+        }
+
+        toast(delData.message, { theme: "dark" });
         setOpenModal(false);
         onSuccess(true)
         setLoading(false)
