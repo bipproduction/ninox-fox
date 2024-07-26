@@ -6,8 +6,6 @@ export default async function funEditRequest({ body }: { body: any }) {
    try {
       const dateFix = body.date + ' ' + body.time
 
-      console.log(dateFix)
-
       const data = await prisma.mlAiRequest.update({
          where: {
             id: body.id

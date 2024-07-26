@@ -21,7 +21,7 @@ export default function DrawerNotifikasi({ data, onSuccess }: { data: any, onSuc
   // const [isData, setData] = useState(data.falseRead)
   // const [isDataRead, setDataRead] = useState(data.trueRead)
 
-  async function StartModal(id: any, kategori: any) {
+  async function StartModal(id: any, kategori: any, idContent: any) {
     const upd = await funUpdReadNotifications({ id: id })
 
     let link = 'summary'
@@ -38,7 +38,7 @@ export default function DrawerNotifikasi({ data, onSuccess }: { data: any, onSuc
     } else if (kategori == 'swot') {
       link = '/swot'
     } else if (kategori == 'mlai') {
-      link = '/ml-ai'
+      link = '/ml-ai?data=' + idContent
     } else if (kategori == 'mlai-request') {
       link = '/data-learner'
     } else if (kategori == 'pairing') {
@@ -76,7 +76,7 @@ export default function DrawerNotifikasi({ data, onSuccess }: { data: any, onSuc
   const [scrollPage, setScrollPage] = useState(1)
 
 
-  const ScrollItem = ({ dataScroll, page }: { dataScroll: any, page:any }) => {
+  const ScrollItem = ({ dataScroll, page }: { dataScroll: any, page: any }) => {
     const [dataScr, setDataScr] = useState<{ [key: string]: any }>(dataScroll)
 
     async function onReadNotif(value: any) {
@@ -106,7 +106,7 @@ export default function DrawerNotifikasi({ data, onSuccess }: { data: any, onSuc
               className={classes.box}
             >
               <Box
-                onClick={() => StartModal(dataScr.id, dataScr.category)}
+                onClick={() => StartModal(dataScr.id, dataScr.category, dataScr.idContent)}
                 style={{ cursor: "pointer" }}
               >
                 <Group>
@@ -143,7 +143,7 @@ export default function DrawerNotifikasi({ data, onSuccess }: { data: any, onSuc
             className={classes.box}
           >
             <Box
-              onClick={() => StartModal(dataScr.id, dataScr.category)}
+              onClick={() => StartModal(dataScr.id, dataScr.category, dataScr.idContent)}
               style={{ cursor: "pointer" }}
             >
               <Group>
@@ -185,7 +185,7 @@ export default function DrawerNotifikasi({ data, onSuccess }: { data: any, onSuc
           </Flex>
         ) :
           <ScrollLoaderExternalState url="/api/scroll-loader" height='95vh' take={15} data={listScrollData} setData={setListScrollData} page={scrollPage} setPage={setScrollPage}  >
-            {(dataScoll: any) => <ScrollItem dataScroll={dataScoll} page={scrollPage}/>}
+            {(dataScoll: any) => <ScrollItem dataScroll={dataScoll} page={scrollPage} />}
           </ScrollLoaderExternalState>
       }
 

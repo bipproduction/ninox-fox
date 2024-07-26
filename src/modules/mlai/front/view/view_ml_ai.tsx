@@ -13,18 +13,18 @@ import { useAtom } from 'jotai';
 import { _valReadIdMlai } from '../val/val_mlai';
 import Wrapper from '../component/wrapper_read';
 
-export default function ViewMlAi({ dataV2, dataTanggal, candidate, oneCandidate }: { dataV2: any, dataTanggal: any, candidate: any, oneCandidate: any }) {
+export default function ViewMlAi({ dataV2, dataTanggal, candidate, oneCandidate, dateChoose, timeChoose }: { dataV2: any, dataTanggal: any, candidate: any, oneCandidate: any, dateChoose: any, timeChoose: any }) {
   const [listCandidate, setListCandidate] = useState(candidate)
   const [isCandidate, setCandidate] = useState(oneCandidate?.id)
   const [isNameCan, setNameCan] = useState(oneCandidate?.name)
   const [isImgCan, setImgCan] = useState(`/img/candidate/${oneCandidate?.img}`)
-  const [isDate, setDate] = useState<any>(new Date())
-  const [isMonth, setMonth] = useState<any>(moment(new Date().getMonth()).format('MM'))
+  const [isDate, setDate] = useState<any>(dateChoose)
+  const [isMonth, setMonth] = useState<any>(moment(dateChoose.getMonth()).format('MM'))
   const [isListTgl, setListTgl] = useState(dataTanggal)
   const [valRead, setRead] = useAtom(_valReadIdMlai)
   const [dataMlai, setDataMlai] = useState(dataV2.data)
   const [dataJamMlai, setDataJamMlai] = useState(dataV2.dataJam)
-  const [isBTime, setBTime] = useState(dataV2.isJam)
+  const [isBTime, setBTime] = useState((timeChoose == null) ? dataV2.isJam : timeChoose)
 
   async function changeMonth(value: any) {
     const monthKlik = moment(value).format('MM')
@@ -37,9 +37,9 @@ export default function ViewMlAi({ dataV2, dataTanggal, candidate, oneCandidate 
 
   async function chooseCandidate(value: any) {
     setCandidate((value == null) ? oneCandidate?.id : value)
-    const dataDB = await funGetMlAiFrontV2({ candidate: value, date: isDate })
-    const dataCan = await funGetOneCandidateFront({ candidate: value })
-    const loadTgl = await funGetDateMlAiFront({ candidate: isCandidate, date: isDate })
+    const dataDB = await funGetMlAiFrontV2({ candidate: (value == null) ? oneCandidate?.id : value, date: isDate })
+    const dataCan = await funGetOneCandidateFront({ candidate: (value == null) ? oneCandidate?.id : value })
+    const loadTgl = await funGetDateMlAiFront({ candidate: (value == null) ? oneCandidate?.id : value, date: isDate })
     setListTgl(loadTgl)
     setDataMlai(dataDB?.data)
     setDataJamMlai(dataDB?.dataJam)
@@ -77,7 +77,15 @@ export default function ViewMlAi({ dataV2, dataTanggal, candidate, oneCandidate 
 
   useEffect(() => {
     setDataMlai(dataV2.data)
-  }, [dataV2])
+    setDataJamMlai(dataV2.dataJam)
+    setBTime((timeChoose == null) ? dataV2.isJam : timeChoose)
+    setListTgl(dataTanggal)
+    setMonth(moment(dateChoose.getMonth()).format('MM'))
+    setDate(dateChoose)
+    setImgCan(`/img/candidate/${oneCandidate?.img}`)
+    setNameCan(oneCandidate?.name)
+    setCandidate(oneCandidate?.id)
+  }, [dataV2, timeChoose, dataTanggal, dateChoose, oneCandidate])
 
   return (
     <>
@@ -176,7 +184,7 @@ export default function ViewMlAi({ dataV2, dataTanggal, candidate, oneCandidate 
                             <>
                               <Box style={{
                                 borderLeftColor: 'green',
-                                borderLeftStyle:'solid',
+                                borderLeftStyle: 'solid',
                                 borderLeftWidth: 4,
                                 paddingLeft: 15,
                                 paddingRight: 10,

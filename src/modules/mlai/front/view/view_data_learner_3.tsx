@@ -62,7 +62,7 @@ export default function ViewDataLearner3() {
       }} key={dataScr.id}
         onClick={() => {
           if (dataScr.status == 1) {
-            router.push('/ml-ai')
+            router.push('/ml-ai?request=' + dataScr.id)
           }
         }
         }

@@ -546,6 +546,7 @@ model Notifications {
   title         String
   category      String?
   link          String?
+  idContent     String?
   kategoriInput Int           @default(1) // 1 == by sistem, 2 == input manual
   description   String
   AreaProvinsi  AreaProvinsi? @relation(fields: [idProvinsi], references: [id])
