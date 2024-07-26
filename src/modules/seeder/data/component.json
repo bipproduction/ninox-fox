@@ -174,5 +174,13 @@
         "owner": "developer",
         "group": "dataDeveloper",
         "link": "/dashboard/delete-data-pairing"
+    },
+    {
+        "id": 23,
+        "keyMenu": "md22",
+        "menu": "Hapus Notifikasi",
+        "owner": "developer",
+        "group": "dataDeveloper",
+        "link": "/dashboard/delete-notifikasi"
     }
 ]
