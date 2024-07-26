@@ -9,11 +9,11 @@ export default async function funGetOneMlAiByRequest({ req, mlai }: { req: any, 
 
    if (req != null && req != undefined && req != "") {
       kondisi = {
-         idRequestMlAi: req
+         idRequestMlAi: String(req)
       }
    } else {
       kondisi = {
-         id: mlai
+         id: String(mlai)
       }
    }
 
