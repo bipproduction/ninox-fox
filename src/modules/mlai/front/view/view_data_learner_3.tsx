@@ -148,13 +148,19 @@ export default function ViewDataLearner3() {
               background: "rgba(0,0,0,0.3)",
               padding: 20,
               borderRadius: 10,
-
+              height: "100vh",
+              flexDirection: "column",
+              // backgroundColor: "gray",
+              position: "relative",
+              overflow: "hidden",
+              gap: 20,
+              display: "flex",
             }}>
               <Text c={'white'} mb={20} fz={18}>REQUEST</Text>
               <textarea
                 ref={ref}
                 style={{
-                  width: '100%', height: '63vh', borderRadius: 5, backgroundColor: '#12002A', color: '#ffffff', border: 'none', outline: 'none', resize: 'none'
+                  width: '100%', height: '100vh', borderRadius: 5, backgroundColor: '#12002A', color: '#ffffff', border: 'none', outline: 'none', resize: 'none'
                 }}
                 value={request}
                 placeholder="Input apa yang kamu inginkan........"
@@ -172,7 +178,12 @@ export default function ViewDataLearner3() {
                 background: "rgba(0,0,0,0.3)",
                 padding: 20,
                 borderRadius: 10,
-                height: '20vh'
+                display: "flex",
+                flex: 1,
+                overflow: "auto",
+                flexDirection: "column",
+                position: "relative",
+                height: "30vh",
               }}>
                 <Text c={'white'} mb={20} fz={18}>RESPONS</Text>
                 {response && (
@@ -196,11 +207,16 @@ export default function ViewDataLearner3() {
                 background: "rgba(0,0,0,0.3)",
                 padding: 20,
                 borderRadius: 10,
-                height: '60vh'
+                display: "flex",
+                flex: 1,
+                overflow: "auto",
+                flexDirection: "column",
+                position: "relative",
+                height: "75vh",
               }}>
                 <Text c={'white'} mb={20} fz={18}>LOG REQUEST</Text>
                 {/* <CobaScroll isload={isLoad} datalist={listLogRequest} /> */}
-                <ScrollLoaderExternalState url="/api/get-log-request" height='50vh' take={15} data={listScrollData} setData={setListScrollData} page={scrollPage} setPage={setScrollPage}  >
+                <ScrollLoaderExternalState url="/api/get-log-request" height='80vh' take={15} data={listScrollData} setData={setListScrollData} page={scrollPage} setPage={setScrollPage}  >
                   {(dataScoll: any) => <ScrollItem dataScroll={dataScoll} page={scrollPage} />}
                 </ScrollLoaderExternalState>
               </Box>
