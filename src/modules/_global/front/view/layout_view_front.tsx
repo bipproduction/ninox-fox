@@ -3,7 +3,7 @@ import { useDisclosure, useShallowEffect } from '@mantine/hooks';
 import React, { useEffect, useState } from 'react';
 import { MdArrowForwardIos } from 'react-icons/md';
 import { usePathname, useRouter } from 'next/navigation';
-import { ActionIcon, AppShell, AppShellNavbar, AppShellSection, Box, Burger, Center, Collapse, Divider, Drawer, Grid, Group, Indicator, Modal, NavLink, Notification, Skeleton, Stack, Text, Title, Tooltip, Transition, useMantineColorScheme } from '@mantine/core';
+import { ActionIcon, AppShell, AppShellNavbar, AppShellSection, BackgroundImage, Box, Burger, Center, Collapse, Divider, Drawer, Grid, Group, Image, Indicator, Modal, NavLink, Notification, Skeleton, Stack, Text, Title, Tooltip, Transition, useMantineColorScheme } from '@mantine/core';
 import _ from 'lodash';
 import { DataNavbarTutup } from '../components/data_navbar_tutup';
 import { WARNA } from '../../fun/WARNA';
@@ -205,9 +205,10 @@ export default function LayoutViewFront({ notif, children }: { notif: number, ch
           )
         }
         {!isOpenNavbar &&
-          <AppShellNavbar pt={20} bg={"#000000"} style={{
+          <AppShellNavbar bg={"#000000"} style={{
             border: "none"
           }}>
+            <BackgroundImage src='/bg2.png' h={"100vh"}>
             <Group justify="flex-end" pr={20} pt={30}>
               <ActionIcon onClick={() => {
                 setNavOpt({ width: 100, breakpoint: 'sm', collapsed: { mobile: isOpenNavbar } })
@@ -333,7 +334,7 @@ export default function LayoutViewFront({ notif, children }: { notif: number, ch
             <Group
               style={{
                 position: "absolute",
-                bottom: 30,
+                bottom: 150,
                 cursor: 'pointer',
               }}
             >
@@ -344,6 +345,20 @@ export default function LayoutViewFront({ notif, children }: { notif: number, ch
                 <Text c={"white"}>LOGOUT</Text>
               </Group>
             </Group>
+            <Box
+              style={{
+                position: "absolute",
+                bottom: 25,
+                left: 33,
+              }}
+            >
+              <Group justify='center'>
+                <Image src={"/logo.png"} h={55}
+                  w="auto" alt="logo" />
+              </Group>
+              <Text c={"white"} mt={5} fz={10}>Version 4.0.10 - Build 2024</Text>
+            </Box>
+            </BackgroundImage>
           </AppShellNavbar>
         }
         <AppShell.Main bg={WARNA.bgGradasi}>
