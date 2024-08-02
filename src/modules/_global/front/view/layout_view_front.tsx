@@ -208,7 +208,7 @@ export default function LayoutViewFront({ notif, children }: { notif: number, ch
           <AppShellNavbar bg={"#000000"} style={{
             border: "none"
           }}>
-            <BackgroundImage src='/bg2.png' h={"100vh"}>
+            <BackgroundImage src='/bg3.png' h={"100vh"}>
             <Group justify="flex-end" pr={20} pt={30}>
               <ActionIcon onClick={() => {
                 setNavOpt({ width: 100, breakpoint: 'sm', collapsed: { mobile: isOpenNavbar } })
