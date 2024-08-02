@@ -144,16 +144,30 @@ export default function ViewMlAi({ dataV2, dataTanggal, candidate, oneCandidate,
         </Box>
         <Text mt={20} c={"green"} fz={20} fw={"bold"}>PENINGKATAN ANALISIS KEKUATAN</Text>
         <Box pt={20}>
-          <Box
+          <div
             style={{
-              background: "rgba(0,0,0,0.3)",
-              padding: 30,
-              borderRadius: 10,
-              display: "flex",
+              height: "100vh",
               flexDirection: "column",
-              flex: "1"
+              // backgroundColor: "gray",
+              position: "relative",
+              overflow: "hidden",
+              gap: 20,
+              display: "flex",
             }}
           >
+            <Box
+              style={{
+                background: "rgba(0,0,0,0.3)",
+                padding: 30,
+                borderRadius: 10,
+                display: "flex",
+                flex: 1,
+                overflow: "auto",
+                flexDirection: "column",
+                position: "relative",
+                height: "100%",
+              }}
+            >
               <Box >
                 <Group >
                   <DateInput
@@ -212,7 +226,7 @@ export default function ViewMlAi({ dataV2, dataTanggal, candidate, oneCandidate,
                   }
                 </Group>
               </Box>
-              <ScrollArea h={"34vh"} pt={20}>
+              <ScrollArea h={"100vh"} pt={20}>
                 <Box>
                   {dataMlai && dataMlai.map((item: any, i: any) => {
                     const tampil = parse(item.content, options)
@@ -272,7 +286,8 @@ export default function ViewMlAi({ dataV2, dataTanggal, candidate, oneCandidate,
                   })}
                 </Box>
               </ScrollArea>
-          </Box>
+            </Box>
+          </div>
         </Box>
       </Box>
     </>

@@ -59,7 +59,7 @@ export default function ViewStep({ data, candidate, oneCandidate }: { data: any,
           </Flex>
         </Grid.Col>
         <Grid.Col span={{ md: 9, lg: 9 }}>
-          <ScrollArea h={"85vh"}>
+          <ScrollArea h={"100vh"}>
             {!_.isEmpty(isData) ? (
               <>
                 {
@@ -75,9 +75,14 @@ export default function ViewStep({ data, candidate, oneCandidate }: { data: any,
                           style={{
                             background: "rgba(0,0,0,0.3)",
                             padding: 10,
-                            borderRadius: 10
+                            borderRadius: 10,
+                            display: "flex",
+                            flex: 1,
+                            overflow: "auto",
+                            flexDirection: "column",
+                            position: "relative",
+                            height: "35vh",
                           }}
-                          h={250}
                         >
                           <Box pb={10}>
                             <Text fw={"bold"} c={"green"}>POSITIF</Text>
@@ -91,7 +96,7 @@ export default function ViewStep({ data, candidate, oneCandidate }: { data: any,
                             if (!datanya) return <></>;
                             return (
                               <>
-                                <ScrollArea h={200}>
+                                <ScrollArea h={"35vh"}>
                                   <Stack pl={10}>
                                     <Text c={"white"} fz={14}>
                                       <TextAnimation
@@ -115,9 +120,14 @@ export default function ViewStep({ data, candidate, oneCandidate }: { data: any,
                           style={{
                             background: "rgba(0,0,0,0.3)",
                             padding: 10,
-                            borderRadius: 10
+                            borderRadius: 10,
+                            display: "flex",
+                            flex: 1,
+                            overflow: "auto",
+                            flexDirection: "column",
+                            position: "relative",
+                            height: "35vh",
                           }}
-                          h={250}
                         >
                           <Box pb={10}>
                             <Text fw={"bold"} c={"red"}>NEGATIF</Text>
@@ -136,7 +146,7 @@ export default function ViewStep({ data, candidate, oneCandidate }: { data: any,
                                 {JSON.stringify(datanya, null, 1)}
                                 </pre>
                               </Stack> */}
-                                <ScrollArea h={200}>
+                                <ScrollArea h={"35vh"}>
                                   <Stack pl={10}>
                                     <Text c={"white"} fz={14}>
                                       <TextAnimation

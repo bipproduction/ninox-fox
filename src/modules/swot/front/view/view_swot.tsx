@@ -72,51 +72,7 @@ export default function ViewSwot({ data, candidate, oneCandidate }: { data: any,
           </Flex>
         </Grid.Col>
         <Grid.Col span={{ md: 9, lg: 9 }}>
-          <ScrollArea h={"85vh"}>
-            {/* {
-              arrayKey.map((item: any, i: any) => (
-                <Box key={i} pb={20}>
-                  <Box
-                    style={{
-                      background: "rgba(0,0,0,0.3)",
-                      padding: 10,
-                      borderRadius: 10,
-                      minHeight: 150
-                    }}
-                  >
-                    <Box pb={10}>
-                      <Text fw={"bold"} c={"green"}>{item}</Text>
-                    </Box>
-                    {(() => {
-                      if (!_.isEmpty(isData) && !_.isUndefined(isData[item])) {
-                        const datanya = isData[item]
-                        return (
-                          <>
-                            <ScrollArea h={150} w={"a"}>
-                              <Stack pl={10}>
-                                <Text c={"white"} fz={14}>
-                                  <TextAnimation
-                                    phrases={[...datanya[_.random(0, datanya.length - 1)].content.split('\n')]}
-                                    typingSpeed={(i == 0) ? 0 : Number(datanya.id ? Math.floor(Math.random() * 1 + 0) : Math.floor(Math.random() * 1 + 5))}
-                                    backspaceDelay={Number(datanya.id ? Math.floor(Math.random() * 899999 + 100000) : Math.floor(Math.random() * 899999 + 100000))}
-                                    eraseDelay={Number(datanya.id ? Math.floor(Math.random() * 899999 + 100000) : Math.floor(Math.random() * 899999 + 100000))}
-                                    timeComplete={Number(datanya.id ? Math.floor(Math.random() * 899999 + 100000) : Math.floor(Math.random() * 899999 + 100000))}
-                                    errorProbability={Number(datanya.id ? 0 : 0.1)}
-                                    eraseOnComplete={false}
-                                    isSecure={false}
-                                  />
-                                </Text>
-                              </Stack>
-                            </ScrollArea>
-                          </>
-                        )
-                      }
-
-                    })()}
-                  </Box>
-                </Box>
-              ))
-            } */}
+          <ScrollArea h={"100vh"}>
             {
               _.keys(isData).map((item: any, i: any) => (
                 <Box key={i} pb={20}>
@@ -125,7 +81,13 @@ export default function ViewSwot({ data, candidate, oneCandidate }: { data: any,
                       background: "rgba(0,0,0,0.3)",
                       padding: 10,
                       borderRadius: 10,
-                      minHeight: 150
+                      minHeight: 150,
+                      display: "flex",
+                      flex: 1,
+                      overflow: "auto",
+                      flexDirection: "column",
+                      position: "relative",
+                      height: "35vh",
                     }}
                   >
                     <Box pb={10}>
@@ -136,7 +98,7 @@ export default function ViewSwot({ data, candidate, oneCandidate }: { data: any,
                       if (!_.isEmpty(datanya))
                         return (
                           <>
-                            <ScrollArea h={150} w={"a"}>
+                            <ScrollArea h={"35vh"} w={"a"}>
                               <Stack pl={10}>
                                 <Text c={"white"} fz={14}>
                                   <TextAnimation
