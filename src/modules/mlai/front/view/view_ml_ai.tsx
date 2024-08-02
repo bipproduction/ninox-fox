@@ -1,7 +1,7 @@
 "use client"
 import { PageSubTitle } from '@/modules/_global';
 import { funGetOneCandidateFront } from '@/modules/candidate';
-import { ActionIcon, Box, Button, Container, Divider, Group, Image, Indicator, Menu, ScrollArea, Select, Stack, Text } from '@mantine/core';
+import { ActionIcon, Box, Button, Container, Divider, em, Flex, Group, Image, Indicator, Menu, rem, ScrollArea, Select, Stack, Text } from '@mantine/core';
 import React, { useEffect, useState } from 'react';
 import TextAnimation from 'react-typing-dynamics';
 import { funGetDateMlAiFront, funGetMlAiFront, funGetMlAiFrontV2 } from '../..';
@@ -112,11 +112,13 @@ export default function ViewMlAi({ dataV2, dataTanggal, candidate, oneCandidate,
             style={{
               background: "rgba(0,0,0,0.3)",
               padding: 30,
-              borderRadius: 10
+              borderRadius: 10,
+              display: "flex",
+              flexDirection: "column",
+              flex: "1"
             }}
           >
-            <Box>
-              <Box>
+              <Box >
                 <Group >
                   <DateInput
                     variant="filled"
@@ -230,7 +232,6 @@ export default function ViewMlAi({ dataV2, dataTanggal, candidate, oneCandidate,
                   })}
                 </Box>
               </ScrollArea>
-            </Box>
           </Box>
         </Box>
       </Box>
