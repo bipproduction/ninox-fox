@@ -12,6 +12,42 @@ import { CiMenuKebab } from 'react-icons/ci';
 import { useAtom } from 'jotai';
 import { _valReadIdMlai } from '../val/val_mlai';
 import Wrapper from '../component/wrapper_read';
+import parse, { DOMNode, domToReact, htmlToDOM } from 'html-react-parser';
+import { renderToString } from 'react-dom/server'
+const listHeading = ["h1", "h2", "h3", "h4", "h5", "h6"]
+
+const options = {
+  replace: (domNode: any) => {
+    if (domNode.attribs && domNode.name === 'p') {
+      return <div >{domToReact(domNode.children, options)}</div>;
+    }
+
+    if (domNode.attribs && domNode.name === 'h1') {
+      return <h1 style={{ marginBottom: 0 }} >{domToReact(domNode.children, options)}</h1>;
+    }
+
+    if (domNode.attribs && domNode.name === 'h2') {
+      return <h2 style={{ marginBottom: 0 }} >{domToReact(domNode.children, options)}</h2>;
+    }
+
+    if (domNode.attribs && domNode.name === 'h3') {
+      return <h3 style={{ marginBottom: 0 }} >{domToReact(domNode.children, options)}</h3>;
+    }
+    if (domNode.attribs && domNode.name === 'h4') {
+      return <h4 style={{ marginBottom: 0 }} >{domToReact(domNode.children, options)}</h4>;
+    }
+    if (domNode.attribs && domNode.name === 'h5') {
+      return <h5 style={{ marginBottom: 0 }} >{domToReact(domNode.children, options)}</h5>;
+    }
+    if (domNode.attribs && domNode.name === 'h6') {
+      return <h6 style={{ marginBottom: 0 }} >{domToReact(domNode.children, options)}</h6>;
+    }
+
+    if (domNode.attribs && domNode.name === 'ul') {
+      return <ul style={{ marginTop: 0 }} >{domToReact(domNode.children, options)}</ul>;
+    }
+  }
+}
 
 export default function ViewMlAi({ dataV2, dataTanggal, candidate, oneCandidate, dateChoose, timeChoose }: { dataV2: any, dataTanggal: any, candidate: any, oneCandidate: any, dateChoose: any, timeChoose: any }) {
   const [listCandidate, setListCandidate] = useState(candidate)
@@ -179,6 +215,9 @@ export default function ViewMlAi({ dataV2, dataTanggal, candidate, oneCandidate,
               <ScrollArea h={"34vh"} pt={20}>
                 <Box>
                   {dataMlai && dataMlai.map((item: any, i: any) => {
+                    const tampil = parse(item.content, options)
+                    const htmlString = renderToString(tampil)
+
                     return (
                       <Box key={i} >
                         {
@@ -209,13 +248,14 @@ export default function ViewMlAi({ dataV2, dataTanggal, candidate, oneCandidate,
                         {
                           valRead.includes(item.id) ? (
                             <>
-                              <Box c={"white"} dangerouslySetInnerHTML={{ __html: item.content }} />
+                              {/* <Box c={"white"} dangerouslySetInnerHTML={{ __html: item.content }} /> */}
+                              <Box c={"white"}>{tampil}</Box>
                             </>
                           ) : (
                             <Wrapper id={item.id}>
                               <Text c={"white"}>
                                 <TextAnimation
-                                  phrases={[...item.content.split('\n')]}
+                                  phrases={[...htmlString.split('\n')]}
                                   typingSpeed={0}
                                   backspaceDelay={0}
                                   eraseDelay={0}
