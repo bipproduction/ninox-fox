@@ -65,19 +65,42 @@ export default function ViewDataLearner() {
           cols={{ base: 1, sm: 2, lg: 2 }}
           spacing={{ base: 10, sm: 'xl' }}
           verticalSpacing={{ base: 'md', sm: 'xl' }}
+          style={{
+            height: "100vh",
+            flexDirection: "column",
+            // backgroundColor: "gray",
+            position: "relative",
+            overflow: "hidden",
+            gap: 20,
+            display: "flex",
+          }}
         >
-          <Box>
+          <Box
+            style={{
+              display: "flex",
+              flex: 1,
+              overflow: "auto",
+              flexDirection: "column",
+              position: "relative",
+              height: "100%",
+          }}
+          >
             <Box style={{
               background: "rgba(0,0,0,0.3)",
               padding: 20,
               borderRadius: 10,
-
+              display: "flex",
+              flex: 1,
+              overflow: "auto",
+              flexDirection: "column",
+              position: "relative",
+              height: "100%",
             }}>
               <Text c={'white'} mb={20} fz={18}>REQUEST</Text>
               <textarea
                 ref={ref}
                 style={{
-                  width: '100%', height: '60vh', borderRadius: 5, backgroundColor: '#12002A', color: '#ffffff', border: 'none', outline: 'none'
+                  width: '100%', height: '100vh', borderRadius: 5, backgroundColor: '#12002A', color: '#ffffff', border: 'none', outline: 'none'
                 }}
                 placeholder="Input apa yang kamu inginkan........"
               />
@@ -89,10 +112,15 @@ export default function ViewDataLearner() {
               background: "rgba(0,0,0,0.3)",
               padding: 20,
               borderRadius: 10,
-              height: '79.5vh'
+              display: "flex",
+              flex: 1,
+              overflow: "auto",
+              flexDirection: "column",
+              position: "relative",
+              height: "100%",
             }}>
               <Text c={'white'} mb={20} fz={18}>LOG REQUEST</Text>
-              <ScrollArea h={'69.5vh'}>
+              <ScrollArea h={'100vh'}>
                 {dataLog.map((v, i) => {
                   return (
                     <Box style={{
