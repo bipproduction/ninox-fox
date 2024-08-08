@@ -31,12 +31,12 @@ export const DataNavbarTutup = [
     icon: MdFreeCancellation,
     label: "ANALISA STEP"
   },
-  {
-    key: "6",
-    link: "/swot",
-    icon: MdGrading,
-    label: "ANALISA SWOT"
-  },
+  // {
+  //   key: "6",
+  //   link: "/swot",
+  //   icon: MdGrading,
+  //   label: "ANALISA SWOT"
+  // },
   // {
   //   key: "7",
   //   link: "/ml-ai",
