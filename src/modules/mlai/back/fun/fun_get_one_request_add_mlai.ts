@@ -17,7 +17,7 @@ export default async function funGetOneRequestAddMlAi({ id }: { id: any }) {
       const data = await prisma.mlAiRequest.findUnique({
          where: {
             id: id,
-            status: 0
+            // status: 0
          },
          select: {
             id: true,
