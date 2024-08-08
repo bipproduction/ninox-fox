@@ -60,17 +60,16 @@ export default function ViewDataLearner3() {
       <Box style={{
         cursor: "pointer"
       }} key={dataScr.id}
-        onClick={() => {
-          if (dataScr.status == 1) {
-            router.push('/ml-ai?request=' + dataScr.id)
-          }
-        }
-        }
       >
         {dataScr.request.length > 150 ? (
           showMore ? (
             <Box>
-              <Text c={dataScr.status == 0 ? '#CE9E23' : '#2CCC1E'}>{dataScr.request}</Text>
+              <Text onClick={() => {
+                if (dataScr.status == 1) {
+                  router.push('/ml-ai?request=' + dataScr.id)
+                }
+              }
+              } c={dataScr.status == 0 ? '#CE9E23' : '#2CCC1E'}>{dataScr.request}</Text>
               <Group gap={3} style={{ alignItems: "center" }}>
                 <Anchor c={'blue'} onClick={() => setShowMore(false)} style={{ display: 'flex', alignItems: 'center' }}>
                   Hide
@@ -80,7 +79,12 @@ export default function ViewDataLearner3() {
             </Box>
           ) : (
             <Box>
-              <Text c={dataScr.status == 0 ? '#CE9E23' : '#2CCC1E'}>{dataScr.request.substring(0, 150) + '...'}</Text>
+              <Text onClick={() => {
+                if (dataScr.status == 1) {
+                  router.push('/ml-ai?request=' + dataScr.id)
+                }
+              }
+              } c={dataScr.status == 0 ? '#CE9E23' : '#2CCC1E'}>{dataScr.request.substring(0, 150) + '...'}</Text>
               <Group gap={3} style={{ alignItems: "center" }}>
                 {/* <Anchor c={'blue'} onClick={() => setShowMore(true)}>
                   Show more
@@ -95,13 +99,23 @@ export default function ViewDataLearner3() {
           )
         ) : (
           <Box>
-            <Text c={dataScr.status == 0 ? '#CE9E23' : '#2CCC1E'}>{dataScr.request}</Text>
+            <Text onClick={() => {
+              if (dataScr.status == 1) {
+                router.push('/ml-ai?request=' + dataScr.id)
+              }
+            }
+            } c={dataScr.status == 0 ? '#CE9E23' : '#2CCC1E'}>{dataScr.request}</Text>
           </Box>
         )}
         <Group justify='space-between' style={{
           alignItems: "center",
           alignContent: "center"
-        }}>
+        }} onClick={() => {
+          if (dataScr.status == 1) {
+            router.push('/ml-ai?request=' + dataScr.id)
+          }
+        }
+        }>
           <Text c={'#D0CFCF'} fz={13}>{moment(dataScr.createdAt).format('LLL')}</Text>
           <Group gap={5} mt={10} style={{
             alignItems: "center",
