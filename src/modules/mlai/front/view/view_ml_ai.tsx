@@ -248,8 +248,8 @@ export default function ViewMlAi({ dataV2, dataTanggal, candidate, oneCandidate,
                               }}>
                                 <Group>
                                   <Box>
-                                    <Text c={'white'} mb={15} fw={"bold"}>REQUEST</Text>
-                                    <Text c={'white'}>{item.request}</Text>
+                                    <Text c={'#7B7979'} mb={15} fw={"bold"}>REQUEST</Text>
+                                    <Text c={'#7B7979'}>{item.request}</Text>
                                   </Box>
 
                                 </Group>
