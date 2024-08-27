@@ -53,7 +53,9 @@
     "react-dom": "^18",
     "react-icons": "^4.11.0",
     "react-simple-toasts": "^5.10.0",
-    "react-typing-dynamics": "^1.1.2"
+    "react-typing-dynamics": "^1.1.2",
+    "suneditor": "^2.47.0",
+    "suneditor-react": "^3.6.1"
   },
   "devDependencies": {
     "@types/lodash": "^4.14.199",

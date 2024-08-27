@@ -23,6 +23,8 @@ import { DateInput, TimeInput } from "@mantine/dates"
 import { AiOutlineClockCircle } from "react-icons/ai"
 import moment from "moment"
 import { useRouter } from "next/navigation"
+import SunEditor, { buttonList } from 'suneditor-react';
+import 'suneditor/dist/css/suneditor.min.css';
 
 /**
  * Fungsi untuk menampilkan view form add mlai.
@@ -38,6 +40,7 @@ export default function AddMlAi({ params, req, candidate, provinsi, kabupaten }:
     const [dataKabupaten, setDataKabupaten] = useState<any>(kabupaten)
     const [isProvinsi, setProvinsi] = useState<any>(String(params.idProvinsi) || null)
     const [isKabupaten, setKabupaten] = useState<any>(String(params.idKabkot) || null)
+    const [isContent, setContent] = useState("")
     const [isDataMlai, setDataMlai] = useState({
         idRequest: req.id,
         idCandidate: req.idCandidate,
@@ -74,23 +77,23 @@ export default function AddMlAi({ params, req, candidate, provinsi, kabupaten }:
         setDataCandidate(dataDbCan)
     }
 
-    const editor = useEditor({
-        extensions: [
-            StarterKit,
-            Underline,
-            Link,
-            Superscript,
-            SubScript,
-            Highlight,
-            TextStyle,
-            Color,
-            TextAlign.configure({ types: ['heading', 'paragraph'] }),
-        ],
-        content: "",
-    });
+    // const editor = useEditor({
+    //     extensions: [
+    //         StarterKit,
+    //         Underline,
+    //         Link,
+    //         Superscript,
+    //         SubScript,
+    //         Highlight,
+    //         TextStyle,
+    //         Color,
+    //         TextAlign.configure({ types: ['heading', 'paragraph'] }),
+    //     ],
+    //     content: "",
+    // });
 
     function onConfirmation() {
-        if (isDataMlai.idCandidate == null || isDataMlai.idCandidate == '' || editor?.getHTML() == '<p></p>')
+        if (isDataMlai.idCandidate == null || isDataMlai.idCandidate == '' || isContent == '<p></p>' || isContent == '')
             return toast("Form cannot be empty", { theme: "dark" });
         setOpenModal(true)
     }
@@ -99,6 +102,21 @@ export default function AddMlAi({ params, req, candidate, provinsi, kabupaten }:
         // setKabupaten((params.idKabkot == 0) ? null : params.idKabkot)
         // setCandidate((params.idCandidate == 0) ? null : params.idCandidate)
     }, [params])
+
+
+    const editor = useRef();
+
+    // The sunEditor parameter will be set to the core suneditor instance when this function is called
+    const getSunEditorInstance = (sunEditor: any) => {
+        editor.current = sunEditor;
+    };
+
+    function handleChange(content: any) {
+        setContent(content);
+        console.log(content); //Get Content Inside Editor
+    }
+
+
 
     return (
         <>
@@ -205,7 +223,7 @@ export default function AddMlAi({ params, req, candidate, provinsi, kabupaten }:
                     />
                 </Group>
                 <Box pt={30}>
-                    <RichTextEditor editor={editor}>
+                    {/* <RichTextEditor editor={editor}>
                         <RichTextEditor.Toolbar sticky stickyOffset={60}>
                             <RichTextEditor.ControlsGroup>
                                 <RichTextEditor.Bold />
@@ -279,7 +297,13 @@ export default function AddMlAi({ params, req, candidate, provinsi, kabupaten }:
                         </RichTextEditor.Toolbar>
 
                         <RichTextEditor.Content />
-                    </RichTextEditor>
+                    </RichTextEditor> */}
+
+                    <Stack>
+                        <SunEditor setOptions={{
+                            buttonList: buttonList.complex
+                        }} onChange={handleChange} getSunEditorInstance={getSunEditorInstance} />
+                    </Stack>
                 </Box>
                 <Group justify="flex-end">
                     <Button bg={"gray"} mt={30} size="md" onClick={onConfirmation}>SIMPAN</Button>
@@ -292,11 +316,11 @@ export default function AddMlAi({ params, req, candidate, provinsi, kabupaten }:
                 withCloseButton={false}
                 closeOnClickOutside={false}
             >
-                <ModalAddMlAi text={editor?.getHTML()} data={isDataMlai}
+                <ModalAddMlAi text={isContent} data={isDataMlai}
                     onSuccess={() => {
                         if (req.id != null)
                             return router.push('/dashboard/ml-ai/request')
-                        editor?.commands.setContent('<p></p>')
+                        setContent('')
                         // setProvinsi(null)
                         // setKabupaten(null)
                         setDataMlai({
