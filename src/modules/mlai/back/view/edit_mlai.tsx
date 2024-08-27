@@ -20,6 +20,8 @@ import toast from "react-simple-toasts"
 import { DateInput, TimeInput } from "@mantine/dates"
 import { AiOutlineClockCircle } from "react-icons/ai"
 import moment from "moment"
+import SunEditor, { buttonList } from 'suneditor-react';
+import 'suneditor/dist/css/suneditor.min.css';
 
 /**
  * Fungsi untuk menampilkan view form edit mlai.
@@ -29,6 +31,7 @@ import moment from "moment"
 export default function EditMlAi({ data }: { data: any }) {
     const ref = useRef<HTMLInputElement>(null)
     const [openModal, setOpenModal] = useAtom(isModalMlAi)
+    const [isContent, setContent] = useState(data.content)
     const [isBody, setBody] = useState({
         id: data.id,
         idRequest: data.idRequestMlAi,
@@ -44,26 +47,39 @@ export default function EditMlAi({ data }: { data: any }) {
         </ActionIcon>
     );
 
-    const editor = useEditor({
-        extensions: [
-            StarterKit,
-            Underline,
-            Link,
-            Superscript,
-            Subscript,
-            Highlight,
-            TextStyle,
-            Color,
-            TextAlign.configure({ types: ['heading', 'paragraph'] }),
-        ],
-        content: data.content,
-    });
+    // const editor = useEditor({
+    //     extensions: [
+    //         StarterKit,
+    //         Underline,
+    //         Link,
+    //         Superscript,
+    //         Subscript,
+    //         Highlight,
+    //         TextStyle,
+    //         Color,
+    //         TextAlign.configure({ types: ['heading', 'paragraph'] }),
+    //     ],
+    //     content: data.content,
+    // });
 
     function onConfirmation() {
-        if (Object.values(isBody).includes("") || editor?.getHTML() == '<p></p>')
+        if (Object.values(isBody).includes("") || isContent == '<p></p>' || isContent == '')
             return toast("Form cannot be empty", { theme: "dark" });
         setOpenModal(true)
     }
+
+    const editor = useRef();
+
+    // The sunEditor parameter will be set to the core suneditor instance when this function is called
+    const getSunEditorInstance = (sunEditor: any) => {
+        editor.current = sunEditor;
+    };
+
+    function handleChange(content: any) {
+        setContent(content);
+        console.log(content); //Get Content Inside Editor
+    }
+
 
     return (
         <>
@@ -135,7 +151,7 @@ export default function EditMlAi({ data }: { data: any }) {
                     }}
                 /> */}
                 <Box pt={30}>
-                    <RichTextEditor editor={editor}>
+                    {/* <RichTextEditor editor={editor}>
                         <RichTextEditor.Toolbar sticky stickyOffset={60}>
                             <RichTextEditor.ControlsGroup>
                                 <RichTextEditor.Bold />
@@ -209,7 +225,12 @@ export default function EditMlAi({ data }: { data: any }) {
                         </RichTextEditor.Toolbar>
 
                         <RichTextEditor.Content />
-                    </RichTextEditor>
+                    </RichTextEditor> */}
+                    <Stack>
+                        <SunEditor setOptions={{
+                            buttonList: buttonList.complex
+                        }} onChange={handleChange} setContents={isContent} getSunEditorInstance={getSunEditorInstance} />
+                    </Stack>
                 </Box>
                 <Group justify="flex-end">
                     <Button bg={"gray"} mt={30} size="md" onClick={() => onConfirmation()}>SIMPAN</Button>
@@ -222,7 +243,7 @@ export default function EditMlAi({ data }: { data: any }) {
                 withCloseButton={false}
                 closeOnClickOutside={false}
             >
-                <ModalEditMlAi data={isBody} content={editor?.getHTML()} />
+                <ModalEditMlAi data={isBody} content={isContent} />
             </Modal>
         </>
     )
