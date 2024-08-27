@@ -14,7 +14,7 @@ import { _valReadIdMlai } from '../val/val_mlai';
 import Wrapper from '../component/wrapper_read';
 import parse, { DOMNode, domToReact, htmlToDOM } from 'html-react-parser';
 import { renderToString } from 'react-dom/server'
-const listHeading = ["h1", "h2", "h3", "h4", "h5", "h6"]
+import { useShallowEffect } from '@mantine/hooks';
 
 const options = {
   replace: (domNode: any) => {
@@ -111,17 +111,17 @@ export default function ViewMlAi({ dataV2, dataTanggal, candidate, oneCandidate,
     setDataMlai(dataLoad?.data)
   }
 
-  useEffect(() => {
-    setDataMlai(dataV2.data)
-    setDataJamMlai(dataV2.dataJam)
-    setBTime((timeChoose == null) ? dataV2.isJam : timeChoose)
-    setListTgl(dataTanggal)
-    setMonth(moment(dateChoose.getMonth()).format('MM'))
-    setDate(dateChoose)
-    setImgCan(`/img/candidate/${oneCandidate?.img}`)
-    setNameCan(oneCandidate?.name)
-    setCandidate(oneCandidate?.id)
-  }, [dataV2, timeChoose, dataTanggal, dateChoose, oneCandidate])
+  // useShallowEffect(() => {
+  //   setDataMlai(dataV2.data)
+  //   setDataJamMlai(dataV2.dataJam)
+  //   setBTime((timeChoose == null) ? dataV2.isJam : timeChoose)
+  //   setListTgl(dataTanggal)
+  //   setMonth(moment(dateChoose.getMonth()).format('MM'))
+  //   setDate(dateChoose)
+  //   setImgCan(`/img/candidate/${oneCandidate?.img}`)
+  //   setNameCan(oneCandidate?.name)
+  //   setCandidate(oneCandidate?.id)
+  // }, [dataV2, timeChoose, dataTanggal, dateChoose, oneCandidate])
 
   return (
     <>
@@ -231,6 +231,7 @@ export default function ViewMlAi({ dataV2, dataTanggal, candidate, oneCandidate,
                   {dataMlai && dataMlai.map((item: any, i: any) => {
                     const tampil = parse(item.content, options)
                     const htmlString = renderToString(tampil)
+                    const cekImg = htmlString.includes('<img')
 
                     return (
                       <Box key={i} >
@@ -260,27 +261,30 @@ export default function ViewMlAi({ dataV2, dataTanggal, candidate, oneCandidate,
                         }
 
                         {
-                          valRead.includes(item.id) ? (
-                            <>
-                              {/* <Box c={"white"} dangerouslySetInnerHTML={{ __html: item.content }} /> */}
-                              <Box c={"white"}>{tampil}</Box>
-                            </>
-                          ) : (
-                            <Wrapper id={item.id}>
-                              <Text c={"white"}>
-                                <TextAnimation
-                                  phrases={[...htmlString.split('\n')]}
-                                  typingSpeed={0}
-                                  backspaceDelay={0}
-                                  eraseDelay={0}
-                                  timeComplete={0}
-                                  errorProbability={0}
-                                  eraseOnComplete={false}
-                                  isSecure={false}
-                                />
-                              </Text>
-                            </Wrapper>
-                          )}
+                          cekImg ?
+                            <Box c={"white"}>{tampil}</Box>
+                            :
+                            valRead.includes(item.id) ? (
+                              <>
+                                {/* <Box c={"white"} dangerouslySetInnerHTML={{ __html: item.content }} /> */}
+                                <Box c={"white"}>{tampil}</Box>
+                              </>
+                            ) : (
+                              <Wrapper id={item.id}>
+                                <Text c={"white"}>
+                                  <TextAnimation
+                                    phrases={[...htmlString.split('\n')]}
+                                    typingSpeed={0}
+                                    backspaceDelay={0}
+                                    eraseDelay={0}
+                                    timeComplete={0}
+                                    errorProbability={0}
+                                    eraseOnComplete={false}
+                                    isSecure={false}
+                                  />
+                                </Text>
+                              </Wrapper>
+                            )}
                       </Box>
                     )
                   })}
