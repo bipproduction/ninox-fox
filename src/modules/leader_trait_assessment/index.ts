@@ -1,5 +1,6 @@
 import ViewListLeader from "./back/view/view_list_leader";
 import { ViewUploadLeader } from "./back/view/upload_leader";
+import ViewGenerateLta from "./back/view/view_generate_lta";
 import funGetLtaByArea from "./back/fun/get_lta_by_area";
 import funDownloadLTA from "./back/fun/download_lta_by_area";
 import ModalUploadLta from "./back/components/modal_upload_lta";
@@ -10,6 +11,7 @@ import funGetLtaDetailFront from "./front/fun/get_lta_detail_front";
 
 export { ViewListLeader }
 export { ViewUploadLeader }
+export { ViewGenerateLta }
 export { funGetLtaByArea }
 export { funDownloadLTA }
 export { ModalUploadLta }

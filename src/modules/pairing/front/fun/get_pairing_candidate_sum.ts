@@ -83,7 +83,7 @@ export default async function funGetPairingCandidateSummary() {
         }
     }
 
-    const top = _.slice(records, 0, 6)
+    const top = _.slice(records, 0, 4)
 
     return top
 }

@@ -14,6 +14,9 @@ import funEditCandidate from "./back/fun/edit_candidate";
 import funSetStatusCandidate from "./back/fun/set_status_candidate";
 import { funGetOneCandidateFront } from './front/fun/get_one_candidate_front';
 import funGetAllCandidateFront from './front/fun/get_all_candidate_front';
+import ViewGenerateCandidate from "./back/view/view_generate_candidate";
+import ModalGenerateCandidate from "./back/component/modal_generate_candidate";
+import funGenerateDataCandidate from "./back/fun/generate_data_candidate";
 
 export { funGetCandidateActiveByArea }
 export { funGetOneCandidate }
@@ -31,3 +34,6 @@ export { funSetStatusCandidate }
 export { funGetUserDefaultFront }
 export { funGetOneCandidateFront }
 export { funGetAllCandidateFront }
+export { ViewGenerateCandidate }
+export { ModalGenerateCandidate }
+export { funGenerateDataCandidate }

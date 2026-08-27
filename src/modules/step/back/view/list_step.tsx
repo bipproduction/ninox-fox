@@ -78,6 +78,10 @@ export default function ListStep({ params, provinsi, kabupaten, datatable }: { p
                 <Button mt={25} bg={"gray"} onClick={() => router.push("step/add")}>
                     TAMBAH STEP
                 </Button>
+
+                <Button mt={25} bg={"gray"} onClick={() => router.push("step/generate-data")}>
+                    GENERATE DATA
+                </Button>
             </Group>
             {!_.isNull(datatable.title) &&
                 <TableStep title={datatable.title} data={datatable.data} searchParam={params} />

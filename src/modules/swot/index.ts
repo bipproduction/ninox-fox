@@ -12,6 +12,9 @@ import funGetOneSwot from "./back/fun/fun_get_one_swot";
 import AddSwot from "./back/view/add_swot";
 import EditSwot from "./back/view/edit_swot";
 import ListSwot from "./back/view/list_swot";
+import ViewGenerateSwot from "./back/view/view_generate_swot";
+import ModalGenerateSwot from "./back/component/modal_generate_swot";
+import funGenerateDataSwot from "./back/fun/generate_data_swot";
 import funGetSwotFront from "./front/fun/get_swot_front";
 import ViewSwot from "./front/view/view_swot";
 
@@ -31,3 +34,6 @@ export { funAddSwotf }
 export { funDeleteSwot }
 export { funEditSwot }
 export { funGetSwotFront }
+export { ViewGenerateSwot }
+export { ModalGenerateSwot }
+export { funGenerateDataSwot }

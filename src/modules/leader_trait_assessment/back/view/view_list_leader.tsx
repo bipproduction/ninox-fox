@@ -145,6 +145,23 @@ export default function ViewListLeader({ datadownload, param, provinsi, kabupate
               </Text>
             </Box>
 
+            <Box
+              style={{
+                border: "1px dashed gray",
+                borderRadius: 10,
+                paddingTop: 40,
+                paddingBottom: 40,
+                paddingLeft: 30,
+                paddingRight: 30,
+                cursor: "pointer",
+              }}
+              onClick={() => router.push("/dashboard/leader-trait-assessment/generate-data")}
+            >
+              <Text ta={"center"} size="xl" inline>
+                GENERATE DATA
+              </Text>
+            </Box>
+
             {
               param && !_.isNull(param.idProvinsi) && param.idProvinsi != 0 &&
               <Box

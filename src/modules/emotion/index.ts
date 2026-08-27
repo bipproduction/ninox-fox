@@ -19,6 +19,7 @@ import funGetEmotionTableNew from './front/fun/get_emotion_table_new';
 import funGetEmotionPersenNew from './front/fun/get_emotion_persen_new';
 import funGetEmotionChartNew from './front/fun/get_emotion_chart_new';
 import ViewSettingEmotion from './back/view/view_setting_emotion';
+import ViewGenerateEmotion from './back/view/view_generate_emotion';
 
 
 export { ViewBackEmotion }
@@ -44,3 +45,4 @@ export { funGetEmotionTableNew }
 export { funGetEmotionPersenNew }
 export { funGetEmotionChartNew }
 export { ViewSettingEmotion }
+export { ViewGenerateEmotion }

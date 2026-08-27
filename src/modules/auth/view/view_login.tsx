@@ -2,56 +2,33 @@
 import { BackgroundImage, Box, Button, Flex, Group, PasswordInput, Stack, Text, TextInput } from '@mantine/core';
 import React, { useState } from 'react';
 import { LuShieldCheck } from 'react-icons/lu';
-import { ViewVerification } from '..';
 import toast from 'react-simple-toasts';
 import funLogin from '../fun/login';
+import { funSetCookies } from '../fun/set_cookies';
 import { useFocusTrap } from '@mantine/hooks';
 
 export default function ViewLogin() {
   const focusTrapRef = useFocusTrap()
   const [isEmail, setEmail] = useState("")
   const [isPassword, setPassword] = useState("")
-  const [isOTP, setOTP] = useState<any>(null)
-  const [isValPhone, setValPhone] = useState<any>(null)
-  const [isUser, setUser] = useState<any>(null)
-  const [isVerif, setVerif] = useState(false)
   const [isLoading, setLoading] = useState(false)
 
 
   async function onLogin() {
-    
+
     if (isEmail == "" || isPassword == "")
       return toast('Please fill in completely', { theme: 'dark' })
 
-    const cek = await funLogin({ email: isEmail, pass: isPassword })
-    if (!cek.success)
-      return toast(cek.message, { theme: 'dark' })
-
-    // proses pengambilan nomer 4 digit random untuk code verfication
-    const code = Math.floor(Math.random() * 1000) + 1000
-
-    // proses pengiriman code verification melalui wa
     setLoading(true)
-    const res = await fetch(`https://wa.wibudev.com/code?nom=${cek.phone}&text=${code}`)
-      .then(
-        async (res) => {
-          if (res.status == 200) {
-            toast('Verification code has been sent', { theme: 'dark' })
-            setValPhone(cek.phone)
-            setOTP(code)
-            setUser(cek.id)
-            setVerif(true)
-            setLoading(false)
-          } else {
-            toast('Error', { theme: 'dark' })
-            setLoading(false)
-          }
-        }
-      );
-      
+    const cek = await funLogin({ email: isEmail, pass: isPassword })
+    if (!cek.success) {
+      setLoading(false)
+      return toast(cek.message, { theme: 'dark' })
+    }
+
+    await funSetCookies({ user: cek.id })
   }
 
-  if (isVerif) return <ViewVerification otp={isOTP} phone={isValPhone} user={isUser} />
   return (
     <>
       <BackgroundImage src='/bgfull.png' h={"100vh"} pos={"fixed"}>

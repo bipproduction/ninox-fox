@@ -76,6 +76,7 @@ export default function ListCandidates({ param, provinsi, kabupaten, datatable }
                     PROSES
                 </Button>
                 <Button mt={25} bg={"gray"} onClick={() => router.push('candidate/add')}>TAMBAH KANDIDAT</Button>
+                <Button mt={25} bg={"gray"} onClick={() => router.push('candidate/generate-data')}>GENERATE DATA</Button>
             </Group>
             {!_.isNull(datatable.title) &&
                 <TableCandidate title={datatable.title} data={datatable.data} searchParam={param} />

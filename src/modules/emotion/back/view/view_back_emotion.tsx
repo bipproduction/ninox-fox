@@ -167,6 +167,24 @@ export default function ViewBackEmotion({ param, provinsi, kabupaten, candidate,
                 </Box>
 
               </Box>
+              <Box>
+                <Box
+                  style={{
+                    borderRadius: 10,
+                    padding: 30,
+                    paddingTop: 50,
+                    paddingBottom: 50,
+                    backgroundColor: "gray",
+                    cursor: "pointer",
+                  }}
+                  onClick={() => router.push("emotion/generate-data")}
+                >
+                  <Text c={"white"} fw={"bold"} ta={"center"}>
+                    GENERATE DATA
+                  </Text>
+                </Box>
+
+              </Box>
             </Group>
             {!_.isNull(datatable.title) && (
               <Box pt={30}>

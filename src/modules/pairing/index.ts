@@ -4,6 +4,7 @@ import { funGetPairingByCanAndDate } from '@/modules/pairing/back';
 import { ViewPairingFront } from '@/modules/pairing/front';
 import { ViewPairing } from "./back";
 import { ViewCopyDataPairing } from "./back";
+import { ViewGeneratePairing } from "./back";
 import TableDataPairing from './back/components/table_data_pairing';
 import ModalCopy from './back/components/modal/copy_data_modal';
 import ModalUploadPairing from './back/components/modal/upload_modal';
@@ -18,6 +19,7 @@ import funGetPairingRegionalNew from './front/fun/get_pairing_regional_new';
 
 export { ViewPairing }
 export { ViewCopyDataPairing }
+export { ViewGeneratePairing }
 export { ViewPairingFront }
 export { funGetPairingByCanAndDate }
 export { funDownloadPairing }

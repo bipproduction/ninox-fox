@@ -200,6 +200,23 @@ export default function ViewPairing({ param, provinsi, kabupaten, candidate, dat
                   </Text>
                 </Box>
               </Box>
+              <Box>
+                <Box
+                  style={{
+                    borderRadius: 10,
+                    padding: 30,
+                    paddingTop: 50,
+                    paddingBottom: 50,
+                    backgroundColor: "gray",
+                    cursor: "pointer",
+                  }}
+                  onClick={() => router.push("pairing/generate-data")}
+                >
+                  <Text c={"white"} fw={"bold"} ta={"center"}>
+                    GENERATE DATA
+                  </Text>
+                </Box>
+              </Box>
             </Group>
 
             {(param.idProvinsi > 0) && (!_.isEmpty(dataDownload.data)) &&

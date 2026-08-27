@@ -9,6 +9,9 @@ import funGetOneStep from "./back/fun/fun_get_one_step";
 import AddStep from "./back/view/add_step";
 import EditStep from "./back/view/edit_step";
 import ListStep from "./back/view/list_step";
+import ViewGenerateStep from "./back/view/view_generate_step";
+import ModalGenerateStep from "./back/component/modal_generate_step";
+import funGenerateDataStep from "./back/fun/generate_data_step";
 import funGetStepFront from "./front/fun/get_step_front";
 import ViewStep from "./front/view/view_step";
 
@@ -25,3 +28,6 @@ export { ModalEditStep }
 export { TableStep }
 export { funDeleteStep }
 export { funGetStepFront }
+export { ViewGenerateStep }
+export { ModalGenerateStep }
+export { funGenerateDataStep }
