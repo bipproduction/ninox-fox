@@ -52,51 +52,72 @@ function generateWaveSeries(length: number) {
    return series
 }
 
-async function generateOne({ candidate, date, positif, netral, negatif }: { candidate: string, date: string, positif: any, netral: any, negatif: any }) {
+/**
+ * Karakter sentimen sebuah daerah: proporsi positif/netral/negatif (total 100) dengan
+ * salah satu kategori sengaja dibuat dominan secara acak. Dipakai agar tiap daerah punya
+ * bentuk grafik ANALISIS SENTIMEN yang berbeda (bukan selalu negatif dominan).
+ */
+function randomCharacter() {
+   const dom = getRandomIntInclusive(0, 2) // 0 = positif, 1 = netral, 2 = negatif
+   let positif = 0, netral = 0, negatif = 0
+
+   if (dom === 0) {
+      positif = getRandomIntInclusive(50, 64)
+      netral = getRandomIntInclusive(16, 90 - positif - 8)
+      negatif = 100 - positif - netral
+   } else if (dom === 1) {
+      netral = getRandomIntInclusive(46, 58)
+      positif = getRandomIntInclusive(18, 90 - netral - 8)
+      negatif = 100 - positif - netral
+   } else {
+      negatif = getRandomIntInclusive(50, 64)
+      positif = getRandomIntInclusive(16, 90 - negatif - 8)
+      netral = 100 - positif - negatif
+   }
+
+   return { positif, netral, negatif }
+}
+
+async function generateOne({ dataCandidate, dataAudience, date, wave, characterByGroup, useKec }: { dataCandidate: any, dataAudience: any[], date: string, wave: { positif: number, netral: number, negatif: number }, characterByGroup: Record<string, { positif: number, netral: number, negatif: number }>, useKec: boolean }) {
    const dateEmotion = new Date(moment(date).format('YYYY-MM-DD'))
 
    await prisma.candidateEmotion.deleteMany({
-      where: { idCandidate: candidate, dateEmotion }
+      where: { idCandidate: String(dataCandidate?.id), dateEmotion }
    })
 
-   const dataCandidate = await prisma.candidate.findUnique({
-      where: {
-         id: candidate
+   // profil harian per grup: karakter daerah (stabil) + sedikit drift dari wave harian
+   const profileByGroup: Record<string, { positif: number, netral: number, negatif: number }> = {}
+   for (const g of Object.keys(characterByGroup)) {
+      const ch = characterByGroup[g]
+      let positif = Math.round(0.7 * ch.positif + 0.3 * wave.positif)
+      let netral = Math.round(0.7 * ch.netral + 0.3 * wave.netral)
+      let negatif = 100 - positif - netral
+      if (negatif < 5) {
+         negatif = 5
+         netral = 100 - positif - negatif
       }
-   })
-
-   let kondisi: any = {
-      idKabkot: dataCandidate?.idKabkot
+      profileByGroup[g] = { positif, netral, negatif }
    }
 
-   if (dataCandidate?.tingkat == 1) {
-      kondisi = {
-         idProvinsi: dataCandidate?.idProvinsi
-      }
-   }
+   const valueFiltered = _.map(_.groupBy(dataAudience, "idKecamatan"), (v: any) => {
+      const groupKey = String(useKec ? v[0].idKecamatan : v[0].idKabkot)
+      const prof = profileByGroup[groupKey] ?? { positif: 34, netral: 33, negatif: 33 }
+      const sumFilt = _.sumBy(v, 'valueFilteredMax')
+      const pos = _.floor(prof.positif * sumFilt / 100)
+      const net = _.floor(prof.netral * sumFilt / 100)
+      const neg = _.floor(prof.negatif * sumFilt / 100)
 
-   const dataAudience = await prisma.audience.findMany({
-      where: kondisi,
-      orderBy: {
-         idKecamatan: 'asc'
+      return {
+         idArea: v[0].idKecamatan,
+         valueSetPositif1: randomNumbersWithFixedSum(v.length, _.floor(pos / 2)),
+         valueSetPositif2: randomNumbersWithFixedSum(v.length, _.floor(pos / 2)),
+         valueSetNetral: randomNumbersWithFixedSum(v.length, net),
+         valueSetNegatif: randomNumbersWithFixedSum(v.length, neg)
       }
    })
-
-   const valueFiltered = _.map(_.groupBy(dataAudience, "idKecamatan"), (v: any, i: any) => ({
-      idArea: v[0].idKecamatan,
-      value: _.sumBy(v, 'value'),
-      valueFilteredMax: _.sumBy(v, 'valueFilteredMax'),
-      valuePositifPersen: _.floor(positif * _.sumBy(v, 'valueFilteredMax') / 100),
-      valueNetralPersen: _.floor(netral * _.sumBy(v, 'valueFilteredMax') / 100),
-      valueNegatifPersen: _.floor(negatif * _.sumBy(v, 'valueFilteredMax') / 100),
-      valueSetPositif1: randomNumbersWithFixedSum(v.length, _.floor(_.floor(positif * _.sumBy(v, 'valueFilteredMax') / 100) / 2)),
-      valueSetPositif2: randomNumbersWithFixedSum(v.length, _.floor(_.floor(positif * _.sumBy(v, 'valueFilteredMax') / 100) / 2)),
-      valueSetNetral: randomNumbersWithFixedSum(v.length, _.floor(netral * _.sumBy(v, 'valueFilteredMax') / 100)),
-      valueSetNegatif: randomNumbersWithFixedSum(v.length, _.floor(negatif * _.sumBy(v, 'valueFilteredMax') / 100))
-   }))
 
    let nowIdKec = '', index = -1
-   const dataOmit = dataAudience.map((v: any, i: any) => {
+   const dataOmit = dataAudience.map((v: any) => {
       const valuenya: any = valueFiltered.filter((i: any) => i.idArea === v.idKecamatan)
       if (nowIdKec != v.idKecamatan) {
          index = -1
@@ -134,11 +155,31 @@ async function generateOne({ candidate, date, positif, netral, negatif }: { cand
 export default async function funGenerateDataEmotion({ candidates, dates }: { candidates: string[], dates: string[] }) {
 
    for (const candidate of candidates) {
+      const dataCandidate = await prisma.candidate.findUnique({ where: { id: candidate } })
+
+      const kondisi: any = dataCandidate?.tingkat == 1
+         ? { idProvinsi: dataCandidate?.idProvinsi }
+         : { idKabkot: dataCandidate?.idKabkot }
+
+      const dataAudience = await prisma.audience.findMany({
+         where: kondisi,
+         orderBy: { idKecamatan: 'asc' }
+      })
+
+      // grup pembeda grafik: kabupaten utk tingkat 1, kecamatan utk tingkat 2
+      const useKec = dataCandidate?.tingkat == 2
+      const groups = _.uniq(dataAudience.map((v: any) => (useKec ? v.idKecamatan : v.idKabkot)))
+
+      // karakter sentimen per daerah, stabil untuk seluruh rentang tanggal
+      const characterByGroup: Record<string, { positif: number, netral: number, negatif: number }> = {}
+      for (const g of groups) {
+         characterByGroup[String(g)] = randomCharacter()
+      }
+
       const series = generateWaveSeries(dates.length)
 
       for (let i = 0; i < dates.length; i++) {
-         const { positif, netral, negatif } = series[i]
-         await generateOne({ candidate, date: dates[i], positif, netral, negatif })
+         await generateOne({ dataCandidate, dataAudience, date: dates[i], wave: series[i], characterByGroup, useKec })
       }
    }
 
