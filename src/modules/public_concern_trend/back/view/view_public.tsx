@@ -145,6 +145,22 @@ function ViewPublic({ param, provinsi, kabupaten, kecamatan, datatable, datadown
                 UPLOAD DATA
               </Text>
             </Box>
+            <Box
+              style={{
+                border: "1px dashed gray",
+                borderRadius: 10,
+                paddingTop: 40,
+                paddingBottom: 40,
+                paddingLeft: 30,
+                paddingRight: 30,
+                cursor: "pointer",
+              }}
+              onClick={() => router.push("/dashboard/public-concern-trend/generate-data")}
+            >
+              <Text ta={"center"} size="xl" inline>
+                GENERATE DATA
+              </Text>
+            </Box>
             {param && !_.isNull(param.idProvinsi) && param.idProvinsi != 0 &&
               <Box
                 style={{
