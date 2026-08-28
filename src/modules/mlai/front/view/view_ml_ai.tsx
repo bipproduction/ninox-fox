@@ -87,7 +87,7 @@ export default function ViewMlAi({ dataV2, dataTanggal, candidate, oneCandidate,
   const dayRenderer: DatePickerProps['renderDay'] = (date) => {
     const coba = moment(date).format('YYYY-MM-DD')
     const day = date.getDate()
-    const muncul = isListTgl.includes(coba)
+    const muncul = isListTgl.includes(coba) && moment(date).isSameOrBefore(moment(), 'day')
     return (
       <Indicator size={6} radius="xs" label={<Divider my="md" />} position="bottom-center" color="green" offset={-2} disabled={!muncul}>
         <div>{day}</div>
