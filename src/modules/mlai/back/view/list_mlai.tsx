@@ -77,6 +77,9 @@ export default function ListMlAi({ params, provinsi, kabupaten, datatable }: { p
                 <Button mt={25} bg={"gray"} onClick={() => router.push("ml-ai/add")}>
                     TAMBAH ML-AI
                 </Button>
+                <Button mt={25} bg={"gray"} onClick={() => router.push("ml-ai/generate-data")}>
+                    GENERATE
+                </Button>
             </Group>
             {!_.isNull(datatable.title) &&
                 <TableMlAi title={datatable.title} data={datatable.data} searchParam={params} nPage={datatable.nPage} />

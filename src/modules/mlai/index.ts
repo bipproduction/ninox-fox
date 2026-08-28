@@ -16,6 +16,10 @@ import EditMlAi from "./back/view/edit_mlai";
 import EditRequest from "./back/view/edit_request";
 import ListMlAi from "./back/view/list_mlai";
 import ListRequest from "./back/view/list_request";
+import ViewGenerateMlAi from "./back/view/view_generate_mlai";
+import ModalGenerateMlAi from "./back/component/modal_generate_mlai";
+import funGenerateMlAi from "./back/fun/generate_mlai";
+import funCekMlAiBatch from "./back/fun/cek_mlai_batch";
 import funAddRequestMlAiFront from "./front/fun/add_request_mlai";
 import funGetOneMlAiByRequest from "./front/fun/fun_get_one_mlai_by_request";
 import funGetDateMlAiFront from "./front/fun/get_date_ml_ai_front";
@@ -55,3 +59,7 @@ export { funGetCountPendingRequest }
 export { ViewDataLearner3 }
 export { EditRequest }
 export { funGetOneMlAiByRequest }
+export { ViewGenerateMlAi }
+export { ModalGenerateMlAi }
+export { funGenerateMlAi }
+export { funCekMlAiBatch }
