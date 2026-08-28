@@ -1,5 +1,5 @@
 import { ViewUploadAudience } from '@/modules/audience/back';
-import { ViewAudience, funDownloadAudience, funGetAudienceByArea } from "./back";
+import { ViewAudience, funDownloadAudience, funGetAudienceByArea, ViewGenerateAudience, ModalGenerateAudience, funGenerateDataAudience, funCekAudienceBatch } from "./back";
 import ModalUploadAudience from './back/components/modal_upload_audience';
 import TableDataAudience from './back/components/table_data_audience';
 import funUploadAudience from './back/fun/upload_audience';
@@ -15,3 +15,7 @@ export { TableDataAudience }
 export { funUploadAudience }
 export { funGetAudienceFront }
 export { funGetAudienceDetailFront }
+export { ViewGenerateAudience }
+export { ModalGenerateAudience }
+export { funGenerateDataAudience }
+export { funCekAudienceBatch }
