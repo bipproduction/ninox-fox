@@ -20,6 +20,14 @@ export default function LayoutView({ children, dataMenu, dataUser, pending }: { 
   const [opened, { toggle }] = useDisclosure();
   const dataSosialEkonomi = [
     {
+      "id": 999,
+      "keyMenu": "mdGenSe",
+      "menu": "GENERATE DATA",
+      "owner": "admin",
+      "group": "dataSosialEkonomi",
+      "link": "/dashboard/se/generate-data"
+    },
+    {
       "id": 18,
       "keyMenu": "md17",
       "menu": "Ketenagakerjaan - Jaminan Kesehatan",
